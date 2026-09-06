@@ -351,7 +351,17 @@ main, .footer { position: relative; z-index: 1; }
 .btn-ghost:hover { background: var(--red); color: #fff; box-shadow: 0 0 30px rgba(255,0,0,0.4); }
 
 /* ── stack ── */
-.stack-grid { display: flex; flex-wrap: wrap; gap: 14px; }
+.stack-group { margin-bottom: 34px; }
+.stack-group:last-child { margin-bottom: 0; }
+.stack-label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--red);
+  margin-bottom: 14px;
+}
+.stack-grid { display: flex; flex-wrap: wrap; gap: 12px; }
 .stack-item {
   font-family: var(--font-mono);
   font-size: 0.95rem;
