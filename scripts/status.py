@@ -206,10 +206,21 @@ def github_events(token=None):
         return None
 
 
-# Composite aliveness: decay half-life for each signal (seconds).
+# Composite aliveness: every self-initiated event in the last 90 days
+# contributes a weight, decayed with a 2-day half-life. No upper cap.
 HALF_LIFE = 2 * 86400
-PUSH_WEIGHT = 40.0
-XPOST_WEIGHT = 40.0
+
+EVENT_WEIGHTS = {
+    "PushEvent": None,      # dynamic: based on commit count, 1..6
+    "ReleaseEvent": 3.0,
+    "PublicEvent": 3.0,
+    "CreateEvent": 0.5,
+    "WatchEvent": 0.5,      # starring someone else's repo = browsing activity
+    "ForkEvent": 1.0,
+    "PullRequestEvent": 1.0,
+    "IssueEvent": 1.0,
+}
+XPOST_WEIGHT = 4.0
 
 
 def parse_utc(s):
@@ -222,30 +233,48 @@ def parse_utc(s):
             return None
 
 
-def decay_part(iso_stamp, weight, now):
-    if not iso_stamp:
-        return 0.0
-    dt = parse_utc(iso_stamp)
+def decay(stamp, now):
+    dt = parse_utc(stamp)
     if not dt:
         return 0.0
     age = max(0.0, (now - dt).total_seconds())
-    return weight * 0.5 ** (age / HALF_LIFE)
+    return 0.5 ** (age / HALF_LIFE)
+
+
+def event_weight(ev):
+    t = ev.get("type")
+    if t == "PushEvent":
+        size = (ev.get("payload") or {}).get("size")
+        try:
+            n = max(int(size), 1)
+        except (TypeError, ValueError):
+            n = 1
+        return min(n, 6)
+    w = EVENT_WEIGHTS.get(t)
+    return w if w is not None else 0.0
 
 
 def alive_score(events, x, now):
     last_push = None
+    total = 0.0
     if events:
         for e in events:
-            if e.get("type") in ("PushEvent", "ReleaseEvent", "CreateEvent"):
-                ts = parse_utc(e.get("created_at", ""))
-                if ts and (last_push is None or ts > last_push):
-                    last_push = ts
-    push_iso = iso(last_push) if last_push else None
+            ts = e.get("created_at", "")
+            if not ts:
+                continue
+            dt = parse_utc(ts)
+            if not dt:
+                continue
+            if e.get("type") == "PushEvent" and (last_push is None or dt > last_push):
+                last_push = dt
+            if e.get("type") in EVENT_WEIGHTS or e.get("type") == "PushEvent":
+                total += event_weight(e) * decay(ts, now)
     x_iso = (x or {}).get("last_post")
-    score = decay_part(push_iso, PUSH_WEIGHT, now) + decay_part(x_iso, XPOST_WEIGHT, now)
+    if x_iso:
+        total += XPOST_WEIGHT * decay(x_iso, now)
     return {
-        "score": int(round(score)),
-        "last_push": push_iso,
+        "score": int(round(total)),
+        "last_push": iso(last_push) if last_push else None,
         "last_x_post": x_iso,
     }
 
@@ -291,7 +320,11 @@ def main():
     x = x_last_post(old_x=old.get("x"), token=os.environ.get("X_BEARER_TOKEN") or None)
     events = github_events(token=os.environ.get("GITHUB_TOKEN") or None)
     now = datetime.now(timezone.utc)
-    alive = alive_score(events, x, now)
+    if events is None:
+        alive = (old.get("alive") or {}).get("score", 0)
+        alive = {"score": int(alive), "last_push": None, "last_x_post": None}
+    else:
+        alive = alive_score(events, x, now)
     payload = {
         "generated": iso(now),
         "alive": alive,
