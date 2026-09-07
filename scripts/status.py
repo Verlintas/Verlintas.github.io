@@ -47,25 +47,54 @@ def iso(dt):
     return dt.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def x_last_post():
-    """Best-effort: parse newest tweet time from the public profile page."""
+def fetch_text(url, timeout=12):
     try:
-        req = urllib.request.Request("https://x.com/Verlintas", headers=HEADERS)
-        html = urllib.request.urlopen(req, timeout=12, context=CTX).read().decode("utf-8", "ignore")
-        stamps = []
-        for raw in re.findall(r'"created_at":\s*"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)"', html):
+        req = urllib.request.Request(url, headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=timeout, context=CTX) as resp:
+            return True, resp.read().decode("utf-8", "ignore")
+    except urllib.error.HTTPError as e:
+        return False, "HTTPError:%s" % e.code
+    except Exception as e:
+        return False, type(e).__name__
+
+
+def x_last_post():
+    """Best-effort: newest tweet time from profile page or mirror RSS."""
+    routes = [
+        ("x.com", "https://x.com/Verlintas", "html"),
+        ("xcancel.com", "https://xcancel.com/Verlintas/rss", "rss"),
+        ("nitter.poast.org", "https://nitter.poast.org/Verlintas/rss", "rss"),
+        ("nitter.privacyredirect.com", "https://nitter.privacyredirect.com/Verlintas/rss", "rss"),
+    ]
+    for source, url, kind in routes:
+        ok, body = fetch_text(url)
+        if not ok:
+            continue
+        if kind == "html":
+            stamps = []
+            for raw in re.findall(r'"created_at":\s*"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)"', body):
+                try:
+                    dt = datetime.fromisoformat(raw.rstrip("Z").split(".")[0]).replace(tzinfo=timezone.utc)
+                except ValueError:
+                    continue
+                if datetime.now(timezone.utc) > dt > datetime(2025, 1, 1, tzinfo=timezone.utc):
+                    stamps.append(dt)
+            if not stamps:
+                continue
+            return {"ok": True, "last_post": iso(max(stamps)), "source": source}
+        if kind == "rss":
+            m = re.search(
+                r"<pubDate>([^<]+)</pubDate>", body, re.I
+            )
+            if not m:
+                continue
             try:
-                dt = datetime.fromisoformat(raw.rstrip("Z").split(".")[0]).replace(tzinfo=timezone.utc)
+                dt = datetime.strptime(m.group(1), "%a, %d %b %Y %H:%M:%S %z")
             except ValueError:
                 continue
             if datetime.now(timezone.utc) > dt > datetime(2025, 1, 1, tzinfo=timezone.utc):
-                stamps.append(dt)
-        if not stamps:
-            return {"ok": True, "last_post": None, "note": "no tweet time parsed"}
-        newest = max(stamps)
-        return {"ok": True, "last_post": iso(newest)}
-    except Exception as e:
-        return {"ok": False, "last_post": None, "note": type(e).__name__}
+                return {"ok": True, "last_post": iso(dt), "source": source}
+    return {"ok": False, "last_post": None, "note": "all sources failed"}
 
 
 def main():
