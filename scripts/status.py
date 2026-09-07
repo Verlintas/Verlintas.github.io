@@ -116,20 +116,26 @@ def api_last_post(token):
         with urllib.request.urlopen(req, timeout=12, context=CTX) as resp:
             data = json.loads(resp.read().decode("utf-8", "ignore"))
     except urllib.error.HTTPError as e:
+        print("X API HTTPError:", e.code, e.reason)
         if e.code in (401, 403):
-            # try legacy host once (domain migration safety)
             try:
                 req2 = urllib.request.Request(
                     url.replace("api.x.com", "api.twitter.com"), headers=headers
                 )
                 with urllib.request.urlopen(req2, timeout=12, context=CTX) as resp2:
                     data = json.loads(resp2.read().decode("utf-8", "ignore"))
+                print("X API legacy host ok")
+            except urllib.error.HTTPError as e2:
+                print("X API legacy HTTPError:", e2.code)
+                return None
             except Exception:
                 return None
         else:
             return None
-    except Exception:
+    except Exception as e:
+        print("X API error:", type(e).__name__)
         return None
+    print("X API raw:", json.dumps(data)[:300])
     tweets = (data or {}).get("data") or []
     if not tweets:
         return None
