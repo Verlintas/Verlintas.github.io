@@ -17,6 +17,7 @@ SITES = [
     {"name": "nusv.mysxl.cn", "url": "https://nusv.mysxl.cn"},
     {"name": "usv.mysxl.cn", "url": "https://usv.mysxl.cn"},
     {"name": "elecusv.mysxl.cn", "url": "https://elecusv.mysxl.cn"},
+    {"name": "nusv.github.io", "url": "https://nusv.github.io"},
 ]
 
 HEADERS = {
