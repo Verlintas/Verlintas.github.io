@@ -309,6 +309,7 @@
   var canvas = document.getElementById("fx");
   var ctx = canvas.getContext("2d");
   var parts = [];
+  var drawing = false;
   function sizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   sizeCanvas();
   window.addEventListener("resize", sizeCanvas);
@@ -330,6 +331,10 @@
         color: reds[Math.floor(Math.random() * reds.length)],
       });
     }
+    if (!drawing) {
+      drawing = true;
+      requestAnimationFrame(drawParts);
+    }
   }
   function drawParts() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -350,10 +355,13 @@
       ctx.fill();
       ctx.restore();
     });
-    if (parts.length) requestAnimationFrame(drawParts);
+    if (parts.length) {
+      requestAnimationFrame(drawParts);
+    } else {
+      drawing = false;
+    }
   }
   document.addEventListener("pointerdown", function (e) {
     burst(e.clientX, e.clientY);
-    if (parts.length <= 1) requestAnimationFrame(drawParts);
   });
 })();
