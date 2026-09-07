@@ -417,6 +417,20 @@ main, .footer { position: relative; z-index: 1; }
 }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 
+.alive-panel { border: 1px solid var(--line); border-radius: 18px; padding: 20px 24px; background: rgba(255,255,255,0.02); text-align: center; }
+.alive-num {
+  font-family: var(--font-mono);
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--white);
+  text-shadow: 0 0 22px rgba(255,0,0,0.25);
+}
+.alive-sub { margin-top: 6px; color: #6a6a6a; font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em; }
+@media (max-width: 760px) {
+  .alive-panel { text-align: left; }
+}
+
 /* ── fx canvas / progress / to-top ── */
 #fx {
   position: fixed;

@@ -191,6 +191,65 @@ def api_last_post(token):
     return iso(max(times))
 
 
+def github_events(token=None):
+    """Recent public events of the user; None on failure."""
+    headers = dict(HEADERS)
+    if token:
+        headers["Authorization"] = "Bearer " + token
+    url = "https://api.github.com/users/Verlintas/events/public?per_page=30"
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=12, context=CTX) as resp:
+            return json.loads(resp.read().decode("utf-8", "ignore"))
+    except Exception as e:
+        print("GitHub events failed:", type(e).__name__)
+        return None
+
+
+# Composite aliveness: decay half-life for each signal (seconds).
+HALF_LIFE = 2 * 86400
+PUSH_WEIGHT = 40.0
+XPOST_WEIGHT = 40.0
+
+
+def parse_utc(s):
+    try:
+        return datetime.strptime(s, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except Exception:
+        try:
+            return datetime.strptime(s, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
+        except Exception:
+            return None
+
+
+def decay_part(iso_stamp, weight, now):
+    if not iso_stamp:
+        return 0.0
+    dt = parse_utc(iso_stamp)
+    if not dt:
+        return 0.0
+    age = max(0.0, (now - dt).total_seconds())
+    return weight * 0.5 ** (age / HALF_LIFE)
+
+
+def alive_score(events, x, now):
+    last_push = None
+    if events:
+        for e in events:
+            if e.get("type") in ("PushEvent", "ReleaseEvent", "CreateEvent"):
+                ts = parse_utc(e.get("created_at", ""))
+                if ts and (last_push is None or ts > last_push):
+                    last_push = ts
+    push_iso = iso(last_push) if last_push else None
+    x_iso = (x or {}).get("last_post")
+    score = decay_part(push_iso, PUSH_WEIGHT, now) + decay_part(x_iso, XPOST_WEIGHT, now)
+    return {
+        "score": int(round(score)),
+        "last_push": push_iso,
+        "last_x_post": x_iso,
+    }
+
+
 def main():
     old = {}
     if os.path.exists(OUT):
@@ -206,8 +265,12 @@ def main():
         sites.append({"name": s["name"], "url": s["url"], **r})
 
     x = x_last_post(old_x=old.get("x"), token=os.environ.get("X_BEARER_TOKEN") or None)
+    events = github_events(token=os.environ.get("GITHUB_TOKEN") or None)
+    now = datetime.now(timezone.utc)
+    alive = alive_score(events, x, now)
     payload = {
-        "generated": iso(datetime.now(timezone.utc)),
+        "generated": iso(now),
+        "alive": alive,
         "sites": sites,
         "x": x,
     }
@@ -216,7 +279,10 @@ def main():
         s = json.loads(json.dumps(d.get("sites") or [], default=str))
         for item in s:
             item.pop("ms", None)
-        return json.dumps({"sites": s, "x": d.get("x")}, sort_keys=True, default=str)
+        a = json.loads(json.dumps(d.get("alive") or {}, default=str))
+        a.pop("last_push", None)
+        a.pop("last_x_post", None)
+        return json.dumps({"sites": s, "x": d.get("x"), "alive": a}, sort_keys=True, default=str)
 
     if key(old) == key(payload):
         print("no change")
