@@ -189,7 +189,7 @@
           feedEmpty.style.display = "list-item";
           return;
         }
-        merged.slice(0, 7).forEach(function (item) {
+        merged.slice(0, 9).forEach(function (item) {
           var li = document.createElement("li");
           li.className = "feed-item";
           li.title = new Date(item.at).toLocaleString();
