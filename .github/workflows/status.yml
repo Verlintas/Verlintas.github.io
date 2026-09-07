@@ -19,6 +19,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Probe services
+        env:
+          X_BEARER_TOKEN: ${{ secrets.X_BEARER_TOKEN }}
         run: python3 scripts/status.py
       - name: Commit if changed
         run: |

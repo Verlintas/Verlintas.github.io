@@ -6,6 +6,7 @@ import re
 import ssl
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
 
@@ -59,37 +60,96 @@ def fetch_text(url, timeout=12):
         return False, type(e).__name__
 
 
-def x_last_post():
-    """X account status via fxtwitter public API (no token needed)."""
+X_API_THROTTLE_SEC = 3 * 3600  # official API checked at most every 3h (free-tier quota)
+
+
+def x_last_post(old_x=None, token=None):
+    """X account status: live followers via fxtwitter; last post time via
+    official API v2 (throttled to fit the free tier)."""
+    result = {"ok": False, "note": "unreachable"}
+
     ok, body = fetch_text("https://api.fxtwitter.com/Verlintas", timeout=10)
-    if not ok:
-        return {"ok": False, "note": body}
+    if ok:
+        try:
+            u = json.loads(body)["user"]
+            result = {
+                "ok": True,
+                "followers": u.get("followers"),
+                "tweets": u.get("tweets"),
+                "likes": u.get("likes"),
+            }
+        except Exception:
+            result = {"ok": False, "note": "fxtwitter parse failed"}
+
+    if token and result.get("ok"):
+        checked = (old_x or {}).get("last_post_checked")
+        if checked:
+            try:
+                last = datetime.strptime(checked, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+                fresh = (datetime.now(timezone.utc) - last).total_seconds() < X_API_THROTTLE_SEC
+            except ValueError:
+                fresh = False
+        else:
+            fresh = False
+        if fresh:
+            result["last_post"] = (old_x or {}).get("last_post")
+            result["last_post_source"] = (old_x or {}).get("last_post_source") or "api"
+            result["last_post_checked"] = checked
+        else:
+            post = api_last_post(token)
+            result["last_post"] = post
+            result["last_post_source"] = "api" if post else (old_x or {}).get("last_post_source")
+            result["last_post_checked"] = iso(datetime.now(timezone.utc))
+            if not post:
+                result["last_post"] = (old_x or {}).get("last_post")
+    return result
+
+
+def api_last_post(token):
+    """Newest tweet time via X API v2 /users/by/username/.../tweets."""
+    url = ("https://api.x.com/2/users/by/username/Verlintas/tweets"
+           "?max_results=5&tweet.fields=created_at")
+    headers = dict(HEADERS)
+    headers["Authorization"] = "Bearer " + token
     try:
-        data = json.loads(body)
-        u = data["user"]
-        return {
-            "ok": True,
-            "followers": u.get("followers"),
-            "tweets": u.get("tweets"),
-            "likes": u.get("likes"),
-        }
-    except Exception as e:
-        return {"ok": False, "note": type(e).__name__}
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=12, context=CTX) as resp:
+            data = json.loads(resp.read().decode("utf-8", "ignore"))
+    except urllib.error.HTTPError as e:
+        if e.code in (401, 403):
+            # try legacy host once (domain migration safety)
+            try:
+                req2 = urllib.request.Request(
+                    url.replace("api.x.com", "api.twitter.com"), headers=headers
+                )
+                with urllib.request.urlopen(req2, timeout=12, context=CTX) as resp2:
+                    data = json.loads(resp2.read().decode("utf-8", "ignore"))
+            except Exception:
+                return None
+        else:
+            return None
+    except Exception:
+        return None
+    tweets = (data or {}).get("data") or []
+    if not tweets:
+        return None
+    times = []
+    for t in tweets:
+        raw = (t or {}).get("created_at", "")
+        try:
+            dt = datetime.strptime(raw, "%Y-%m-%dT%H:%M:%S.%fZ").replace(tzinfo=timezone.utc)
+        except ValueError:
+            try:
+                dt = datetime.strptime(raw, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+            except ValueError:
+                continue
+        times.append(dt)
+    if not times:
+        return None
+    return iso(max(times))
 
 
 def main():
-    sites = []
-    for s in SITES:
-        r = probe(s["url"])
-        sites.append({"name": s["name"], "url": s["url"], **r})
-
-    x = x_last_post()
-    payload = {
-        "generated": iso(datetime.now(timezone.utc)),
-        "sites": sites,
-        "x": x,
-    }
-
     old = {}
     if os.path.exists(OUT):
         try:
@@ -97,6 +157,18 @@ def main():
                 old = json.load(f)
         except Exception:
             old = {}
+
+    sites = []
+    for s in SITES:
+        r = probe(s["url"])
+        sites.append({"name": s["name"], "url": s["url"], **r})
+
+    x = x_last_post(old_x=old.get("x"), token=os.environ.get("X_BEARER_TOKEN") or None)
+    payload = {
+        "generated": iso(datetime.now(timezone.utc)),
+        "sites": sites,
+        "x": x,
+    }
 
     def key(d):
         s = json.loads(json.dumps(d.get("sites") or [], default=str))

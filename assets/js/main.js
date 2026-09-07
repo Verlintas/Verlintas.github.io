@@ -233,8 +233,9 @@
       });
       if (st.x) {
         if (st.x.ok) {
-          var xState = (st.x.followers != null ? st.x.followers + " followers" : "up");
-          if (st.x.tweets != null) xState += " · " + st.x.tweets + " posts";
+          var xState = st.x.last_post
+            ? "post " + relTime(st.x.last_post)
+            : (st.x.followers != null ? st.x.followers + " followers" : "up");
           statusList.appendChild(statusRow("s-up", "X / @Verlintas", xState));
         } else {
           statusList.appendChild(statusRow("s-unknown", "X / @Verlintas", "profile unreachable"));
