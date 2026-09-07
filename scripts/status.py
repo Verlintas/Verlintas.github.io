@@ -196,7 +196,7 @@ def github_events(token=None):
     headers = dict(HEADERS)
     if token:
         headers["Authorization"] = "Bearer " + token
-    url = "https://api.github.com/users/Verlintas/events/public?per_page=30"
+    url = "https://api.github.com/users/Verlintas/events/public?per_page=100"
     try:
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=12, context=CTX) as resp:
@@ -257,7 +257,7 @@ def snapshot_activity(events):
     if not events:
         return None
     out = []
-    for e in events[:30]:
+    for e in events[:100]:
         p = e.get("payload") or {}
         repo = (e.get("repo") or {}).get("name")
         out.append({

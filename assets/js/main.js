@@ -209,7 +209,7 @@
   var feedBackoffUntil = 0;
   function loadFeed() {
     if (Date.now() < feedBackoffUntil) return;
-    var direct = fetch("https://api.github.com/users/Verlintas/events/public?per_page=30&_=" + Date.now());
+    var direct = fetch("https://api.github.com/users/Verlintas/events/public?per_page=100&_=" + Date.now());
     direct
       .then(function (r) {
         if (!r.ok) throw new Error();
