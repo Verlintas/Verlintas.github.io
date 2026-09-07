@@ -250,6 +250,29 @@ def alive_score(events, x, now):
     }
 
 
+def snapshot_activity(events):
+    """Slim copy of recent events so the page can render without direct API
+    access (fallback channel when api.github.com is unreachable from the
+    visitor's network)."""
+    if not events:
+        return None
+    out = []
+    for e in events[:30]:
+        p = e.get("payload") or {}
+        out.append({
+            "type": e.get("type"),
+            "repo": (e.get("repo") or {}).get("name"),
+            "created_at": e.get("created_at"),
+            "payload": {
+                "size": p.get("size"),
+                "ref": p.get("ref"),
+                "ref_type": p.get("ref_type"),
+                "action": p.get("action"),
+            },
+        })
+    return out
+
+
 def main():
     old = {}
     if os.path.exists(OUT):
@@ -271,6 +294,7 @@ def main():
     payload = {
         "generated": iso(now),
         "alive": alive,
+        "activity": snapshot_activity(events) if events else old.get("activity"),
         "sites": sites,
         "x": x,
     }
@@ -282,7 +306,10 @@ def main():
         a = json.loads(json.dumps(d.get("alive") or {}, default=str))
         a.pop("last_push", None)
         a.pop("last_x_post", None)
-        return json.dumps({"sites": s, "x": d.get("x"), "alive": a}, sort_keys=True, default=str)
+        return json.dumps(
+            {"sites": s, "x": d.get("x"), "alive": a, "activity": d.get("activity")},
+            sort_keys=True, default=str,
+        )
 
     if key(old) == key(payload):
         print("no change")

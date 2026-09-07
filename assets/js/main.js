@@ -154,63 +154,85 @@
         return { ico: ico, repo: repo, msg: (ev.type || "activity").toLowerCase().replace("event", "") + " on " + rlink };
     }
   }
+  function renderActivity(events) {
+    if (!events) return false;
+    feedList.querySelectorAll(".feed-item").forEach(function (li) { li.remove(); });
+    feedEmpty.style.display = "none";
+    var items = [];
+    events.forEach(function (ev) {
+      var d = describe(ev);
+      if (!d) items.push(null);
+      else items.push({ d: d, at: ev.created_at });
+    });
+    items.sort(function (a, b) {
+      if (!a) return 1;
+      if (!b) return -1;
+      return new Date(b.at) - new Date(a.at);
+    });
+    var merged = [];
+    items.forEach(function (it, i) {
+      if (!it) return;
+      var prev = merged[merged.length - 1];
+      if (prev && prev.d.repo === it.d.repo && prev.d.ico === "PUSH" && it.d.ico === "PUSH") {
+        var pb = prev.d.msg.match(/pushed <b>(\d+)<\/b>/);
+        var cb = it.d.msg.match(/pushed <b>(\d+)<\/b>/);
+        var total = (pb ? +pb[1] : 1) + (cb ? +cb[1] : 1);
+        prev.d.msg = prev.d.msg.replace(/pushed <b>\d+<\/b> commit(s)?/, "pushed <b>" + total + "</b> commits");
+      } else {
+        merged.push({ d: it.d, at: it.at });
+      }
+    });
+    if (!merged.length) {
+      feedEmpty.textContent = "no public activity yet";
+      feedEmpty.style.display = "list-item";
+      return true;
+    }
+    merged.slice(0, 9).forEach(function (item) {
+      var li = document.createElement("li");
+      li.className = "feed-item";
+      li.title = new Date(item.at).toLocaleString();
+      var ico = document.createElement("span");
+      ico.className = "feed-ico";
+      ico.textContent = item.d.ico;
+      var msg = document.createElement("span");
+      msg.className = "feed-msg";
+      msg.innerHTML = item.d.msg;
+      var when = document.createElement("span");
+      when.className = "feed-when";
+      when.textContent = relTime(item.at);
+      li.appendChild(ico); li.appendChild(msg); li.appendChild(when);
+      feedList.appendChild(li);
+    });
+    return true;
+  }
+
+  var feedBackoffUntil = 0;
   function loadFeed() {
-    fetch("https://api.github.com/users/Verlintas/events/public?per_page=30&_=" + Date.now())
-      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    if (Date.now() < feedBackoffUntil) return;
+    var direct = fetch("https://api.github.com/users/Verlintas/events/public?per_page=30&_=" + Date.now());
+    direct
+      .then(function (r) {
+        if (!r.ok) throw new Error();
+        return r.json();
+      })
       .then(function (events) {
-        feedList.querySelectorAll(".feed-item").forEach(function (li) { li.remove(); });
-        feedEmpty.style.display = "none";
-        var items = [];
-        events.forEach(function (ev) {
-          var d = describe(ev);
-          if (!d) items.push(null);
-          else items.push({ d: d, at: ev.created_at });
-        });
-        items.sort(function (a, b) {
-          if (!a) return 1;
-          if (!b) return -1;
-          return new Date(b.at) - new Date(a.at);
-        });
-        var merged = [];
-        items.forEach(function (it, i) {
-          if (!it) return;
-          var prev = merged[merged.length - 1];
-          if (prev && prev.d.repo === it.d.repo && prev.d.ico === "PUSH" && it.d.ico === "PUSH") {
-            var pb = prev.d.msg.match(/pushed <b>(\d+)<\/b>/);
-            var cb = it.d.msg.match(/pushed <b>(\d+)<\/b>/);
-            var total = (pb ? +pb[1] : 1) + (cb ? +cb[1] : 1);
-            prev.d.msg = prev.d.msg.replace(/pushed <b>\d+<\/b> commit(s)?/, "pushed <b>" + total + "</b> commits");
-          } else {
-            merged.push({ d: it.d, at: it.at });
-          }
-        });
-        if (!merged.length) {
-          feedEmpty.textContent = "no public activity yet";
-          feedEmpty.style.display = "list-item";
-          return;
-        }
-        merged.slice(0, 9).forEach(function (item) {
-          var li = document.createElement("li");
-          li.className = "feed-item";
-          li.title = new Date(item.at).toLocaleString();
-          var ico = document.createElement("span");
-          ico.className = "feed-ico";
-          ico.textContent = item.d.ico;
-          var msg = document.createElement("span");
-          msg.className = "feed-msg";
-          msg.innerHTML = item.d.msg;
-          var when = document.createElement("span");
-          when.className = "feed-when";
-          when.textContent = relTime(item.at);
-          li.appendChild(ico); li.appendChild(msg); li.appendChild(when);
-          feedList.appendChild(li);
-        });
+        if (renderActivity(events)) feedBackoffUntil = 0;
       })
       .catch(function () {
-        if (!feedList.querySelector(".feed-item")) {
-          feedEmpty.textContent = "activity unavailable — auto-retrying";
-          feedEmpty.style.display = "list-item";
-        }
+        /* fallback: read the activity snapshot bundled in status.json */
+        feedBackoffUntil = Date.now() + 5 * 60 * 1000;
+        fetch("status.json?_=" + Date.now())
+          .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+          .then(function (st) {
+            if (!st.activity || !renderActivity(st.activity)) {
+              feedEmpty.textContent = "activity unavailable — will retry";
+              feedEmpty.style.display = "list-item";
+            }
+          })
+          .catch(function () {
+            feedEmpty.textContent = "activity unavailable — will retry";
+            feedEmpty.style.display = "list-item";
+          });
       });
   }
 
@@ -259,8 +281,11 @@
               : (st.x.followers != null ? st.x.followers + " followers" : "up");
             statusList.appendChild(statusRow("s-up", "X / @Verlintas", xState));
           } else {
-            statusList.appendChild(statusRow("s-unknown", "X / @Verlintas", "profile unreachable"));
-          }
+          statusList.appendChild(statusRow("s-unknown", "X / @Verlintas", "profile unreachable"));
+        }
+      }
+        if (Date.now() < feedBackoffUntil && st.activity && renderActivity(st.activity)) {
+          /* during backoff, keep the feed fresh from the bundled snapshot */
         }
       })
       .catch(function () {
