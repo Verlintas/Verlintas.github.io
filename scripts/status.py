@@ -102,6 +102,16 @@ def x_last_post(old_x=None, token=None):
             result["last_post_checked"] = iso(datetime.now(timezone.utc))
             if not post:
                 result["last_post"] = (old_x or {}).get("last_post")
+
+    # Free activity hint: a growing tweet counter means a new post was made
+    # since the last probe (accuracy = probe interval).
+    if result.get("ok") and result.get("tweets") is not None:
+        prev_tweets = (old_x or {}).get("tweets")
+        if prev_tweets is not None and result["tweets"] > prev_tweets:
+            result["last_post"] = iso(datetime.now(timezone.utc))
+            result["last_post_source"] = "counter-delta"
+        elif not result.get("last_post"):
+            result["last_post"] = (old_x or {}).get("last_post")
     return result
 
 
