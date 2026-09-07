@@ -60,7 +60,7 @@ def fetch_text(url, timeout=12):
         return False, type(e).__name__
 
 
-X_API_THROTTLE_SEC = 1  # debug; restore 3 * 3600 after
+X_API_THROTTLE_SEC = 3 * 3600  # official API checked at most every 3h
 
 
 def x_last_post(old_x=None, token=None):
@@ -129,7 +129,8 @@ def api_last_post(token):
         if data is not None:
             break
     if data is None:
-        print("X API user lookup failed:", err)
+        if "402" not in (err or ""):
+            print("X API user lookup failed:", err)
         return None
     user_id = ((data.get("data") or {}).get("id")) or None
     if not user_id:
