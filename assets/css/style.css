@@ -171,6 +171,7 @@ main, .footer { position: relative; z-index: 1; }
   animation: blink 1.8s ease-in-out infinite;
 }
 @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0.25; } }
+@keyframes blinkfast { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
 .hero-scroll {
   display: inline-flex;
   margin-top: 44px;
@@ -486,7 +487,7 @@ main, .footer { position: relative; z-index: 1; }
 }
 .status-item .s-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
 .s-up { background: #2ecc71; box-shadow: 0 0 8px rgba(46,204,113,0.7); animation: pulse 2.2s ease-in-out infinite; }
-.s-down { background: var(--red); box-shadow: 0 0 8px rgba(255,0,0,0.7); }
+.s-down { background: var(--red); box-shadow: 0 0 8px rgba(255,0,0,0.7); animation: blinkfast 0.7s steps(1) infinite; }
 .s-unknown { background: #555; }
 @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
 .status-item .s-name { width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--white); }
