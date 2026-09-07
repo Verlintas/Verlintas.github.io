@@ -17,6 +17,8 @@
 <body>
 
   <div class="grid-overlay" aria-hidden="true"></div>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <header class="nav">
     <a class="nav-logo" href="#top">V<span class="nav-logo-accent">.</span></a>
@@ -25,6 +27,7 @@
       <a href="#history">History</a>
       <a href="#projects">Projects</a>
       <a href="#stack">Stack</a>
+      <a href="#live">Live</a>
       <a href="#contact">Contact</a>
     </nav>
   </header>
@@ -196,9 +199,27 @@
       </div>
     </section>
 
+    <!-- ══════════ LIVE ══════════ -->
+    <section class="section" id="live">
+      <p class="section-tag">06 / live</p>
+      <h2 class="section-title">Now &amp; <em>live.</em></h2>
+      <div class="live-grid">
+        <div class="live-clock reveal">
+          <p class="clock-time" id="clockTime">--:--:--</p>
+          <p class="clock-date" id="clockDate">Beijing time</p>
+        </div>
+        <div class="live-feed reveal">
+          <p class="stack-label">Latest GitHub activity</p>
+          <ul class="feed-list" id="feedList">
+            <li class="feed-empty" id="feedEmpty">…</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <!-- ══════════ CONTACT ══════════ -->
     <section class="section" id="contact">
-      <p class="section-tag">05 / contact</p>
+      <p class="section-tag">07 / contact</p>
       <h2 class="section-title">Say <em>hi</em> —<br>anytime.</h2>
       <div class="contact-grid reveal">
         <a class="contact-card" href="https://github.com/Verlintas" target="_blank" rel="noopener">
@@ -217,6 +238,10 @@
     </section>
 
   </main>
+
+  <a class="to-top" href="#top" id="toTop" aria-label="back to top">
+    <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 15l-6-6-6 6"/></svg>
+  </a>
 
   <footer class="footer">
     <p class="footer-quote">Just for fun.<span class="footer-attrib">— Linus Torvalds</span></p>
