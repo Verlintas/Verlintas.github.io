@@ -60,7 +60,7 @@ def fetch_text(url, timeout=12):
         return False, type(e).__name__
 
 
-X_API_THROTTLE_SEC = 3 * 3600  # official API checked at most every 3h (free-tier quota)
+X_API_THROTTLE_SEC = 1  # debug; restore 3 * 3600 after
 
 
 def x_last_post(old_x=None, token=None):
