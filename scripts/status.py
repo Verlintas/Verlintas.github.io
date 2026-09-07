@@ -15,10 +15,10 @@ OUT = os.path.join(HERE, "..", "status.json")
 
 SITES = [
     {"name": "verlintas.github.io", "url": "https://verlintas.github.io"},
+    {"name": "nusv.github.io", "url": "https://nusv.github.io"},
     {"name": "nusv.mysxl.cn", "url": "https://nusv.mysxl.cn"},
     {"name": "usv.mysxl.cn", "url": "https://usv.mysxl.cn"},
     {"name": "elecusv.mysxl.cn", "url": "https://elecusv.mysxl.cn"},
-    {"name": "nusv.github.io", "url": "https://nusv.github.io"},
 ]
 
 HEADERS = {
@@ -104,14 +104,25 @@ def x_last_post(old_x=None, token=None):
                 result["last_post"] = (old_x or {}).get("last_post")
 
     # Free activity hint: a growing tweet counter means a new post was made
-    # since the last probe (accuracy = probe interval).
+    # since the last probe. Require TWO consecutive growth observations to
+    # avoid one-off counter jitter, and keep an existing hint until confirmed.
     if result.get("ok") and result.get("tweets") is not None:
         prev_tweets = (old_x or {}).get("tweets")
+        pending = (old_x or {}).get("delta_pending")
         if prev_tweets is not None and result["tweets"] > prev_tweets:
-            result["last_post"] = iso(datetime.now(timezone.utc))
-            result["last_post_source"] = "counter-delta"
-        elif not result.get("last_post"):
+            if pending:
+                result["last_post"] = iso(datetime.now(timezone.utc))
+                result["last_post_source"] = "counter-delta"
+                result["delta_pending"] = None
+            else:
+                result["delta_pending"] = iso(datetime.now(timezone.utc))
+        elif result["tweets"] <= prev_tweets:
+            result["delta_pending"] = None
+        else:
+            result["delta_pending"] = pending
+        if not result.get("last_post"):
             result["last_post"] = (old_x or {}).get("last_post")
+            result["last_post_source"] = (old_x or {}).get("last_post_source")
     return result
 
 

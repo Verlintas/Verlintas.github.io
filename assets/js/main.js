@@ -112,17 +112,10 @@
   var repoBase = "https://github.com/";
   function relTime(iso) {
     var s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
-    if (s < 60) return Math.floor(s) + "s ago";
-    if (s < 3600) {
-      var m = Math.floor(s / 60), sec = Math.floor(s % 60);
-      return m + "m " + sec + "s ago";
-    }
-    if (s < 86400) {
-      var h = Math.floor(s / 3600), mm = Math.floor((s % 3600) / 60);
-      return h + "h " + mm + "m ago";
-    }
-    var d = Math.floor(s / 86400);
-    return d === 1 ? "1d ago" : d + "d ago";
+    if (s < 120) return Math.floor(s) + "s ago";
+    if (s < 3600) return Math.floor(s / 60) + "m ago";
+    if (s < 86400) return Math.floor(s / 3600) + "h ago";
+    return Math.floor(s / 86400) + "d ago";
   }
   function describe(ev) {
     var repo = (ev.repo && ev.repo.name) || "";
@@ -171,6 +164,11 @@
         if (!d) items.push(null);
         else items.push({ d: d, at: ev.created_at });
       });
+      items.sort(function (a, b) {
+        if (!a) return 1;
+        if (!b) return -1;
+        return new Date(b.at) - new Date(a.at);
+      });
       var merged = [];
       items.forEach(function (it, i) {
         if (!it) return;
@@ -180,7 +178,6 @@
           var cb = it.d.msg.match(/pushed <b>(\d+)<\/b>/);
           var total = (pb ? +pb[1] : 1) + (cb ? +cb[1] : 1);
           prev.d.msg = prev.d.msg.replace(/pushed <b>\d+<\/b> commit(s)?/, "pushed <b>" + total + "</b> commits");
-          prev.at = it.at;
         } else {
           merged.push({ d: it.d, at: it.at });
         }
