@@ -1,0 +1,33 @@
+name: Service Status
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "scripts/status.py"
+      - ".github/workflows/status.yml"
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Probe services
+        run: python3 scripts/status.py
+      - name: Commit if changed
+        run: |
+          if ! git diff --quiet status.json; then
+            git config user.name "status-bot"
+            git config user.email "actions@users.noreply.github.com"
+            git add status.json
+            git commit -m "Update service status"
+            git push
+          else
+            echo "status.json unchanged"
+          fi

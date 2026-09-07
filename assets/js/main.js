@@ -111,11 +111,18 @@
   var feedEmpty = document.getElementById("feedEmpty");
   var repoBase = "https://github.com/";
   function relTime(iso) {
-    var s = (Date.now() - new Date(iso).getTime()) / 1000;
-    if (s < 60) return "just now";
-    if (s < 3600) return Math.floor(s / 60) + "m ago";
-    if (s < 86400) return Math.floor(s / 3600) + "h ago";
-    return Math.floor(s / 86400) + "d ago";
+    var s = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+    if (s < 60) return Math.floor(s) + "s ago";
+    if (s < 3600) {
+      var m = Math.floor(s / 60), sec = Math.floor(s % 60);
+      return m + "m " + sec + "s ago";
+    }
+    if (s < 86400) {
+      var h = Math.floor(s / 3600), mm = Math.floor((s % 3600) / 60);
+      return h + "h " + mm + "m ago";
+    }
+    var d = Math.floor(s / 86400);
+    return d === 1 ? "1d ago" : d + "d ago";
   }
   function describe(ev) {
     var repo = (ev.repo && ev.repo.name) || "";
@@ -127,57 +134,114 @@
         var n = (ev.payload && ev.payload.size) || 1;
         var branch = ev.payload && ev.payload.ref ? ev.payload.ref.replace("refs/heads/", "") : "";
         ico = "PUSH";
-        return { ico: ico, msg: "pushed <b>" + n + "</b> commit" + (n > 1 ? "s" : "") + " to " + rlink + (branch ? " <span>(" + branch + ")</span>" : ""), url: repoBase + repo + "/commits" };
+        return { ico: ico, repo: repo, msg: "pushed <b>" + n + "</b> commit" + (n > 1 ? "s" : "") + " to " + rlink + (branch ? " <span>(" + branch + ")</span>" : ""), url: repoBase + repo + "/commits" };
       case "CreateEvent":
         ico = "NEW";
-        return { ico: ico, msg: "created " + (ev.payload.ref_type || "ref") + (ev.payload.ref ? " <b>" + ev.payload.ref + "</b>" : "") + " in " + rlink };
+        return { ico: ico, repo: repo, msg: "created " + (ev.payload.ref_type || "ref") + (ev.payload.ref ? " <b>" + ev.payload.ref + "</b>" : "") + " in " + rlink };
       case "WatchEvent":
         ico = "STAR";
-        return { ico: ico, msg: "starred " + rlink };
+        return { ico: ico, repo: repo, msg: "starred " + rlink };
       case "ForkEvent":
         ico = "FORK";
-        return { ico: ico, msg: "forked " + rlink };
+        return { ico: ico, repo: repo, msg: "forked " + rlink };
       case "IssueEvent":
         ico = "ISSUE";
-        return { ico: ico, msg: (ev.payload.action || "acted") + " issue in " + rlink };
+        return { ico: ico, repo: repo, msg: (ev.payload.action || "acted") + " issue in " + rlink };
       case "PullRequestEvent":
         ico = "PR";
-        return { ico: ico, msg: (ev.payload.action || "acted") + " PR in " + rlink };
+        return { ico: ico, repo: repo, msg: (ev.payload.action || "acted") + " PR in " + rlink };
       case "ReleaseEvent":
         ico = "REL";
-        return { ico: ico, msg: "released " + rlink };
+        return { ico: ico, repo: repo, msg: "released " + rlink };
       case "PublicEvent":
         ico = "NEW";
-        return { ico: ico, msg: "open-sourced <b>" + repo + "</b>" };
+        return { ico: ico, repo: repo, msg: "open-sourced <b>" + repo + "</b>" };
       default:
         ico = ev.type ? ev.type.toUpperCase().slice(0, 4) : "EV";
-        return { ico: ico, msg: (ev.type || "activity").toLowerCase().replace("event", "") + " on " + rlink };
+        return { ico: ico, repo: repo, msg: (ev.type || "activity").toLowerCase().replace("event", "") + " on " + rlink };
     }
   }
-  fetch("https://api.github.com/users/Verlintas/events/public?per_page=7")
+  fetch("https://api.github.com/users/Verlintas/events/public?per_page=30")
     .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
     .then(function (events) {
       feedEmpty.style.display = "none";
+      var items = [];
       events.forEach(function (ev) {
         var d = describe(ev);
-        if (!d) return;
+        if (!d) items.push(null);
+        else items.push({ d: d, at: ev.created_at });
+      });
+      var merged = [];
+      items.forEach(function (it, i) {
+        if (!it) return;
+        var prev = merged[merged.length - 1];
+        if (prev && prev.d.repo === it.d.repo && prev.d.ico === "PUSH" && it.d.ico === "PUSH") {
+          var pb = prev.d.msg.match(/pushed <b>(\d+)<\/b>/);
+          var cb = it.d.msg.match(/pushed <b>(\d+)<\/b>/);
+          var total = (pb ? +pb[1] : 1) + (cb ? +cb[1] : 1);
+          prev.d.msg = prev.d.msg.replace(/pushed <b>\d+<\/b> commit(s)?/, "pushed <b>" + total + "</b> commits");
+          prev.at = it.at;
+        } else {
+          merged.push({ d: it.d, at: it.at });
+        }
+      });
+      merged.slice(0, 7).forEach(function (item) {
         var li = document.createElement("li");
         li.className = "feed-item";
+        li.title = new Date(item.at).toLocaleString();
         var ico = document.createElement("span");
         ico.className = "feed-ico";
-        ico.textContent = d.ico;
+        ico.textContent = item.d.ico;
         var msg = document.createElement("span");
         msg.className = "feed-msg";
-        msg.innerHTML = d.msg;
+        msg.innerHTML = item.d.msg;
         var when = document.createElement("span");
         when.className = "feed-when";
-        when.textContent = relTime(ev.created_at);
+        when.textContent = relTime(item.at);
         li.appendChild(ico); li.appendChild(msg); li.appendChild(when);
         feedList.appendChild(li);
       });
-      if (!events.length) feedEmpty.textContent = "no public activity yet";
+      if (!merged.length) feedEmpty.textContent = "no public activity yet";
     })
     .catch(function () { feedEmpty.textContent = "activity unavailable — refresh later"; });
+
+  /* ═══ service status (from status.json, generated by GitHub Actions) ═══ */
+  var statusList = document.getElementById("statusList");
+  var statusEmpty = document.getElementById("statusEmpty");
+  function statusRow(cls, nameHtml, stateHtml) {
+    var li = document.createElement("li");
+    li.className = "status-item";
+    var dot = document.createElement("span");
+    dot.className = "s-dot " + cls;
+    var name = document.createElement("span");
+    name.className = "s-name";
+    name.innerHTML = nameHtml;
+    var state = document.createElement("span");
+    state.className = "s-state";
+    state.textContent = stateHtml;
+    li.appendChild(dot); li.appendChild(name); li.appendChild(state);
+    return li;
+  }
+  fetch("status.json?_=" + Date.now())
+    .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+    .then(function (st) {
+      statusEmpty.style.display = "none";
+      st.sites.forEach(function (s) {
+        var cls = s.up ? "s-up" : "s-down";
+        var state = s.up ? (s.ms != null ? "up · " + s.ms + "ms" : "up") : "down";
+        statusList.appendChild(statusRow(cls, "<a href='" + s.url + "' target='_blank' rel='noopener'>" + s.name + "</a>", state));
+      });
+      if (st.x) {
+        if (st.x.ok && st.x.last_post) {
+          statusList.appendChild(statusRow("s-up", "X / @Verlintas", "post " + relTime(st.x.last_post)));
+        } else {
+          statusList.appendChild(statusRow("s-unknown", "X / @Verlintas", "profile unreachable"));
+        }
+      }
+    })
+    .catch(function () {
+      statusEmpty.textContent = "status unavailable";
+    });
 
   /* ═══ click diamond particle burst ═══ */
   var canvas = document.getElementById("fx");

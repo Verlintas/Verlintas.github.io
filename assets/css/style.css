@@ -460,6 +460,7 @@ main, .footer { position: relative; z-index: 1; }
   gap: clamp(28px, 5vw, 64px);
   align-items: start;
 }
+.live-left { display: grid; gap: 18px; }
 .live-clock { border: 1px solid var(--line); border-radius: 18px; padding: 34px 30px; background: rgba(255,255,255,0.02); }
 .clock-time {
   font-family: var(--font-mono);
@@ -471,7 +472,27 @@ main, .footer { position: relative; z-index: 1; }
 }
 .clock-time .secs { color: var(--red); }
 .clock-date { margin-top: 10px; color: var(--gray); font-family: var(--font-mono); font-size: 0.85rem; letter-spacing: 0.1em; }
-.clock-dot { animation: blink 1s steps(1) infinite; }
+.clock-dot { animation: clockblink 1s steps(1) infinite; }
+@keyframes clockblink { 50% { opacity: 0.15; } }
+.status-panel { border: 1px solid var(--line); border-radius: 18px; padding: 20px 24px; background: rgba(255,255,255,0.02); }
+.status-list { list-style: none; display: grid; gap: 8px; }
+.status-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: #cfcfcf;
+}
+.status-item .s-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.s-up { background: #2ecc71; box-shadow: 0 0 8px rgba(46,204,113,0.7); animation: pulse 2.2s ease-in-out infinite; }
+.s-down { background: var(--red); box-shadow: 0 0 8px rgba(255,0,0,0.7); }
+.s-unknown { background: #555; }
+@keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+.status-item .s-name { width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--white); }
+.status-item .s-state { color: #6a6a6a; margin-left: auto; text-align: right; font-size: 0.72rem; }
+.status-item a { color: inherit; text-decoration: none; }
+.status-probing { color: #6a6a6a; }
 .feed-list { list-style: none; display: grid; gap: 10px; }
 .feed-item {
   display: flex;

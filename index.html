@@ -204,9 +204,17 @@
       <p class="section-tag">06 / live</p>
       <h2 class="section-title">Now &amp; <em>live.</em></h2>
       <div class="live-grid">
-        <div class="live-clock reveal">
-          <p class="clock-time" id="clockTime">--:--:--</p>
-          <p class="clock-date" id="clockDate">Beijing time</p>
+        <div class="live-left">
+          <div class="live-clock reveal">
+            <p class="clock-time" id="clockTime">--:--:--</p>
+            <p class="clock-date" id="clockDate">Beijing time</p>
+          </div>
+          <div class="status-panel reveal">
+            <p class="stack-label">Service status</p>
+            <ul class="status-list" id="statusList">
+              <li class="status-item status-probing" id="statusEmpty">probing…</li>
+            </ul>
+          </div>
         </div>
         <div class="live-feed reveal">
           <p class="stack-label">Latest GitHub activity</p>
