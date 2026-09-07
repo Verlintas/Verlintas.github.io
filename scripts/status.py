@@ -106,37 +106,51 @@ def x_last_post(old_x=None, token=None):
 
 
 def api_last_post(token):
-    """Newest tweet time via X API v2 /users/by/username/.../tweets."""
-    url = ("https://api.x.com/2/users/by/username/Verlintas/tweets"
-           "?max_results=5&tweet.fields=created_at")
+    """Newest tweet time via X API v2 (user-id lookup + tweets endpoint)."""
     headers = dict(HEADERS)
     headers["Authorization"] = "Bearer " + token
-    try:
-        req = urllib.request.Request(url, headers=headers)
-        with urllib.request.urlopen(req, timeout=12, context=CTX) as resp:
-            data = json.loads(resp.read().decode("utf-8", "ignore"))
-    except urllib.error.HTTPError as e:
-        print("X API HTTPError:", e.code, e.reason)
-        if e.code in (401, 403):
-            try:
-                req2 = urllib.request.Request(
-                    url.replace("api.x.com", "api.twitter.com"), headers=headers
-                )
-                with urllib.request.urlopen(req2, timeout=12, context=CTX) as resp2:
-                    data = json.loads(resp2.read().decode("utf-8", "ignore"))
-                print("X API legacy host ok")
-            except urllib.error.HTTPError as e2:
-                print("X API legacy HTTPError:", e2.code)
-                return None
-            except Exception:
-                return None
-        else:
-            return None
-    except Exception as e:
-        print("X API error:", type(e).__name__)
+
+    def get(host, path, params=""):
+        url = "https://%s%s?%s" % (host, path, params)
+        try:
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=12, context=CTX) as resp:
+                return json.loads(resp.read().decode("utf-8", "ignore")), None
+        except urllib.error.HTTPError as e:
+            return None, "HTTP %s %s" % (e.code, e.reason)
+        except Exception as e:
+            return None, type(e).__name__
+
+    hosts = ["api.x.com", "api.twitter.com"]
+    data = None
+    err = None
+    for host in hosts:
+        data, err = get(host, "/2/users/by/username/Verlintas", "user.fields=id")
+        if data is not None:
+            break
+    if data is None:
+        print("X API user lookup failed:", err)
         return None
-    print("X API raw:", json.dumps(data)[:300])
-    tweets = (data or {}).get("data") or []
+    user_id = ((data.get("data") or {}).get("id")) or None
+    if not user_id:
+        print("X API user lookup raw:", json.dumps(data)[:300])
+        return None
+
+    data2 = None
+    err2 = None
+    for host in hosts:
+        data2, err2 = get(
+            host,
+            "/2/users/%s/tweets" % user_id,
+            "max_results=5&tweet.fields=created_at",
+        )
+        if data2 is not None:
+            break
+    if data2 is None:
+        print("X API tweets failed:", err2)
+        return None
+    print("X API tweets raw:", json.dumps(data2)[:300])
+    tweets = (data2 or {}).get("data") or []
     if not tweets:
         return None
     times = []
