@@ -59,42 +59,21 @@ def fetch_text(url, timeout=12):
 
 
 def x_last_post():
-    """Best-effort: newest tweet time from profile page or mirror RSS."""
-    routes = [
-        ("x.com", "https://x.com/Verlintas", "html"),
-        ("xcancel.com", "https://xcancel.com/Verlintas/rss", "rss"),
-        ("nitter.poast.org", "https://nitter.poast.org/Verlintas/rss", "rss"),
-        ("nitter.privacyredirect.com", "https://nitter.privacyredirect.com/Verlintas/rss", "rss"),
-    ]
-    for source, url, kind in routes:
-        ok, body = fetch_text(url)
-        if not ok:
-            continue
-        if kind == "html":
-            stamps = []
-            for raw in re.findall(r'"created_at":\s*"(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z)"', body):
-                try:
-                    dt = datetime.fromisoformat(raw.rstrip("Z").split(".")[0]).replace(tzinfo=timezone.utc)
-                except ValueError:
-                    continue
-                if datetime.now(timezone.utc) > dt > datetime(2025, 1, 1, tzinfo=timezone.utc):
-                    stamps.append(dt)
-            if not stamps:
-                continue
-            return {"ok": True, "last_post": iso(max(stamps)), "source": source}
-        if kind == "rss":
-            m = re.search(
-                r"<pubDate>([^<]+)</pubDate>", body, re.I
-            )
-            if not m:
-                continue
-            try:
-                dt = datetime.strptime(m.group(1), "%a, %d %b %Y %H:%M:%S %z")
-            except ValueError:
-                continue
-            if datetime.now(timezone.utc) > dt > datetime(2025, 1, 1, tzinfo=timezone.utc):
-                return {"ok": True, "last_post": iso(dt), "source": source}
-    return {"ok": False, "last_post": None, "note": "all sources failed"}
+    """X account status via fxtwitter public API (no token needed)."""
+    ok, body = fetch_text("https://api.fxtwitter.com/Verlintas", timeout=10)
+    if not ok:
+        return {"ok": False, "note": body}
+    try:
+        data = json.loads(body)
+        u = data["user"]
+        return {
+            "ok": True,
+            "followers": u.get("followers"),
+            "tweets": u.get("tweets"),
+            "likes": u.get("likes"),
+        }
+    except Exception as e:
+        return {"ok": False, "note": type(e).__name__}
 
 
 def main():

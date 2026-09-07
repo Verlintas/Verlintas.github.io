@@ -232,8 +232,10 @@
         statusList.appendChild(statusRow(cls, "<a href='" + s.url + "' target='_blank' rel='noopener'>" + s.name + "</a>", state));
       });
       if (st.x) {
-        if (st.x.ok && st.x.last_post) {
-          statusList.appendChild(statusRow("s-up", "X / @Verlintas", "post " + relTime(st.x.last_post)));
+        if (st.x.ok) {
+          var xState = (st.x.followers != null ? st.x.followers + " followers" : "up");
+          if (st.x.tweets != null) xState += " · " + st.x.tweets + " posts";
+          statusList.appendChild(statusRow("s-up", "X / @Verlintas", xState));
         } else {
           statusList.appendChild(statusRow("s-unknown", "X / @Verlintas", "profile unreachable"));
         }

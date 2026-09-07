@@ -1,38 +1,39 @@
 {
-  "generated": "2026-09-07T05:25:11Z",
+  "generated": "2026-09-07T05:26:04Z",
   "sites": [
     {
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 118,
+      "ms": 1608,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 888,
+      "ms": 237,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1428,
+      "ms": 839,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1720,
+      "ms": 278,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "last_post": null,
-    "note": "all sources failed"
+    "ok": true,
+    "followers": 359,
+    "tweets": 82,
+    "likes": 801
   }
 }
