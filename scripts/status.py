@@ -259,9 +259,10 @@ def snapshot_activity(events):
     out = []
     for e in events[:30]:
         p = e.get("payload") or {}
+        repo = (e.get("repo") or {}).get("name")
         out.append({
             "type": e.get("type"),
-            "repo": (e.get("repo") or {}).get("name"),
+            "repo": {"name": repo},
             "created_at": e.get("created_at"),
             "payload": {
                 "size": p.get("size"),
