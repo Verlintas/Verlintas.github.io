@@ -31,6 +31,18 @@
   var termInput = document.getElementById("termInput");
   var termForm = document.getElementById("termForm");
   var termClose = document.getElementById("termClose");
+  var termHist = [];
+  var termHistIdx = -1;
+  var aliasMap = {};
+  try {
+    termHist = JSON.parse(localStorage.getItem("vweb:hist") || "[]");
+    aliasMap = JSON.parse(localStorage.getItem("vweb:alias") || "{}");
+  } catch (err) { termHist = []; aliasMap = {}; }
+  function saveHist() { try { localStorage.setItem("vweb:hist", JSON.stringify(termHist.slice(-60))); } catch (e) {} }
+  function saveAlias() { try { localStorage.setItem("vweb:alias", JSON.stringify(aliasMap)); } catch (e) {} }
+  function termEscape(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
   function tline(cls, html) {
     var div = document.createElement("div");
     div.className = "t-line" + (cls ? " " + cls : "");
@@ -41,14 +53,11 @@
   function openTerm() {
     term.hidden = false;
     if (!termBody.children.length) {
-      tline("", "<span class='tk-g'>hidden terminal — type <span class='tk-y'>help</span> to begin</span>");
+      tline("", "<span class='tk-g'>hidden terminal — type <span class='tk-y'>help</span> or <span class='tk-y'>man &lt;cmd&gt;</span></span>");
     }
     termInput.focus();
   }
   function closeTerm() { term.hidden = true; }
-  function termEscape(s) {
-    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
-  }
   var REPOS = {
     betteraichat: "Verlintas/BetterAIChat",
     vicinityprobe: "Verlintas/VicinityProbe",
@@ -75,12 +84,47 @@
   var TCMD = {
     help: function () {
       tline("", [
-        "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact",
-        "<span class='tk-y'>jump:</span>         open &lt;project|github|x&gt; · copy &lt;gmail|163|github|x&gt;",
-        "<span class='tk-y'>live data:</span>    status · feed · weather · alive",
-        "<span class='tk-y'>tools:</span>        calc &lt;expr&gt; · b64 e|d &lt;text&gt; · ts [unix]",
-        "<span class='tk-y'>fun:</span>          ls · whoami · date · neofetch · clear · exit",
+        "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact · open &lt;project|github|x&gt;",
+        "<span class='tk-y'>live data:</span>    status · feed · weather · alive · ping api|meteo",
+        "<span class='tk-y'>dev tools:</span>    calc · b64 e|d · url e|d · json · ts · rand · uuid · pass",
+        "<span class='tk-y'>copy/search:</span>  copy &lt;gmail|163|github|x&gt; · search github|web &lt;q&gt;",
+        "<span class='tk-y'>shell:</span>        alias [name=cmd] · man &lt;cmd&gt; · ls · whoami · date · neofetch · clear · exit",
+        "<span class='tk-g'>↑/↓ history · Tab autocomplete</span>",
       ].join("\n"));
+    },
+    man: function (args) {
+      var c = (args[0] || "").toLowerCase();
+      if (c === "help") { tline("", "help — list commands. try: help"); return; }
+      var docs = {
+        nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
+        open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
+        copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
+        status: "status — live site up/down, latency, aliveness score (refreshed every 15 min)",
+        feed: "feed — latest 9 GitHub activities from the bundled snapshot",
+        weather: "weather — current conditions in Beijing (open-meteo)",
+        alive: "alive — composite aliveness score and last signal times",
+        ping: "ping &lt;target&gt; — measure latency. targets: api (api.github.com) · meteo (open-meteo)",
+        calc: "calc &lt;expr&gt; — evaluate arithmetic: numbers + - * / ( ) %",
+        b64: "b64 e|d &lt;text&gt; — base64 encode/decode (unicode-safe)",
+        url: "url e|d &lt;text&gt; — URL-encode/decode",
+        json: "json &lt;data&gt; — validate & pretty-print JSON; 'json min &lt;data&gt;' for compact",
+        ts: "ts [unix] — current unix time, or convert a timestamp to Beijing time",
+        rand: "rand [len] — random hex string (default 16)",
+        uuid: "uuid — generate a v4 UUID",
+        pass: "pass [len] — generate a strong password (default 20, upper+lower+digit+symbol)",
+        search: "search github|web &lt;query&gt; — search GitHub or the web in a new tab",
+        alias: "alias — list aliases · alias name=cmd — define · alias -d name — delete",
+        ls: "ls — list projects",
+        whoami: "whoami — who is this?",
+        date: "date — current Beijing time",
+        neofetch: "neofetch — system info, the fun way",
+        clear: "clear — clear the screen",
+        exit: "exit — close this terminal",
+        sudo: "sudo — try it",
+      };
+      if (c === "sudo") { tline("t-err", "nice try. — no frameworks were harmed."); return; }
+      if (c && TCMD[c]) { tline("", "<span class='tk-y'>" + termEscape(c) + "</span> — " + (docs[c] || "no man page yet")); return; }
+      tline("t-err", "no such command: " + termEscape(c || ""));
     },
     nav: function (args) {
       var id = args[0];
@@ -222,19 +266,155 @@
     clear: function () { termBody.innerHTML = ""; },
     exit: function () { closeTerm(); },
     sudo: function () { tline("t-err", "nice try. — no frameworks were harmed."); },
+    rand: function (args) {
+      var len = Math.min(parseInt(args[0], 10) || 16, 128);
+      var bytes = new Uint8Array(Math.ceil(len / 2));
+      crypto.getRandomValues(bytes);
+      var hex = Array.prototype.map.call(bytes, function (b) { return ("0" + b.toString(16)).slice(-2); }).join("");
+      tline("", hex.slice(0, len));
+    },
+    uuid: function () {
+      if (crypto.randomUUID) { tline("", crypto.randomUUID()); return; }
+      var b = new Uint8Array(16);
+      crypto.getRandomValues(b);
+      b[6] = (b[6] & 0x0f) | 0x40; b[8] = (b[8] & 0x3f) | 0x80;
+      var h = Array.prototype.map.call(b, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+      tline("", h.slice(0, 8) + "-" + h.slice(8, 12) + "-" + h.slice(12, 16) + "-" + h.slice(16, 20) + "-" + h.slice(20));
+    },
+    pass: function (args) {
+      var len = Math.min(parseInt(args[0], 10) || 20, 64);
+      var sets = ["ABCDEFGHJKLMNPQRSTUVWXYZ", "abcdefghijkmnopqrstuvwxyz", "23456789", "!@#$%^&*-_=+?"];
+      var all = sets.join("");
+      var out = [];
+      function pick(s) { return s[Math.floor(Math.random() * s.length)]; }
+      sets.forEach(function (s) { out.push(pick(s)); });
+      for (var i = out.length; i < len; i++) out.push(pick(all));
+      for (var j = out.length - 1; j > 0; j--) {
+        var k = Math.floor(Math.random() * (j + 1));
+        var t = out[j]; out[j] = out[k]; out[k] = t;
+      }
+      tline("", out.join(""));
+    },
+    json: function (args) {
+      var isMin = args[0] === "min";
+      var text = args.slice(isMin ? 1 : 0).join(" ");
+      if (!text) { tline("t-err", "usage: json &lt;data&gt; (or 'json min &lt;data&gt;')"); return; }
+      try {
+        var parsed = JSON.parse(text);
+        tline("", JSON.stringify(parsed, null, isMin ? 0 : 2));
+      } catch (err) {
+        tline("t-err", "invalid JSON — " + err.message);
+      }
+    },
+    ping: function (args) {
+      var targets = {
+        api: "https://api.github.com",
+        meteo: "https://api.open-meteo.com/v1/forecast?latitude=39.9&longitude=116.4&current=temperature_2m",
+      };
+      var name = (args[0] || "").toLowerCase();
+      var url = targets[name];
+      if (!url) { tline("t-err", "targets: api · meteo"); return; }
+      var t0 = performance.now();
+      fetch(url).then(function (r) {
+        var ms = Math.round(performance.now() - t0);
+        tline("", "ping " + termEscape(name) + " → <span class='tk-y'>" + ms + "ms</span> (http " + r.status + ")");
+      }, function () {
+        var ms = Math.round(performance.now() - t0);
+        tline("t-err", "ping " + termEscape(name) + " → unreachable (" + ms + "ms)");
+      });
+    },
+    url: function (args) {
+      var mode = (args[0] || "").toLowerCase();
+      var text = args.slice(1).join(" ");
+      if (mode === "e") tline("", encodeURIComponent(text));
+      else if (mode === "d") { try { tline("", decodeURIComponent(text)); } catch (err) { tline("t-err", "invalid percent-encoding"); } }
+      else tline("t-err", "usage: url e|d &lt;text&gt;");
+    },
+    search: function (args) {
+      var engine = (args[0] || "").toLowerCase();
+      var q = args.slice(1).join(" ");
+      if (!q) { tline("t-err", "usage: search github|web &lt;query&gt;"); return; }
+      if (engine === "github") window.open("https://github.com/search?q=" + encodeURIComponent(q) + "&type=repositories", "_blank");
+      else if (engine === "web") window.open("https://www.bing.com/search?q=" + encodeURIComponent(q), "_blank");
+      else { tline("t-err", "engines: github · web"); return; }
+      tline("", "searching <span class='tk-y'>" + termEscape(engine) + "</span> for " + termEscape(q));
+    },
+    alias: function (args) {
+      if (!args.length) {
+        var keys = Object.keys(aliasMap);
+        if (!keys.length) { tline("", "no aliases — define one: <span class='tk-y'>alias gh=open github</span>"); return; }
+        tline("", keys.map(function (k) { return "<span class='tk-y'>" + termEscape(k) + "</span> → " + termEscape(aliasMap[k]); }).join("\n"));
+        return;
+      }
+      var a = args.join(" ");
+      if (a.indexOf("=") === -1 && args[0] === "-d") {
+        var del = args[1];
+        if (!del || !aliasMap[del]) { tline("t-err", "no such alias: " + termEscape(del || "")); return; }
+        delete aliasMap[del];
+        saveAlias();
+        tline("", "alias removed: " + termEscape(del));
+        return;
+      }
+      var eq = a.indexOf("=");
+      if (eq === -1) { tline("t-err", "usage: alias name=command | alias -d name"); return; }
+      var name = a.slice(0, eq).trim();
+      var val = a.slice(eq + 1).trim();
+      if (!name || !val) { tline("t-err", "usage: alias name=command"); return; }
+      aliasMap[name] = val;
+      saveAlias();
+      tline("", "alias set: <span class='tk-y'>" + termEscape(name) + "</span> → " + termEscape(val));
+    },
   };
+  function expandAlias(parts) {
+    var guard = 0;
+    var p = parts.slice();
+    while (p.length && aliasMap[p[0]] && guard++ < 3) {
+      p = (aliasMap[p[0]] + " " + p.slice(1).join(" ")).trim().split(/\s+/);
+    }
+    return p;
+  }
   termForm.addEventListener("submit", function (e) {
     e.preventDefault();
     var raw = termInput.value.trim();
-    var parts = raw.split(/\s+/);
+    var parts = expandAlias(raw.split(/\s+/));
     var cmd = (parts[0] || "").toLowerCase();
     tline("", "<span class='t-prompt'>verlintas@web:~$</span> " + termEscape(raw));
+    if (raw && termHist[termHist.length - 1] !== raw) {
+      termHist.push(raw);
+      saveHist();
+    }
+    termHistIdx = termHist.length;
     if (!cmd) { termInput.value = ""; return; }
     if (cmd === "sudo" && parts[1] === "rm" && parts[2] === "-rf") { TCMD.sudo(); }
     else if (TCMD[cmd]) TCMD[cmd](parts.slice(1));
     else tline("t-err", "command not found: " + termEscape(cmd) + " — type 'help'");
     termInput.value = "";
     termBody.scrollTop = termBody.scrollHeight;
+  });
+  function allNames() {
+    var names = Object.keys(TCMD).concat(Object.keys(aliasMap));
+    names.push("help");
+    return names;
+  }
+  termInput.addEventListener("keydown", function (e) {
+    if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (termHistIdx > 0) { termHistIdx--; termInput.value = termHist[termHistIdx]; }
+    } else if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (termHistIdx < termHist.length - 1) { termHistIdx++; termInput.value = termHist[termHistIdx]; }
+      else { termHistIdx = termHist.length; termInput.value = ""; }
+    } else if (e.key === "Tab") {
+      e.preventDefault();
+      var token = termInput.value.split(/\s+/).pop() || "";
+      var matches = allNames().filter(function (n) { return n.indexOf(token.toLowerCase()) === 0; });
+      if (matches.length === 1) {
+        termInput.value = termInput.value.slice(0, termInput.value.length - token.length) + matches[0] + " ";
+      } else if (matches.length > 1) {
+        tline("", "<span class='tk-g'>" + matches.sort().join("  ") + "</span>");
+        termBody.scrollTop = termBody.scrollHeight;
+      }
+    }
   });
   termClose.addEventListener("click", closeTerm);
   document.getElementById("termToggle").addEventListener("click", function () {
