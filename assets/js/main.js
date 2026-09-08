@@ -116,6 +116,33 @@
     if (c >= 95) return "thunderstorm";
     return "code " + c;
   }
+  function aiKey() {
+    try { return localStorage.getItem("vweb:aikey") || null; } catch (e) { return null; }
+  }
+  function setAiKey(k) {
+    try {
+      if (k) localStorage.setItem("vweb:aikey", k);
+      else localStorage.removeItem("vweb:aikey");
+    } catch (e) {}
+  }
+  function geminiAsk(sys, user) {
+    var body = { contents: [{ role: "user", parts: [{ text: user }] }] };
+    if (sys) body.systemInstruction = { parts: [{ text: sys }] };
+    return fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + encodeURIComponent(aiKey()),
+      { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) }
+    ).then(function (r) {
+      if (!r.ok) throw new Error("http " + r.status);
+      return r.json();
+    }).then(function (d) {
+      var cands = d && d.candidates || [];
+      var t = cands.length && cands[0].content && cands[0].content.parts
+        ? cands[0].content.parts.map(function (p) { return p.text || ""; }).join("").trim()
+        : "";
+      if (!t) throw new Error("empty reply");
+      return t;
+    });
+  }
   function aiAsk(messages) {
     var user = "";
     var sys = "";
@@ -123,27 +150,15 @@
       if (messages[i].role === "user") user = messages[i].content;
       if (messages[i].role === "system") sys = messages[i].content;
     }
+    var combined = sys ? "(" + sys + ")\n\n" + user : user;
     var chain = [
       {
-        name: "direct",
-        fn: function () {
-          return fetch("https://text.pollinations.ai/", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ messages: messages }),
-          }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); });
-        },
+        name: "gemini",
+        skip: !aiKey(),
+        fn: function () { return geminiAsk(sys, user); },
       },
       {
-        name: "get",
-        fn: function () {
-          var merged = sys ? "(" + sys + ") " + user : user;
-          return fetch("https://text.pollinations.ai/" + encodeURIComponent(merged) + "?model=openai")
-            .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); });
-        },
-      },
-      {
-        name: "openai-compat",
+        name: "compat",
         fn: function () {
           return fetch("https://text.pollinations.ai/openai", {
             method: "POST",
@@ -159,11 +174,30 @@
           });
         },
       },
+      {
+        name: "get",
+        fn: function () {
+          return fetch("https://text.pollinations.ai/" + encodeURIComponent(combined) + "?model=openai")
+            .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); });
+        },
+      },
+      {
+        name: "direct",
+        fn: function () {
+          return fetch("https://text.pollinations.ai/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: messages }),
+          }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); });
+        },
+      },
     ];
     function next(idx, errs) {
       if (idx >= chain.length) return Promise.reject(new Error(errs.join("; ")));
-      return chain[idx].fn().catch(function (e) {
-        errs.push(chain[idx].name + "(" + e.message + ")");
+      var step = chain[idx];
+      if (step.skip) return next(idx + 1, errs);
+      return step.fn().catch(function (e) {
+        errs.push(step.name + "(" + e.message + ")");
         return next(idx + 1, errs);
       });
     }
@@ -184,7 +218,7 @@
     },
     ai: function (args) {
       var prompt = args.join(" ").trim();
-      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — or 'ai system &lt;text|reset&gt;' to tweak the system prompt"); return; }
+      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — also: ai system &lt;text|show|reset&gt; · ai key &lt;KEY|show|clear&gt;"); return; }
       if (args[0] === "system") {
         var rest = args.slice(1).join(" ").trim();
         if (rest.toLowerCase() === "show") {
@@ -201,6 +235,24 @@
         sysPrompt = rest;
         try { localStorage.setItem("vweb:sysp", rest); } catch (e) {}
         tline("", "system prompt updated — it will persist for this browser");
+        return;
+      }
+      if (args[0] === "key") {
+        var sub = (args[1] || "").toLowerCase();
+        var cur = aiKey();
+        if (!sub || sub === "show") {
+          tline("", cur ? ("gemini key: " + cur.slice(0, 6) + "…" + cur.slice(-4) + " — channel gemini enabled") : "no key set — free pollinations fallback only. set with: ai key <GOOGLE_AI_KEY>");
+          return;
+        }
+        if (sub === "clear") {
+          setAiKey(null);
+          tline("", "key cleared — falling back to free channels");
+          return;
+        }
+        var key = args.slice(1).join("").trim();
+        if (!/^[A-Za-z0-9_\-]{20,}$/.test(key)) { tline("t-err", "that does not look like a Google AI key"); return; }
+        setAiKey(key);
+        tline("", "key stored in this browser only — <span class='tk-y'>gemini-2.0-flash</span> will answer (better persona adherence). remove: ai key clear");
         return;
       }
       if (prompt.length > 500) { tline("t-err", "keep the question under 500 characters"); return; }
@@ -222,7 +274,10 @@
       var c = (args[0] || "").toLowerCase();
       if (c === "help") { tline("", "help — list commands. try: help"); return; }
       var docs = {
-        ai: "ai &lt;question&gt; — ask a small free LLM (text.pollinations.ai, no key needed). 'ai system &lt;text&gt;' sets a custom system prompt (persists), 'ai system show' prints it, 'ai system reset' restores the default. replies type out; close or clear to interrupt",
+        ai: "ai &lt;question&gt; — ask Empty-X. 'ai system &lt;text|show|reset&gt;' tweaks persona (persists). " +
+           "'ai key &lt;GOOGLE_AI_KEY&gt;' enables the gemini-2.0-flash channel (stored only in this browser, best persona adherence); " +
+           "'ai key show|clear'. Without a key it falls back through free pollinations channels (may be flaky). " +
+           "replies type out; close or clear to interrupt",
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
         open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
