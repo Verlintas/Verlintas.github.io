@@ -35,6 +35,12 @@
   var termHistIdx = -1;
   var aliasMap = {};
   var aiTimer = null;
+  var DEFAULT_SYS = "You are the assistant inside the hidden terminal on Verlintas's personal site (verlintas.github.io). " +
+    "Answer in the language of the question (Chinese for Chinese). Keep answers short, direct and terminal-friendly: " +
+    "plain text, no markdown formatting, at most a few sentences unless the user asks for detail. " +
+    "A little playful, never gimmicky.";
+  var sysPrompt = null;
+  try { sysPrompt = localStorage.getItem("vweb:sysp"); } catch (e) { sysPrompt = null; }
   try {
     termHist = JSON.parse(localStorage.getItem("vweb:hist") || "[]");
     aliasMap = JSON.parse(localStorage.getItem("vweb:alias") || "{}");
@@ -121,14 +127,34 @@
     },
     ai: function (args) {
       var prompt = args.join(" ").trim();
-      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — e.g. 'ai explain coroutines in one line'"); return; }
+      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — or 'ai system &lt;text|reset&gt;' to tweak the system prompt"); return; }
+      if (args[0] === "system") {
+        var rest = args.slice(1).join(" ").trim();
+        if (rest.toLowerCase() === "show") {
+          tline("", (sysPrompt || DEFAULT_SYS));
+          return;
+        }
+        if (!rest || rest.toLowerCase() === "reset") {
+          sysPrompt = DEFAULT_SYS;
+          try { localStorage.removeItem("vweb:sysp"); } catch (e) {}
+          tline("", "system prompt reset to default");
+          return;
+        }
+        if (rest.length > 2000) { tline("t-err", "system prompt too long (max 2000)"); return; }
+        sysPrompt = rest;
+        try { localStorage.setItem("vweb:sysp", rest); } catch (e) {}
+        tline("", "system prompt updated — it will persist for this browser");
+        return;
+      }
       if (prompt.length > 500) { tline("t-err", "keep the question under 500 characters"); return; }
       stopSay();
+      var messages = [{ role: "user", content: prompt }];
+      if (sysPrompt) messages.unshift({ role: "system", content: sysPrompt });
       tline("", "thinking…");
       fetch("https://text.pollinations.ai/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: [{ role: "user", content: prompt }] }),
+        body: JSON.stringify({ messages: messages }),
       }).then(function (r) {
         if (!r.ok) throw new Error("http " + r.status);
         return r.text();
@@ -146,7 +172,7 @@
       var c = (args[0] || "").toLowerCase();
       if (c === "help") { tline("", "help — list commands. try: help"); return; }
       var docs = {
-        ai: "ai &lt;question&gt; — ask a small free LLM (text.pollinations.ai, no key needed). replies type out; close or clear to interrupt",
+        ai: "ai &lt;question&gt; — ask a small free LLM (text.pollinations.ai, no key needed). 'ai system &lt;text&gt;' sets a custom system prompt (persists), 'ai system show' prints it, 'ai system reset' restores the default. replies type out; close or clear to interrupt",
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
         open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
