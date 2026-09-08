@@ -34,10 +34,36 @@
   var termHist = [];
   var termHistIdx = -1;
   var aliasMap = {};
+  var aiTimer = null;
   try {
     termHist = JSON.parse(localStorage.getItem("vweb:hist") || "[]");
     aliasMap = JSON.parse(localStorage.getItem("vweb:alias") || "{}");
   } catch (err) { termHist = []; aliasMap = {}; }
+  function stopSay() {
+    if (aiTimer) { clearInterval(aiTimer); aiTimer = null; }
+    var cur = termBody.querySelector(".say-line.typing");
+    if (cur) cur.classList.remove("typing");
+  }
+  function termSay(text) {
+    stopSay();
+    var div = document.createElement("div");
+    div.className = "t-line say-line typing";
+    termBody.appendChild(div);
+    termBody.scrollTop = termBody.scrollHeight;
+    if (!text) { div.classList.remove("typing"); div.textContent = "(empty reply)"; return; }
+    var i = 0;
+    var step = Math.max(2, Math.floor(text.length / 320)); /* finish ~1-2s */
+    aiTimer = setInterval(function () {
+      i = Math.min(text.length, i + step);
+      div.textContent = text.slice(0, i);
+      termBody.scrollTop = termBody.scrollHeight;
+      if (i >= text.length) {
+        clearInterval(aiTimer);
+        aiTimer = null;
+        div.classList.remove("typing");
+      }
+    }, 14);
+  }
   function saveHist() { try { localStorage.setItem("vweb:hist", JSON.stringify(termHist.slice(-60))); } catch (e) {} }
   function saveAlias() { try { localStorage.setItem("vweb:alias", JSON.stringify(aliasMap)); } catch (e) {} }
   function termEscape(s) {
@@ -57,7 +83,7 @@
     }
     termInput.focus();
   }
-  function closeTerm() { term.hidden = true; }
+  function closeTerm() { stopSay(); term.hidden = true; }
   var REPOS = {
     betteraichat: "Verlintas/BetterAIChat",
     vicinityprobe: "Verlintas/VicinityProbe",
@@ -84,6 +110,7 @@
   var TCMD = {
     help: function () {
       tline("", [
+        "<span class='tk-y'>ai:</span>           ai &lt;question&gt; — ask a small free model anything",
         "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact · open &lt;project|github|x&gt;",
         "<span class='tk-y'>live data:</span>    status · feed · weather · alive · ping api|meteo",
         "<span class='tk-y'>dev tools:</span>    calc · b64 e|d · url e|d · json · ts · rand · uuid · pass",
@@ -92,10 +119,34 @@
         "<span class='tk-g'>↑/↓ history · Tab autocomplete</span>",
       ].join("\n"));
     },
+    ai: function (args) {
+      var prompt = args.join(" ").trim();
+      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — e.g. 'ai explain coroutines in one line'"); return; }
+      if (prompt.length > 500) { tline("t-err", "keep the question under 500 characters"); return; }
+      stopSay();
+      tline("", "thinking…");
+      fetch("https://text.pollinations.ai/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: [{ role: "user", content: prompt }] }),
+      }).then(function (r) {
+        if (!r.ok) throw new Error("http " + r.status);
+        return r.text();
+      }).then(function (txt) {
+        var body = termBody.querySelector(".t-line:last-child");
+        if (body && body.textContent === "thinking…") body.remove();
+        termSay(String(txt).trim() || "(empty reply)");
+      }).catch(function (err) {
+        var body = termBody.querySelector(".t-line:last-child");
+        if (body && body.textContent === "thinking…") body.remove();
+        tline("t-err", "ai unreachable (" + err.message + ") — try again");
+      });
+    },
     man: function (args) {
       var c = (args[0] || "").toLowerCase();
       if (c === "help") { tline("", "help — list commands. try: help"); return; }
       var docs = {
+        ai: "ai &lt;question&gt; — ask a small free LLM (text.pollinations.ai, no key needed). replies type out; close or clear to interrupt",
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
         open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
@@ -263,7 +314,7 @@
     github: function () { tline("", "<a style='color:#ff9d9d' href='https://github.com/Verlintas' target='_blank' rel='noopener'>github.com/Verlintas</a>"); },
     x: function () { tline("", "<a style='color:#ff9d9d' href='https://x.com/Verlintas' target='_blank' rel='noopener'>x.com/Verlintas</a>"); },
     email: function () { tline("", "ulv777777@gmail.com · 12321666@163.com"); },
-    clear: function () { termBody.innerHTML = ""; },
+    clear: function () { stopSay(); termBody.innerHTML = ""; },
     exit: function () { closeTerm(); },
     sudo: function () { tline("t-err", "nice try. — no frameworks were harmed."); },
     rand: function (args) {

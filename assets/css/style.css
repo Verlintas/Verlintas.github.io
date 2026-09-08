@@ -559,6 +559,14 @@ body.is-loading { overflow: hidden; }
 .t-line .tk-w { color: var(--white); }
 .t-line .tk-y { color: #ffd54f; }
 .t-line .t-prompt { color: var(--red); }
+.say-line { white-space: pre-wrap; }
+.say-line.typing::after {
+  content: "▍";
+  color: var(--red);
+  margin-left: 2px;
+  animation: caretBlink 0.85s steps(1) infinite;
+}
+@keyframes caretBlink { 50% { opacity: 0; } }
 .t-line.t-err { color: #ff6b6b; }
 .term-line { display: flex; align-items: center; gap: 8px; padding: 2px 16px 14px; }
 .term-prompt { color: var(--red); font-size: 0.8rem; white-space: nowrap; }
