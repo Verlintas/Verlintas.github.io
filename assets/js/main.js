@@ -102,9 +102,16 @@
     termBody.scrollTop = termBody.scrollHeight;
   });
   termClose.addEventListener("click", closeTerm);
+  document.getElementById("termToggle").addEventListener("click", function () {
+    if (term.hidden) openTerm(); else closeTerm();
+  });
   term.addEventListener("click", function () { termInput.focus(); });
   document.addEventListener("keydown", function (e) {
-    if (e.key === "`" || e.key === "~") {
+    var isBackquote = e.key === "`" || e.key === "~" || e.keyCode === 192;
+    if (isBackquote && !e.ctrlKey && !e.metaKey) {
+      e.preventDefault();
+      if (term.hidden) openTerm(); else closeTerm();
+    } else if ((e.ctrlKey || e.metaKey) && (e.key === "`" || e.keyCode === 192)) {
       e.preventDefault();
       if (term.hidden) openTerm(); else closeTerm();
     }

@@ -69,7 +69,22 @@ body {
   letter-spacing: 0.5px;
 }
 .nav-logo-accent { color: var(--red); }
-.nav-links { display: flex; gap: clamp(14px, 3vw, 34px); }
+.nav-term {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-left: 4px;
+  background: rgba(255, 0, 0, 0.06);
+  border: 1px solid rgba(255, 0, 0, 0.45);
+  border-radius: 8px;
+  color: var(--red);
+  cursor: pointer;
+  transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
+}
+.nav-term:hover { background: var(--red); color: #fff; box-shadow: 0 0 16px rgba(255, 0, 0, 0.55); transform: translateY(-1px); }
+.nav-links { display: flex; gap: clamp(14px, 3vw, 34px); align-items: center; }
 .nav-links a {
   color: var(--gray);
   text-decoration: none;
@@ -460,23 +475,34 @@ main, .footer { position: relative; z-index: 1; }
   animation: dashFlow 1.5s linear infinite;
 }
 @keyframes dashFlow { to { stroke-dashoffset: -532; } }
-.loader-name { display: flex; gap: 0.02em; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.6rem, 5vw, 2.4rem); letter-spacing: 0.14em; color: var(--white); }
-.loader-name span {
+.loader-name {
+  display: flex;
+  gap: 0.02em;
+  justify-content: center;
+  font-family: var(--font-head);
+  font-weight: 700;
+  font-size: clamp(1.7rem, 5vw, 2.5rem);
+  letter-spacing: 0.16em;
+  color: var(--white);
   opacity: 0;
-  animation: loaderChar 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+  filter: blur(12px);
+  transform: scale(1.06);
+  animation: nameReveal 0.75s cubic-bezier(0.2, 0.7, 0.3, 1) 0.55s forwards;
 }
-.loader-name span:nth-child(1) { animation-delay: 0.55s; }
-.loader-name span:nth-child(2) { animation-delay: 0.64s; }
-.loader-name span:nth-child(3) { animation-delay: 0.73s; }
-.loader-name span:nth-child(4) { animation-delay: 0.82s; }
-.loader-name span:nth-child(5) { animation-delay: 0.91s; }
-.loader-name span:nth-child(6) { animation-delay: 1.00s; }
-.loader-name span:nth-child(7) { animation-delay: 1.09s; }
-.loader-name span:nth-child(8) { animation-delay: 1.18s; }
-.loader-name span:nth-child(9) { animation-delay: 1.27s; }
-@keyframes loaderChar {
-  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
-  to   { opacity: 1; transform: translateY(0);  filter: blur(0); }
+.loader-name::after {
+  content: "";
+  display: block;
+  height: 2px;
+  margin-top: 16px;
+  background: linear-gradient(90deg, transparent, #ff0000, transparent);
+  transform: scaleX(0);
+  animation: lineGrow 0.6s cubic-bezier(0.2, 0.7, 0.3, 1) 1.05s forwards;
+}
+@keyframes nameReveal {
+  to { opacity: 1; filter: blur(0); transform: scale(1); }
+}
+@keyframes lineGrow {
+  to { transform: scaleX(1); }
 }
 body.is-loading .fade-up { animation-play-state: paused; }
 body.is-loading { overflow: hidden; }
