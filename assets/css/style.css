@@ -536,14 +536,12 @@ body.is-loading { overflow: hidden; }
 .term-bar {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   padding: 9px 14px;
   background: rgba(255, 255, 255, 0.03);
   border-bottom: 1px solid var(--line);
 }
-.term-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; }
-.term-dot-red { background: var(--red); box-shadow: 0 0 6px rgba(255,0,0,0.8); }
-.term-title { flex: 1; text-align: center; color: #8a8a8a; font-size: 0.68rem; letter-spacing: 0.14em; }
+.term-title { flex: 1; text-align: left; color: #8a8a8a; font-size: 0.68rem; letter-spacing: 0.14em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .term-close { background: none; border: none; color: #8a8a8a; font-size: 1.1rem; cursor: pointer; line-height: 1; }
 .term-close:hover { color: var(--red); }
 .term-body {
