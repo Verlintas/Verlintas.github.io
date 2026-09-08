@@ -1,6 +1,116 @@
 (function () {
   "use strict";
 
+  /* ═══ boot loader ═══ */
+  var loader = document.getElementById("loader");
+  var body = document.body;
+  function bootDone() {
+    loader.classList.add("done");
+    body.classList.remove("is-loading");
+    setTimeout(function () { if (loader) loader.remove(); }, 700);
+  }
+  window.addEventListener("load", function () { setTimeout(bootDone, 1900); });
+  setTimeout(function () { if (document.readyState === "complete") setTimeout(bootDone, 1900); }, 2500);
+  loader.addEventListener("click", bootDone);
+
+  /* ═══ 2 AM easter egg (Beijing time) ═══ */
+  var twoAm = document.getElementById("twoAm");
+  function check2am() {
+    var parts = new Intl.DateTimeFormat("en-GB", {
+      timeZone: "Asia/Shanghai", hour: "2-digit", hour12: false,
+    }).formatToParts(new Date());
+    var map = {};
+    parts.forEach(function (p) { map[p.type] = p.value; });
+    var h = map.hour === "24" ? "00" : map.hour;
+    twoAm.hidden = (h !== "02");
+  }
+
+  /* ═══ hidden terminal ═══ */
+  var term = document.getElementById("term");
+  var termBody = document.getElementById("termBody");
+  var termInput = document.getElementById("termInput");
+  var termForm = document.getElementById("termForm");
+  var termClose = document.getElementById("termClose");
+  function tline(cls, html) {
+    var div = document.createElement("div");
+    div.className = "t-line" + (cls ? " " + cls : "");
+    div.innerHTML = html;
+    termBody.appendChild(div);
+    termBody.scrollTop = termBody.scrollHeight;
+  }
+  function openTerm() {
+    term.hidden = false;
+    if (!termBody.children.length) {
+      tline("", "<span class='tk-g'>hidden terminal — type <span class='tk-y'>help</span> to begin</span>");
+    }
+    termInput.focus();
+  }
+  function closeTerm() { term.hidden = true; }
+  function termEscape(s) {
+    return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+  }
+  var TCMD = {
+    help: function () {
+      tline("", "<span class='tk-y'>commands:</span> help · ls · whoami · date · neofetch · github · x · email · clear · exit");
+    },
+    ls: function () {
+      tline("", [
+        "<span class='tk-w'>BetterAIChat</span>   <span class='tk-g'>android ai agent</span>",
+        "<span class='tk-w'>VicinityProbe</span>  <span class='tk-g'>security toolkit</span>",
+        "<span class='tk-w'>nekomimi</span>       <span class='tk-g'>text rewriter</span>",
+        "<span class='tk-w'>GoogleOnYourMac</span> <span class='tk-g'>macOS wrappers</span>",
+        "<span class='tk-w'>NUSV-lite</span>      <span class='tk-g'>org client</span>",
+        "<span class='tk-w'>Syna-NUSV</span>      <span class='tk-g'>e2e messenger</span>",
+        "<span class='tk-w'>Gomoku-NUSV</span>    <span class='tk-g'>cross-platform game</span>",
+      ].join("\n"));
+    },
+    whoami: function () {
+      tline("", "<span class='tk-w'>Verlintas</span> — the mainly developer in ULV / USV. born 2010, still just for fun.");
+    },
+    date: function () {
+      tline("", new Date().toLocaleString("en-GB", { timeZone: "Asia/Shanghai" }) + " Beijing time");
+    },
+    neofetch: function () {
+      tline("", [
+        "      <span class='tk-c'>◆</span>      <span class='tk-w'>verlintas@web</span>",
+        "     <span class='tk-c'>◆ ◆</span>     <span class='tk-g'>─────────────</span>",
+        "    <span class='tk-c'>◆ ◆ ◆</span>    <span class='tk-g'>OS:</span> verlintas.github.io",
+        "     <span class='tk-c'>◆ ◆</span>     <span class='tk-g'>Shell:</span> just for fun",
+        "      <span class='tk-c'>◆</span>      <span class='tk-g'>Uptime:</span> since 2010",
+        "               <span class='tk-g'>Locale:</span> zh-CN / en-US",
+        "               <span class='tk-g'>Status:</span> alive &amp; shipping",
+      ].join("\n"));
+    },
+    github: function () { tline("", "<a style='color:#ff9d9d' href='https://github.com/Verlintas' target='_blank' rel='noopener'>github.com/Verlintas</a>"); },
+    x: function () { tline("", "<a style='color:#ff9d9d' href='https://x.com/Verlintas' target='_blank' rel='noopener'>x.com/Verlintas</a>"); },
+    email: function () { tline("", "ulv777777@gmail.com · 12321666@163.com"); },
+    clear: function () { termBody.innerHTML = ""; },
+    exit: function () { closeTerm(); },
+    sudo: function () { tline("t-err", "nice try. — no frameworks were harmed."); },
+  };
+  termForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var raw = termInput.value.trim();
+    var parts = raw.split(/\s+/);
+    var cmd = (parts[0] || "").toLowerCase();
+    tline("", "<span class='t-prompt'>verlintas@web:~$</span> " + termEscape(raw));
+    if (!cmd) { termInput.value = ""; return; }
+    if (cmd === "sudo" && parts[1] === "rm" && parts[2] === "-rf") { TCMD.sudo(); }
+    else if (TCMD[cmd]) TCMD[cmd](parts.slice(1));
+    else tline("t-err", "command not found: " + termEscape(cmd) + " — type 'help'");
+    termInput.value = "";
+    termBody.scrollTop = termBody.scrollHeight;
+  });
+  termClose.addEventListener("click", closeTerm);
+  term.addEventListener("click", function () { termInput.focus(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "`" || e.key === "~") {
+      e.preventDefault();
+      if (term.hidden) openTerm(); else closeTerm();
+    }
+    if (e.key === "Escape" && !term.hidden) closeTerm();
+  });
+
   /* reveal on scroll */
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
@@ -105,6 +215,8 @@
   }
   tick();
   setInterval(tick, 1000);
+  check2am();
+  setInterval(check2am, 30000);
 
   /* ═══ GitHub live activity feed ═══ */
   var feedList = document.getElementById("feedList");
@@ -314,42 +426,58 @@
   }, 60000);
   window.addEventListener("focus", function () { loadFeed(); loadStatus(); });
 
-  /* ═══ click diamond particle burst ═══ */
+  /* ═══ click diamond particle burst + name-triggered diamond rain ═══ */
   var canvas = document.getElementById("fx");
   var ctx = canvas.getContext("2d");
   var parts = [];
   var drawing = false;
+  var rainUntil = 0;
   function sizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
   sizeCanvas();
   window.addEventListener("resize", sizeCanvas);
+  function spawn(x, y, vx, vy, size, vr, decay, color) {
+    parts.push({
+      x: x, y: y, vx: vx, vy: vy,
+      size: size, rot: Math.random() * Math.PI, vr: vr,
+      life: 1, decay: decay, color: color,
+    });
+  }
   function burst(x, y) {
     var n = 10 + Math.floor(Math.random() * 8);
     for (var i = 0; i < n; i++) {
       var a = Math.random() * Math.PI * 2;
       var v = 1.5 + Math.random() * 4.5;
       var reds = ["255,0,0", "255,60,60", "255,255,255", "255,120,120"];
-      parts.push({
-        x: x, y: y,
-        vx: Math.cos(a) * v,
-        vy: Math.sin(a) * v - 1.2,
-        size: 3 + Math.random() * 5,
-        rot: Math.random() * Math.PI,
-        vr: (Math.random() - 0.5) * 0.35,
-        life: 1,
-        decay: 0.018 + Math.random() * 0.02,
-        color: reds[Math.floor(Math.random() * reds.length)],
-      });
+      spawn(
+        x, y,
+        Math.cos(a) * v, Math.sin(a) * v - 1.2,
+        3 + Math.random() * 5,
+        (Math.random() - 0.5) * 0.35,
+        0.018 + Math.random() * 0.02,
+        reds[Math.floor(Math.random() * reds.length)]
+      );
     }
-    if (!drawing) {
-      drawing = true;
-      requestAnimationFrame(drawParts);
+    if (!drawing) { drawing = true; requestAnimationFrame(drawParts); }
+  }
+  function rainTick() {
+    for (var i = 0; i < 2; i++) {
+      var reds = ["255,0,0", "255,40,40", "255,255,255"];
+      spawn(
+        Math.random() * canvas.width, -18 - Math.random() * 40,
+        (Math.random() - 0.5) * 1.4, 2.4 + Math.random() * 3.4,
+        4 + Math.random() * 8,
+        (Math.random() - 0.5) * 0.4,
+        0.0035 + Math.random() * 0.004,
+        reds[Math.floor(Math.random() * reds.length)]
+      );
     }
   }
   function drawParts() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (Date.now() < rainUntil) rainTick();
     parts = parts.filter(function (p) { return p.life > 0; });
     parts.forEach(function (p) {
-      p.x += p.vx; p.y += p.vy; p.vy += 0.16; p.rot += p.vr; p.life -= p.decay;
+      p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.rot += p.vr; p.life -= p.decay;
       ctx.save();
       ctx.translate(p.x, p.y);
       ctx.rotate(p.rot);
@@ -364,7 +492,7 @@
       ctx.fill();
       ctx.restore();
     });
-    if (parts.length) {
+    if (parts.length || Date.now() < rainUntil) {
       requestAnimationFrame(drawParts);
     } else {
       drawing = false;
@@ -373,4 +501,21 @@
   document.addEventListener("pointerdown", function (e) {
     burst(e.clientX, e.clientY);
   });
+  var nameEl = document.querySelector(".hero-name");
+  var nameClicks = 0;
+  var lastNameClick = 0;
+  if (nameEl) {
+    nameEl.addEventListener("click", function () {
+      var now = Date.now();
+      nameClicks = (now - lastNameClick < 550) ? nameClicks + 1 : 1;
+      lastNameClick = now;
+      if (nameClicks >= 3) {
+        nameClicks = 0;
+        rainUntil = now + 3000;
+        nameEl.style.textShadow = "0 0 40px rgba(255,0,0,0.95), 0 0 120px rgba(255,0,0,0.6)";
+        setTimeout(function () { nameEl.style.textShadow = ""; }, 3100);
+        if (!drawing) { drawing = true; requestAnimationFrame(drawParts); }
+      }
+    });
+  }
 })();

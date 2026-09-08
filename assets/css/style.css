@@ -431,6 +431,127 @@ main, .footer { position: relative; z-index: 1; }
   .alive-panel { text-align: left; }
 }
 
+/* ═══════════ LOADER ═══════════ */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.55s ease, visibility 0.55s;
+}
+.loader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+.loader-stage { display: flex; flex-direction: column; align-items: center; gap: 30px; }
+.loader-diamond { width: clamp(120px, 22vw, 170px); height: auto; }
+.ld-base {
+  fill: none;
+  stroke: rgba(255, 0, 0, 0.18);
+  stroke-width: 1.5;
+}
+.ld-flow {
+  fill: none;
+  stroke: #ff0000;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(255, 0, 0, 0.9));
+  stroke-dasharray: 46 486;
+  animation: dashFlow 1.5s linear infinite;
+}
+@keyframes dashFlow { to { stroke-dashoffset: -532; } }
+.loader-name { display: flex; gap: 0.02em; font-family: var(--font-head); font-weight: 700; font-size: clamp(1.6rem, 5vw, 2.4rem); letter-spacing: 0.14em; color: var(--white); }
+.loader-name span {
+  opacity: 0;
+  animation: loaderChar 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) forwards;
+}
+.loader-name span:nth-child(1) { animation-delay: 0.55s; }
+.loader-name span:nth-child(2) { animation-delay: 0.64s; }
+.loader-name span:nth-child(3) { animation-delay: 0.73s; }
+.loader-name span:nth-child(4) { animation-delay: 0.82s; }
+.loader-name span:nth-child(5) { animation-delay: 0.91s; }
+.loader-name span:nth-child(6) { animation-delay: 1.00s; }
+.loader-name span:nth-child(7) { animation-delay: 1.09s; }
+.loader-name span:nth-child(8) { animation-delay: 1.18s; }
+.loader-name span:nth-child(9) { animation-delay: 1.27s; }
+@keyframes loaderChar {
+  from { opacity: 0; transform: translateY(14px); filter: blur(4px); }
+  to   { opacity: 1; transform: translateY(0);  filter: blur(0); }
+}
+body.is-loading .fade-up { animation-play-state: paused; }
+body.is-loading { overflow: hidden; }
+
+/* ── 2AM easter egg ── */
+.two-am {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--red);
+  text-transform: none;
+}
+
+/* ═══════════ HIDDEN TERMINAL ═══════════ */
+.term {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 150;
+  max-width: 760px;
+  margin: 0 auto 22px;
+  border: 1px solid rgba(255, 0, 0, 0.4);
+  border-radius: 14px;
+  background: rgba(4, 4, 4, 0.96);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 24px 90px -20px rgba(255, 0, 0, 0.25);
+  overflow: hidden;
+  font-family: var(--font-mono);
+}
+.term[hidden] { display: none; }
+.term-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid var(--line);
+}
+.term-dot { width: 10px; height: 10px; border-radius: 50%; background: #333; }
+.term-dot-red { background: var(--red); box-shadow: 0 0 6px rgba(255,0,0,0.8); }
+.term-title { flex: 1; text-align: center; color: #8a8a8a; font-size: 0.68rem; letter-spacing: 0.14em; }
+.term-close { background: none; border: none; color: #8a8a8a; font-size: 1.1rem; cursor: pointer; line-height: 1; }
+.term-close:hover { color: var(--red); }
+.term-body {
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 12px 16px 4px;
+  font-size: 0.8rem;
+  line-height: 1.7;
+}
+.term-body::-webkit-scrollbar { width: 5px; }
+.term-body::-webkit-scrollbar-thumb { background: #333; }
+.t-line { white-space: pre-wrap; word-break: break-all; color: #cfcfcf; }
+.t-line .tk-c { color: var(--red); }
+.t-line .tk-g { color: #7a7a7a; }
+.t-line .tk-w { color: var(--white); }
+.t-line .tk-y { color: #ffd54f; }
+.t-line .t-prompt { color: var(--red); }
+.t-line.t-err { color: #ff6b6b; }
+.term-line { display: flex; align-items: center; gap: 8px; padding: 2px 16px 14px; }
+.term-prompt { color: var(--red); font-size: 0.8rem; white-space: nowrap; }
+.term-input {
+  flex: 1;
+  background: none;
+  border: none;
+  outline: none;
+  color: var(--white);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  caret-color: var(--red);
+}
+@media (max-width: 760px) {
+  .term { margin: 0 12px 12px; }
+}
+
 /* ── fx canvas / progress / to-top ── */
 #fx {
   position: fixed;

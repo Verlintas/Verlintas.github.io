@@ -14,7 +14,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="is-loading">
+
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-stage">
+      <svg class="loader-diamond" viewBox="0 0 240 240">
+        <path class="ld-base" d="M120 26 L214 120 L120 214 L26 120 Z"/>
+        <path class="ld-flow"  d="M120 26 L214 120 L120 214 L26 120 Z"/>
+      </svg>
+      <p class="loader-name" aria-hidden="true"><span>V</span><span>e</span><span>r</span><span>l</span><span>i</span><span>n</span><span>t</span><span>a</span><span>s</span></p>
+    </div>
+  </div>
 
   <div class="grid-overlay" aria-hidden="true"></div>
   <canvas id="fx" aria-hidden="true"></canvas>
@@ -41,6 +51,7 @@
         <p class="hero-hello fade-up delay-1">Hello My name is</p>
         <h1 class="hero-name fade-up delay-2">Verlintas</h1>
         <p class="hero-sub fade-up delay-3">the mainly developer in ULV / USV.</p>
+        <p class="two-am fade-up delay-4" id="twoAm" hidden>it's 2 AM — Verlintas is probably still coding.</p>
         <div class="hero-pills fade-up delay-4">
           <span class="pill"><span class="dot"></span>Beijing · China</span>
           <span class="pill">Full-stack &amp; AI Developer</span>
@@ -257,6 +268,21 @@
   <a class="to-top" href="#top" id="toTop" aria-label="back to top">
     <svg viewBox="0 0 24 24" width="20" height="20"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M18 15l-6-6-6 6"/></svg>
   </a>
+
+  <div class="term" id="term" role="dialog" aria-label="hidden terminal" hidden>
+    <div class="term-bar">
+      <span class="term-dot term-dot-red"></span>
+      <span class="term-dot"></span>
+      <span class="term-dot"></span>
+      <span class="term-title">verlintas@web — hidden terminal</span>
+      <button class="term-close" id="termClose" aria-label="close terminal">×</button>
+    </div>
+    <div class="term-body" id="termBody"></div>
+    <form class="term-line" id="termForm">
+      <span class="term-prompt">verlintas@web:~$</span>
+      <input class="term-input" id="termInput" autocomplete="off" spellcheck="false" aria-label="terminal input">
+    </form>
+  </div>
 
   <footer class="footer">
     <p class="footer-quote">Just for fun.<span class="footer-attrib">— Linus Torvalds</span></p>
