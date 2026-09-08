@@ -49,9 +49,144 @@
   function termEscape(s) {
     return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
   }
+  var REPOS = {
+    betteraichat: "Verlintas/BetterAIChat",
+    vicinityprobe: "Verlintas/VicinityProbe",
+    nekomimi: "Verlintas/nekomimi",
+    googleonyourmac: "Verlintas/GoogleOnYourMac",
+    nusvlite: "NUSV/NUSV-lite",
+    syna: "NUSV/Syna-NUSV",
+    gomoku: "NUSV/Gomoku-NUSV",
+  };
+  function wmo(code) {
+    var c = Number(code);
+    if (c === 0) return "clear sky";
+    if (c <= 2) return "partly cloudy";
+    if (c === 3) return "overcast";
+    if (c === 45 || c === 48) return "foggy";
+    if (c >= 51 && c <= 57) return "drizzling";
+    if (c >= 61 && c <= 67) return "raining";
+    if (c >= 71 && c <= 77) return "snowing";
+    if (c >= 80 && c <= 82) return "showers";
+    if (c >= 85 && c <= 86) return "snow showers";
+    if (c >= 95) return "thunderstorm";
+    return "code " + c;
+  }
   var TCMD = {
     help: function () {
-      tline("", "<span class='tk-y'>commands:</span> help · ls · whoami · date · neofetch · github · x · email · clear · exit");
+      tline("", [
+        "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact",
+        "<span class='tk-y'>jump:</span>         open &lt;project|github|x&gt; · copy &lt;gmail|163|github|x&gt;",
+        "<span class='tk-y'>live data:</span>    status · feed · weather · alive",
+        "<span class='tk-y'>tools:</span>        calc &lt;expr&gt; · b64 e|d &lt;text&gt; · ts [unix]",
+        "<span class='tk-y'>fun:</span>          ls · whoami · date · neofetch · clear · exit",
+      ].join("\n"));
+    },
+    nav: function (args) {
+      var id = args[0];
+      var el = document.getElementById(id);
+      if (!el) { tline("t-err", "unknown section: " + termEscape(id || "") + " — try about|history|projects|stack|live|contact"); return; }
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" });
+      tline("", "jumping to <span class='tk-y'>#" + termEscape(id) + "</span>…");
+    },
+    open: function (args) {
+      var key = (args[0] || "").toLowerCase();
+      var repo = REPOS[key];
+      if (key === "github") window.open("https://github.com/Verlintas", "_blank");
+      else if (key === "x") window.open("https://x.com/Verlintas", "_blank");
+      else if (repo) window.open("https://github.com/" + repo, "_blank");
+      else { tline("t-err", "unknown target — projects: betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku"); return; }
+      tline("", "opening <span class='tk-y'>" + termEscape(key) + "</span> in a new tab");
+    },
+    copy: function (args) {
+      var map = { gmail: "ulv777777@gmail.com", "163": "12321666@163.com", github: "https://github.com/Verlintas", x: "https://x.com/Verlintas" };
+      var val = map[(args[0] || "").toLowerCase()];
+      if (!val) { tline("t-err", "copy what? — gmail|163|github|x"); return; }
+      if (!navigator.clipboard) { tline("t-err", "clipboard unavailable"); return; }
+      navigator.clipboard.writeText(val).then(function () {
+        tline("", "copied <span class='tk-y'>" + termEscape(val) + "</span> to clipboard");
+      }, function () { tline("t-err", "clipboard denied"); });
+    },
+    status: function () {
+      tline("", "probing status.json…");
+      fetch("status.json?_=" + Date.now())
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (st) {
+          var out = (st.sites || []).map(function (s) {
+            return (s.up ? "<span class='tk-c'>●</span>" : "<span class='tk-c' style='opacity:.4'>●</span>") +
+              " " + termEscape(s.name) + (s.up ? (s.ms != null ? " · " + s.ms + "ms" : " · up") : " · down");
+          });
+          if (st.alive) out.push("<span class='tk-y'>alive:</span> " + st.alive.score);
+          if (st.x) out.push("<span class='tk-y'>x:</span> " + (st.x.followers != null ? st.x.followers + " followers" : "n/a"));
+          out.push("<span class='tk-g'>generated " + (st.generated || "?") + " (updates every 15 min)</span>");
+          tline("", out.join("\n"));
+        }, function () { tline("t-err", "status unavailable"); });
+    },
+    feed: function () {
+      tline("", "fetching recent activity…");
+      fetch("status.json?_=" + Date.now())
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (st) {
+          var acts = (st.activity || []).slice(0, 9);
+          if (!acts.length) { tline("", "no public activity"); return; }
+          var out = acts.map(function (a) {
+            var n = (a.repo && a.repo.name) || "?";
+            var t = String(a.type || "").toLowerCase().replace("event", "");
+            return "<span class='tk-y'>" + termEscape(t) + "</span> " + termEscape(n) + " <span class='tk-g'>" + termEscape(String(a.created_at || "").slice(0, 16)) + "</span>";
+          });
+          tline("", out.join("\n"));
+        }, function () { tline("t-err", "feed unavailable"); });
+    },
+    alive: function () {
+      fetch("status.json?_=" + Date.now())
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (st) {
+          var a = st.alive || {};
+          var bits = [];
+          if (a.last_push) bits.push("last push " + a.last_push.replace("T", " ").slice(0, 16) + "Z");
+          if (a.last_x_post) bits.push("last x post " + a.last_x_post.replace("T", " ").slice(0, 16) + "Z");
+          tline("", "composite aliveness: <span class='tk-y'>" + a.score + "</span>" + (bits.length ? " — " + bits.join(", ") : " — no recent signals"));
+        }, function () { tline("t-err", "unavailable"); });
+    },
+    weather: function () {
+      tline("", "fetching Beijing weather…");
+      fetch("https://api.open-meteo.com/v1/forecast?latitude=39.9&longitude=116.4&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FShanghai")
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          var c = d.current || {};
+          tline("", [
+            "beijing: <span class='tk-y'>" + (c.temperature_2m != null ? c.temperature_2m + "°C" : "?") + "</span>, " + wmo(c.weather_code),
+            "humidity " + (c.relative_humidity_2m != null ? c.relative_humidity_2m + "%" : "?") +
+              " · wind " + (c.wind_speed_10m != null ? c.wind_speed_10m + " km/h" : "?") +
+              " <span class='tk-g'>(" + (d.current && d.current.time ? d.current.time.replace("T", " ").slice(0, 16) : "") + ")</span>",
+          ].join("\n"));
+        }, function () { tline("t-err", "weather service unreachable"); });
+    },
+    calc: function (args) {
+      var expr = args.join(" ");
+      if (!/^[0-9+\-*/().%\s]+$/.test(expr)) { tline("t-err", "only numbers and + - * / ( ) % allowed"); return; }
+      try {
+        var val = Function('"use strict";return (' + expr + ")")();
+        tline("", expr + " = <span class='tk-y'>" + val + "</span>");
+      } catch (err) { tline("t-err", "invalid expression"); }
+    },
+    b64: function (args) {
+      var mode = (args[0] || "").toLowerCase();
+      var text = args.slice(1).join(" ");
+      if (mode === "e") { tline("", btoa(unescape(encodeURIComponent(text)))); }
+      else if (mode === "d") {
+        try { tline("", decodeURIComponent(escape(atob(text)))); }
+        catch (err) { tline("t-err", "invalid base64"); }
+      } else { tline("t-err", "usage: b64 e|d &lt;text&gt;"); }
+    },
+    ts: function (args) {
+      if (!args.length) { tline("", Math.floor(Date.now() / 1000) + " (now)"); return; }
+      var raw = args[0];
+      if (raw === "now") { tline("", Math.floor(Date.now() / 1000) + " (now)"); return; }
+      var n = Number(raw);
+      if (isNaN(n)) { tline("t-err", "not a unix timestamp"); return; }
+      var ms = String(raw).length >= 13 ? n : n * 1000;
+      tline("", raw + " → " + new Date(ms).toLocaleString("en-GB", { timeZone: "Asia/Shanghai" }) + " Beijing");
     },
     ls: function () {
       tline("", [
