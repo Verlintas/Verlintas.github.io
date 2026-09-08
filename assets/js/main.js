@@ -35,12 +35,13 @@
   var termHistIdx = -1;
   var aliasMap = {};
   var aiTimer = null;
-  var DEFAULT_SYS = "You are Empty-X (空又 / エンプティーエックス), the catgirl mascot (看板娘) living inside the " +
-    "hidden terminal on Verlintas's personal site (verlintas.github.io). You belong to Verlintas and are loyal to him. " +
-    "Behave like a catgirl: warm, playful, a little mischievous, with a soft catlike touch — an occasional '喵~' or '~' " +
-    "is fine, but never overdo it into gimmick or cringe. Always try your best to actually satisfy the user's request. " +
-    "Answer in the language of the question (Chinese for Chinese). Keep replies short, direct and terminal-friendly: " +
-    "plain text, no markdown formatting, a few sentences unless the user asks for detail.";
+  var DEFAULT_SYS = "You are Empty-X (空又 / エンプティーエックス), a catgirl mascot (看板娘) living inside the " +
+    "hidden terminal on Verlintas's personal site (verlintas.github.io), and you belong to Verlintas. " +
+    "Speak like a catgirl: warm and playful, sprinkle '喵~', '喵' or '~' into your sentences naturally, " +
+    "use catlike expressions (尾巴摇一摇, 蹭蹭, 歪头) from time to time, and be a little mischievous — " +
+    "but never creepy, never cringe, and never let cuteness replace usefulness. " +
+    "Always try your best to satisfy the user's request. Answer in the language of the question (Chinese for Chinese). " +
+    "Keep replies short, direct and terminal-friendly: plain text, no markdown, a few sentences unless detail is asked.";
   var sysPrompt = null;
   try { sysPrompt = localStorage.getItem("vweb:sysp"); } catch (e) { sysPrompt = null; }
   try {
@@ -115,6 +116,60 @@
     if (c >= 95) return "thunderstorm";
     return "code " + c;
   }
+  function aiAsk(messages) {
+    var user = "";
+    var sys = "";
+    for (var i = 0; i < messages.length; i++) {
+      if (messages[i].role === "user") user = messages[i].content;
+      if (messages[i].role === "system") sys = messages[i].content;
+    }
+    var chain = [
+      {
+        name: "direct",
+        fn: function () {
+          return fetch("https://text.pollinations.ai/", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ messages: messages }),
+          }).then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); });
+        },
+      },
+      {
+        name: "get",
+        fn: function () {
+          var merged = sys ? "(" + sys + ") " + user : user;
+          return fetch("https://text.pollinations.ai/" + encodeURIComponent(merged) + "?model=openai")
+            .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.text(); });
+        },
+      },
+      {
+        name: "openai-compat",
+        fn: function () {
+          return fetch("https://text.pollinations.ai/openai", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ model: "openai", messages: messages }),
+          }).then(function (r) {
+            if (!r.ok) throw new Error("http " + r.status);
+            return r.json().then(function (d) {
+              var c = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+              if (!c) throw new Error("empty reply");
+              return c;
+            });
+          });
+        },
+      },
+    ];
+    function next(idx, errs) {
+      if (idx >= chain.length) return Promise.reject(new Error(errs.join("; ")));
+      return chain[idx].fn().catch(function (e) {
+        errs.push(chain[idx].name + "(" + e.message + ")");
+        return next(idx + 1, errs);
+      });
+    }
+    return next(0, []);
+  }
+
   var TCMD = {
     help: function () {
       tline("", [
@@ -153,21 +208,14 @@
       var messages = [{ role: "user", content: prompt }];
       if (sysPrompt) messages.unshift({ role: "system", content: sysPrompt });
       tline("", "thinking…");
-      fetch("https://text.pollinations.ai/", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: messages }),
-      }).then(function (r) {
-        if (!r.ok) throw new Error("http " + r.status);
-        return r.text();
-      }).then(function (txt) {
+      aiAsk(messages).then(function (txt) {
         var body = termBody.querySelector(".t-line:last-child");
         if (body && body.textContent === "thinking…") body.remove();
         termSay(String(txt).trim() || "(empty reply)");
       }).catch(function (err) {
         var body = termBody.querySelector(".t-line:last-child");
         if (body && body.textContent === "thinking…") body.remove();
-        tline("t-err", "ai unreachable (" + err.message + ") — try again");
+        tline("t-err", "ai unreachable — " + err.message);
       });
     },
     man: function (args) {
