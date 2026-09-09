@@ -137,6 +137,44 @@
       else localStorage.removeItem("vweb:aikey");
     } catch (e) {}
   }
+  function aiEnd() {
+    try { return JSON.parse(localStorage.getItem("vweb:aiend") || "null"); } catch (e) { return null; }
+  }
+  function setAiEnd(url, token) {
+    try {
+      if (url) localStorage.setItem("vweb:aiend", JSON.stringify({ url: url, token: token || "" }));
+      else localStorage.removeItem("vweb:aiend");
+    } catch (e) {}
+  }
+  function askCustom(messages) {
+    var cfg = aiEnd();
+    var headers = { "Content-Type": "application/json" };
+    if (cfg.token) headers.Authorization = "Bearer " + cfg.token;
+    function call(model) {
+      return fetch(cfg.url + "/chat/completions", {
+        method: "POST",
+        headers: headers,
+        body: JSON.stringify({ model: model, messages: messages }),
+      }).then(function (r) {
+        if (!r.ok) throw new Error("http " + r.status);
+        return r.json();
+      }).then(function (d) {
+        var c = d && d.choices && d.choices[0] && d.choices[0].message && d.choices[0].message.content;
+        if (!c) throw new Error("empty reply");
+        return c;
+      });
+    }
+    return fetch(cfg.url + "/models", { headers: headers })
+      .then(function (r) {
+        if (!r.ok) throw new Error("models http " + r.status);
+        return r.json();
+      })
+      .then(function (d) {
+        var id = d && d.data && d.data[0] && d.data[0].id;
+        if (!id) throw new Error("no model loaded — load one in LM Studio first");
+        return call(id);
+      }, function () { return call("local-model"); });
+  }
   function geminiAsk(messages) {
     var sys = "";
     var contents = [];
@@ -181,6 +219,11 @@
     var combined = (sys ? "(" + sys + ")\n\n" : "") +
       (histLines.length ? "Context:\n" + histLines.join("\n") + "\n\n" : "") + user;
     var chain = [
+      {
+        name: "local",
+        skip: !aiEnd(),
+        fn: function () { return askCustom(messages); },
+      },
       {
         name: "gemini",
         skip: !aiKey(),
@@ -247,8 +290,36 @@
       ].join("\n"));
     },
     ai: function (args) {
+      if (args[0] === "lmstudio") {
+        var tok = args.slice(1).join("").trim() || "";
+        setAiEnd("http://localhost:1234/api/openai/v0", tok);
+        tline("", tok
+          ? "LM Studio endpoint set (Core /api/openai/v0, token stored locally)"
+          : "LM Studio endpoint set (no token). If the server demands auth: <span class='tk-y'>ai lmstudio &lt;TOKEN&gt;</span>");
+        return;
+      }
+      if (args[0] === "endpoint") {
+        var e = aiEnd();
+        var sub = (args[1] || "").toLowerCase();
+        if (sub === "token") {
+          if (!e) { tline("t-err", "set an endpoint first: ai endpoint <url>"); return; }
+          setAiEnd(e.url, args.slice(2).join("").trim());
+          tline("", "token updated for " + e.url);
+          return;
+        }
+        if (sub === "clear") { setAiEnd(null, null); tline("", "local endpoint cleared"); return; }
+        if (sub && sub.indexOf("http") === 0) {
+          setAiEnd(sub, (e && e.token) || "");
+          tline("", "endpoint set: " + sub);
+          return;
+        }
+        tline("", e
+          ? "local endpoint: <span class='tk-y'>" + e.url + "</span>" + (e.token ? " (token set)" : " (no token)")
+          : "no local endpoint — 'ai lmstudio <TOKEN>' or 'ai endpoint <openai-compatible-url>'");
+        return;
+      }
       var prompt = args.join(" ").trim();
-      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — also: ai system &lt;text|show|reset&gt; · ai key &lt;KEY|show|clear&gt;"); return; }
+      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — also: ai system · ai key · ai lmstudio · ai endpoint"); return; }
       if (args[0] === "system") {
         var rest = args.slice(1).join(" ").trim();
         if (rest.toLowerCase() === "show") {
@@ -309,10 +380,10 @@
       var c = (args[0] || "").toLowerCase();
       if (c === "help") { tline("", "help — list commands. try: help"); return; }
       var docs = {
-        ai: "ai &lt;question&gt; — ask Empty-X. 'ai system &lt;text|show|reset&gt;' tweaks persona (persists). " +
-           "'ai key &lt;GOOGLE_AI_KEY&gt;' enables the gemini-2.0-flash channel (stored only in this browser, best persona adherence); " +
-           "'ai key show|clear'. Without a key it falls back through free pollinations channels (may be flaky). " +
-           "replies type out; close or clear to interrupt",
+        ai: "ai &lt;question&gt; — ask Empty-X. Channels, in order: local endpoint (LM Studio etc) → gemini key → free pollinations. " +
+           "'ai lmstudio [TOKEN]' points at http://localhost:1234/api/openai/v0 (get the token in LM Studio: Settings → Developer/Core → API access). " +
+           "'ai endpoint <url>' for any OpenAI-compatible server · 'ai endpoint token <t>' · 'ai endpoint clear'. " +
+           "'ai system <text|show|reset>' tweaks persona (persists). replies type out; close or clear to interrupt",
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
         open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
