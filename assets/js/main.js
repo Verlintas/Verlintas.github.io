@@ -852,7 +852,59 @@
       if (!target) return;
       e.preventDefault();
       window.scrollTo({ top: target.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" });
+      try { history.replaceState(null, "", a.getAttribute("href")); } catch (err) {}
     });
+  });
+
+  /* git clone — click to copy */
+  var cloneEls = document.querySelectorAll(".clone-line");
+  cloneEls.forEach(function (el) {
+    el.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      var url = "https://github.com/" + el.dataset.repo + ".git";
+      function done() {
+        el.classList.add("copied");
+        el.textContent = "copied — git clone " + url;
+        setTimeout(function () {
+          el.classList.remove("copied");
+          el.textContent = "$ git clone https://github.com/" + el.dataset.repo + ".git";
+        }, 1600);
+      }
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText("git clone " + url).then(done, function () {});
+      }
+    });
+  });
+
+  /* j/k section navigation (vim style) */
+  var NAV_IDS = ["about", "history", "projects", "stack", "live", "contact"];
+  function currentSectionIdx() {
+    var y = window.scrollY + window.innerHeight / 2;
+    var best = 0, bestGap = Infinity;
+    NAV_IDS.forEach(function (id, i) {
+      var el = document.getElementById(id);
+      if (!el) return;
+      var gap = Math.abs(el.getBoundingClientRect().top + window.scrollY - 64 - y);
+      if (gap < bestGap) { bestGap = gap; best = i; }
+    });
+    return best;
+  }
+  function gotoIdx(i) {
+    if (i < 0 || i >= NAV_IDS.length) return;
+    var el = document.getElementById(NAV_IDS[i]);
+    if (!el) return;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" });
+    try { history.replaceState(null, "", "#" + NAV_IDS[i]); } catch (err) {}
+  }
+  document.addEventListener("keydown", function (e) {
+    var tag = document.activeElement && document.activeElement.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA") return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key !== "j" && e.key !== "J" && e.key !== "k" && e.key !== "K") return;
+    var idx = currentSectionIdx();
+    if (e.key === "j" || e.key === "J") gotoIdx(idx + 1);
+    else gotoIdx(idx - 1);
   });
 
   /* nav dims on scroll + progress bar + to-top */

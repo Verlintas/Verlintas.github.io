@@ -343,6 +343,23 @@ main, .footer { position: relative; z-index: 1; }
 .proj-star { font-family: var(--font-mono); font-size: 0.72rem; color: var(--red); white-space: nowrap; }
 .proj-desc { color: var(--gray); font-size: 0.92rem; flex: 1; }
 .proj-meta { display: flex; gap: 8px; flex-wrap: wrap; }
+.clone-line {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.02em;
+  color: #6a6a6a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px dashed var(--line);
+  padding-top: 10px;
+  cursor: copy;
+  user-select: all;
+  transition: color 0.2s;
+}
+.proj-card:hover .clone-line { color: #b9b9b9; }
+.clone-line.copied { color: #ff6b6b; text-shadow: 0 0 10px rgba(255, 0, 0, 0.35); }
 .chip {
   font-family: var(--font-mono);
   font-size: 0.68rem;
