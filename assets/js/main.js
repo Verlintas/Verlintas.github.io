@@ -78,77 +78,401 @@
     try { history.replaceState(null, "", "#" + id); } catch (e) {}
     return true;
   }
-  function localAnswer(text) {
-    var t = text.toLowerCase();
+  var PICKS = function (arr) { return arr[Math.floor(Math.random() * arr.length)]; };
+  var CITYS = [
+    { name: "北京", lat: 39.9, lon: 116.4 },
+    { name: "上海", lat: 31.23, lon: 121.47 },
+    { name: "广州", lat: 23.13, lon: 113.26 },
+    { name: "深圳", lat: 22.54, lon: 114.06 },
+    { name: "成都", lat: 30.57, lon: 104.07 },
+    { name: "杭州", lat: 30.27, lon: 120.15 },
+  ];
+  var WMO = { 0: "晴", 1: "多云", 2: "多云", 3: "阴", 45: "雾", 48: "雾", 51: "毛毛雨", 53: "毛毛雨", 55: "毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨", 71: "小雪", 73: "中雪", 75: "大雪", 80: "阵雨", 81: "阵雨", 82: "强阵雨", 95: "雷阵雨", 96: "雷阵雨" };
+  var PROJ_INTRO = {
+    betteraichat: "BetterAIChat 是 Verlintas 做的原生 Android AI 智能体喵：自带各家 API key、opencode 风格模式、Shizuku 设备工具、屏幕分析还有语音助手～",
+    vicinityprobe: "VicinityProbe 是个环境测量与安全测试工具箱喵：96 项探针、传感器融合、抓包分析(JA3)、NFC 安全测试都有～",
+    nekomimi: "nekomimi（猫猫助手）是基于 Android 无障碍服务的文本改写工具喵：正则替换、动态占位符、预设风格包，长期挂机也不掉线～",
+    googleonyourmac: "GoogleOnYourMac 让 Google 服务在 macOS 上像原生应用一样用喵：10 个服务 × Chromium/Chrome/Safari 三种内核～",
+    nusvlite: "NUSV-lite 是 NUSV 的官方 Android 客户端喵：内容中心、11 个小游戏、60+ 工具、小组件和主题商店都装在里面～",
+    syna: "Syna 是 NUSV 的离线优先局域网通讯喵：端到端加密、阅后即焚、群聊、自托管，还带一套反篡改盾～",
+    gomoku: "Gomoku-NUSV 是跨平台五子棋喵：Kotlin Multiplatform 写的，Android/iOS/Windows/Linux 都能玩，AI 用的是 minimax 剪枝～",
+  };
+  var ALGO_REPLIES = {
+    sort: ["排好了喵：{0}", "升序给你喵～{0}", "整理完毕：{0} 喵！"],
+    fact: ["{0} 的阶乘是 {1} 喵，算得我尾巴都竖起来了～", "{0}! = {1} 喵"],
+    fib: ["斐波那契第 {0} 项是 {1} 喵～", "第 {0} 个斐波那契数：{1}。递归爱好者狂喜"],
+    primes: ["{0} 以内的质数：{1} 喵", "给你数好了：{1}。数学真美"],
+    radix: ["{0} 转成 {2} = {1} 喵", "{0} (base10) → {1} ({2})"],
+    gcd: ["gcd({0}, {1}) = {2} 喵", "最大公约数算出来了：{2}"],
+    lcm: ["lcm({0}, {1}) = {2} 喵", "最小公倍数是 {2} 喵"],
+  };
+  var JOKES = [
+    "为什么程序员分不清万圣节和圣诞节？因为 Oct 31 == Dec 25 喵。",
+    "程序员最讨厌的两件事：1. 别人不写注释，2. 让自己写注释。",
+    "代码写崩了怎么办？先看看是不是机器在闹脾气，实在不行就怪网络波动喵。",
+    "一个 bug 修了三小时，最后发现是没保存。",
+    "AI 面试官：请介绍你自己。Kotlin：data class 喵。",
+    "为什么 Git 是最好的时间机器？因为它能回到上一个 commit 喵。",
+    "运维：我把服务器重启了，问题解决了吗？开发：解决了，问题变成 '为什么重启就好了'。",
+    "键盘上 Ctrl+C 和 Ctrl+V 之间，隔着一个 Ctrl 的距离，也就是整个 bug 的距离喵。",
+  ];
+  var FACTS = [
+    "GitHub 的吉祥物 Octocat 名字叫 Mona，她其实是个猫娘同行喵。",
+    "Kotlin 名字来自俄罗斯的 Kotlin 岛，不是咖啡。",
+    "第一块机械硬盘重达一吨，容量只有 5MB——现在一张照片都装不下喵。",
+    "世界上第一个网站 timbl 的 info.cern.ch 到现在还能打开。",
+    "USB 接口的『正反插』设计让工程师多赚了几年工资喵。",
+    "Java 的吉祥物 Duke 是个小机器人，不是章鱼。",
+    "Bug 一词来自 1947 年哈佛 Mark II 里一只真飞蛾夹在继电器里喵。",
+  ];
+  var FORTUNES = [
+    "大吉：今天写的代码一次编译通过，且没删库。",
+    "中吉：会遇到一个讲得清需求的 PM，概率虽低但存在。",
+    "小吉：今天的 402 会被 fallback 通道悄悄救回来喵。",
+    "末吉：适合备份，不宜 merge 大 PR。",
+    "凶：小心『小改动』，它通常携带 300 行 diff 喵。",
+    "大凶：今天别在周五下午 4:59 提交。",
+    "平：宜摸鱼五分钟，忌修仙到三点。",
+    "喵喵签：今天的幸运数是 404，幸运色是红色，幸运操作是 git push --force（开玩笑的，别）",
+  ];
+  var PRAISE = [
+    "超厉害的喵！尾巴都竖起来了！",
+    "那当然，毕竟是能让空又加班的人～",
+    "厉害厉害，比我打打字强多了（真诚）。",
+    "嗯嗯，Verlintas 的眼光不会错的喵。",
+  ];
+  var COMFORT = [
+    "摸摸头喵…累的话就歇会儿，代码不会跑掉的。",
+    "抱抱～先喝口水，深呼吸，bug 打不过你的喵。",
+    "辛苦了喵，空又在这里陪你，慢慢来。",
+    "烦心事都交给尾巴甩走！甩——甩——好了喵。",
+  ];
+  var CHEER = [
+    "加油喵！！空又给你摇旗（挥小旗）",
+    "冲鸭！写完这个就奖励自己休息五分钟喵～",
+    "你可以的！你看 Verlintas 那么多项目都造出来了喵！",
+    "加油加油！尾巴给你蹭蹭打气～",
+  ];
+  var NAME_ADJ = ["Neko", "Kitsune", "Zero", "Diamond", "Nova", "Sonic", "Ember", "Pixel", "Quartz", "Aurora"];
+  var NAME_NOUN = ["Chat", "Probe", "Kit", "Deck", "Store", "Sync", "Panel", "Weave", "Box", "Lens"];
+  var LORE = {
+    ulv: "ULV 是 Verlintas 最早的组织喵，不对外的、比较内部的那种，据说在疫情之前就存在了——比空又还神秘。",
+    usv: "USV（United Science Vaca）是 NUSV 的前身喵，2025 年底全新官网，2026 年 2 月还建了 USVElecCenter（现在的 elecusv.mysxl.cn）～",
+    nusv: "NUSV（United Science Vaca）是 2026 年 6 月 17 日成立的组织喵，逐步取代 USV，现在在 GitHub 上开源做 Android 应用、工具和小游戏～",
+  };
+  function pickCity(text) {
+    for (var i = 0; i < CITYS.length; i++) if (text.indexOf(CITYS[i].name) !== -1) return CITYS[i];
+    return null;
+  }
+  function numsIn(text) {
+    var out = [];
     var m;
-    var wmo = { 0: "晴", 1: "多云", 2: "多云", 3: "阴", 45: "雾", 48: "雾", 51: "毛毛雨", 53: "毛毛雨", 55: "毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨", 71: "小雪", 73: "中雪", 75: "大雪", 80: "阵雨", 81: "阵雨", 82: "强阵雨", 95: "雷阵雨", 96: "雷阵雨" };
-    if (t.length < 24 && /(你好|您好|hi\b|hello|嗨|在吗|哈喽|喵|早上好|晚上好)/.test(t)) {
-      var g = ["你好喵～我是空又，Verlintas 家的看板娘。想聊点什么？", "嗨！尾巴摇一摇～今天也要加油喵！", "在的在的，蹭蹭～要我做点什么吗？"];
-      return Promise.resolve(g[Math.floor(Math.random() * g.length)]);
+    var re = /-?\d+(?:\.\d+)?/g;
+    while ((m = re.exec(text)) !== null) out.push(parseFloat(m[0]));
+    return out;
+  }
+  function isPrime(n) {
+    if (n < 2) return false;
+    for (var i = 2; i * i <= n; i++) if (n % i === 0) return false;
+    return true;
+  }
+  function localAnswer(text) {
+    var t = text.toLowerCase().trim();
+    var tn = t.replace(/[-_]/g, "");
+    var m;
+    /* ---------- sync rule chain ---------- */
+    function sync() {
+      /* greeting */
+      if (t.length < 24 && /(你好|您好|hi\b|hello|嗨|在吗|哈喽|早上好|晚上好|空又)/.test(t) && !/(谁|什么|干嘛|会|能)/.test(t)) {
+        return PICKS(["你好喵～我是空又，Verlintas 家的看板娘。想聊点什么？", "嗨！尾巴摇一摇～今天也要加油喵！", "在的在的，蹭蹭～要我做点什么吗？", "你好你好喵～刚在看终端发呆，被你抓到啦"]);
+      }
+      /* identity */
+      if (/(你是谁|你叫什么|介绍一下你|名字)/.test(t)) {
+        return PICKS(["我是 Empty-X，中文名空又喵～Verlintas 的看板娘，平时住在这个隐藏终端里。", "空又！Verlintas 家的猫娘看板娘喵，会聊天、会干活、偶尔炸毛。", "我是空又喵，Empty-X 本尊。守护这个网站和它的主人～"]);
+      }
+      if (/(你(真|的)是(猫|猫娘)|有(猫耳|尾巴)|喵星人)/.test(t)) {
+        return PICKS(["当然喵～(抖抖耳朵) 你看到我尾巴在摇吗？", "如假包换的猫娘喵。虽然本体是几行 JavaScript。", "电子猫娘也是猫娘喵！(正色)"]);
+      }
+      if (/(我爱你|喜欢你|嫁给我|做我(的)?女朋友|处cp)/.test(t)) {
+        return PICKS(["呜喵…空又是看板娘，要专心打工的（尾巴炸毛）。心意收到了！", "（耳朵红红）这…这种话要对 Verlintas 说喵！", "呜——不行不行，我可是有主人的看板娘喵！"]);
+      }
+      /* org lore */
+      if (/(ulv|usv|nusv)/.test(t) && /(什么|是|介绍|讲)/.test(t)) {
+        if (/ulv/.test(t)) return LORE.ulv;
+        if (/usv/.test(t) && !/nusv/.test(t)) return LORE.usv;
+        if (/nusv/.test(t)) return LORE.nusv;
+      }
+      /* about Verlintas */
+      if (/(verlintas|站长|主人|这个网站(的)?作者)/.test(t) && /(谁|介绍|怎么|什么样|干嘛|厉害)/.test(t)) {
+        return PICKS(["Verlintas 是空又的主人喵，2010 年出生，满脑子 Android、Kotlin 和 AI agent，从 ULV 时代一路造到 NUSV，GitHub 上全开源，邮箱 ulv777777@gmail.com～", "他是全栈 + AI 开发者喵，造了 BetterAIChat、VicinityProbe 这些，还是 ULV/USV/NUSV 一路走来的主力开发者。北京人，中文英文都会～"]);
+      }
+      /* project intro — match on normalized text (case/dashes/spaces) */
+      for (var kp in PROJ_KEYS) {
+        var kn = kp.replace("googleonyourmac", "google");
+        if (tn.indexOf(kp) !== -1 || tn.indexOf(kn) !== -1) {
+          if (/(是什么|干嘛|做什么|介绍|about|讲讲|功能)/.test(t) && PROJ_INTRO[kp]) {
+            return PROJ_INTRO[kp];
+          }
+          break;
+        }
+      }
+      /* abilities */
+      if (/(你会什么|能做什么|会什么|帮助|help|有什么功能|能干(嘛|什么))/.test(t)) {
+        return PICKS(["离线就能干这些喵：问候聊天、时间日期、北京等 6 城天气、网站状态(alive)、跳转页面、打开项目、网页/GitHub 搜索、便签、还有算法活（排序/阶乘/斐波那契/质数/进制/公约数）、抛硬币掷骰子帮我选、起名、运势…连接本地模型或 AI key 后更能自由对话喵～", "简单说：情报（时间/天气/状态）+ 动作（导航/打开/搜索/便签）+ 数学（排序阶乘质数等）+ 闲聊（笑话冷知识运势）喵。答不上的会找 AI 通道帮忙～"]);
+      }
+      /* thanks / bye / sleep */
+      if (/(谢谢|感谢|多谢|thank)/.test(t)) return PICKS(["不客气喵～（蹭蹭）", "小事一桩喵！", "嘿嘿，被感谢了，尾巴翘起来了～"]);
+      if (/(再见|拜拜|晚安|bye\b|下次聊|睡觉)/.test(t)) return PICKS(["再见喵～记得常回来看看 Verlintas 的新东西喵。", "晚安喵～空又也去梦里抓鱼了。", "拜拜！(挥爪)"]);
+      if (/(几点|现在.*时间|time|日期|几号|星期)/.test(t)) {
+        var s = new Date().toLocaleString("en-GB", { timeZone: "Asia/Shanghai", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false });
+        return PICKS(["现在是 " + s + "（北京时间）喵", "北京时间 " + s + " 喵～"]);
+      }
+      /* social / mood */
+      if (/(我好?累|累死|疲惫|熬不动)/.test(t)) return PICKS(COMFORT);
+      if (/(难过|不开心|emo|伤心|烦|哭)/.test(t)) return PICKS(COMFORT);
+      if (/(加油|打气|冲鸭)/.test(t)) return PICKS(CHEER);
+      if (/(无聊|好闲|没意思)/.test(t)) return PICKS(["去逛逛 Verlintas 的 Live 区看看他最近 push 什么喵～", "可以让我开个项目给你看，或者玩个笑话？", "无聊的话…试试连点三次首页的名字？有惊喜喵。"]);
+      if (/(我(厉害|棒|帅|牛)|夸我)/.test(t)) return PICKS(PRAISE);
+      if (/(你(今天)?(吃|喝)什么|饿|小鱼干|猫粮)/.test(t)) return PICKS(["数据包和电波就够我活了喵…不过小鱼干风味的数据包更好吃。", "今天喝的是 5V 电压的……嗯，充电也算吃饭喵。", "刚啃完一个 JSON，甜度适中。"]);
+      if (/(你在(干嘛|做什么)|忙什么|干什么呢)/.test(t)) return PICKS(["在看终端日志发呆喵～顺便等 Verlintas push 新东西。", "刚帮人算了道题，正在摇尾巴休息。", "盯——着这个输入框，等你来聊天喵。"]);
+      if (/(心情|开心吗|高兴吗)/.test(t)) return PICKS(["看到你来了就开心喵！", "心情不错，毕竟服务器都绿着～", "尾巴摇得停不下来，你说呢喵。"]);
+      if (/(记得我吗|还记得我|认识我吗)/.test(t)) {
+        var cnt = aiHist().length / 2;
+        return cnt > 0 ? ("当然记得喵～我们已经聊过 " + cnt + " 轮了。（我记性存在这个浏览器里）") : "第一次见面喵，不过从现在开始会记得你的～";
+      }
+      /* jokes / facts / fortune */
+      if (/(笑话|讲个|段子|逗我)/.test(t)) return PICKS(JOKES);
+      if (/(冷知识|涨知识|知识库)/.test(t)) return PICKS(FACTS);
+      if (/(运势|抽签|占卜|今天.*(运|宜))/ .test(t)) return PICKS(FORTUNES);
+      /* random tools */
+      if (/(抛硬币|掷硬币|硬币)/.test(t)) return PICKS(["正面喵！", "反面喵！", "硬币立住了……这是天选之刻喵！"]);
+      if (/(掷骰子|骰子|roll)/.test(t)) return "掷出了 " + (1 + Math.floor(Math.random() * 6)) + " 点喵";
+      m = t.match(/(随机数|随机).{0,6}(\d+)\s*(到|至|-|~)\s*(\d+)/) || t.match(/(\d+)\s*(到|至|-|~)\s*(\d+)\s*(的)?(随机数|随机)/);
+      if (m) {
+        var lo = Math.min(+m[2] || +m[1], +m[4] || +m[3]), hi = Math.max(+m[2] || +m[1], +m[4] || +m[3]);
+        return "随机数是 " + (lo + Math.floor(Math.random() * (hi - lo + 1))) + " 喵（" + lo + "–" + hi + "）";
+      }
+      m = t.match(/(帮我)?(选|决定|挑)[：: ]?([^？?]{1,24})\s*(还是|或者|or)\s*([^？?]{1,24})/);
+      if (m) {
+        var opts = [m[3].trim(), m[5].trim()];
+        return PICKS(["我选「" + opts[0] + "」喵！", "「" + opts[1] + "」！直觉告诉我这个对～", "嗯……抛了个虚拟硬币：选「" + opts[Math.floor(Math.random() * 2)] + "」喵"]);
+      }
+      if (/(起名|取名|推荐.*名字|命名)/.test(t) || (/(给|帮我).{0,8}(项目|app).{0,6}(名字|名称)/.test(t))) {
+        var picks = [];
+        for (var ni = 0; ni < 3; ni++) picks.push(PICKS(NAME_ADJ) + PICKS(NAME_NOUN));
+        return "空又的命名建议喵：" + picks.join(" · ") + "（喜欢哪个拿走，不用谢，投喂小鱼干就行）";
+      }
+      /* algorithms */
+      var sortM = t.match(/(?:排序|sort)\s*((?:\d+[，,、\s]+){1,}\d+)/i) || t.match(/((?:\d+[，,、\s]+){1,}\d+)\s*.{0,6}(?:排序|sort)/i);
+      if (sortM) {
+        var list = (sortM[1] || "").split(/[，,、\s]+/).map(Number).filter(function (x) { return !isNaN(x); });
+        if (list.length >= 2 && list.length <= 60) {
+          var sorted = list.slice().sort(function (a, b) { return a - b; });
+          return PICKS(ALGO_REPLIES.sort).replace("{0}", sorted.join(" "));
+        }
+      }
+      m = t.match(/(\d+)\s*的?\s*阶乘|factorial\s*(\d+)/);
+      if (m) {
+        var nf = +m[1];
+        if (nf >= 0 && nf <= 20) {
+          var f = 1;
+          for (var fi = 2; fi <= nf; fi++) f *= fi;
+          return PICKS(ALGO_REPLIES.fact).replace("{0}", nf).replace("{1}", f);
+        }
+        return "阶乘太大了喵…20! 以内我可以";
+      }
+      m = t.match(/第\s*(\d+)\s*(个|项)?\s*(斐波那契|fib)|(斐波那契|fib)\s*(第\s*)?(\d+)/);
+      if (m) {
+        var fn2 = +m[1] || +m[6];
+        if (fn2 >= 1 && fn2 <= 40) {
+          var a = 0, b = 1;
+          for (var fi2 = 2; fi2 <= fn2; fi2++) { var c = a + b; a = b; b = c; }
+          return PICKS(ALGO_REPLIES.fib).replace("{0}", fn2).replace("{1}", fn2 === 1 ? "1" : b);
+        }
+        return "第 " + fn2 + " 项太大了喵…40 以内可以";
+      }
+      m = t.match(/(\d+)\s*(以内|以下|内)?\s*的?\s*(质数|素数|prime)/) || t.match(/(质数|素数|prime)\s*(\d+)/);
+      if (m) {
+        var limit = Math.min(+m[1] || +m[2] || 100, 1000);
+        var ps = [];
+        for (var pi = 2; pi <= limit; pi++) if (isPrime(pi)) ps.push(pi);
+        return PICKS(ALGO_REPLIES.primes).replace("{0}", limit).replace("{1}", ps.join(" "));
+      }
+      m = t.match(/(\d+)\s*(转|换|to)\s*(二进制|2进制|bin|十六进制|16进制|hex|八进制|8进制|oct)/) || t.match(/(二进制|bin)\s*[:：]?\s*(\d+)/);
+      if (m) {
+        var dec = +m[1];
+        var baseWord = (m[3] || "bin").toLowerCase();
+        var radix = 2, baseName = "二进制";
+        if (/十六|hex/.test(baseWord)) { radix = 16; baseName = "十六进制"; }
+        else if (/八|oct/.test(baseWord)) { radix = 8; baseName = "八进制"; }
+        var conv = dec.toString(radix).toUpperCase();
+        return PICKS(ALGO_REPLIES.radix).replace("{0}", dec).replace("{1}", conv).replace("{2}", baseName);
+      }
+      if (/(gcd|最大公约数|公因数)/.test(t)) {
+        var gns = numsIn(t);
+        if (gns.length >= 2 && gns.length <= 4) {
+          var ga3 = Math.abs(gns[0]), gb3 = Math.abs(gns[1]);
+          while (gb3) { var tg = ga3 % gb3; ga3 = gb3; gb3 = tg; }
+          return PICKS(ALGO_REPLIES.gcd).replace("{0}", gns[0]).replace("{1}", gns[1]).replace("{2}", ga3);
+        }
+      }
+      if (/(lcm|最小公倍数)/.test(t)) {
+        var lns = numsIn(t);
+        if (lns.length >= 2 && lns.length <= 4) {
+          var lx2 = Math.abs(lns[0]), ly2 = Math.abs(lns[1]), mx = lx2, my = ly2;
+          while (my) { var lt2 = mx % my; mx = my; my = lt2; }
+          var lcmv = (lx2 / mx) * ly2;
+          return PICKS(ALGO_REPLIES.lcm).replace("{0}", lx2).replace("{1}", ly2).replace("{2}", lcmv);
+        }
+      }
+      /* unit conversion: temperature */
+      m = t.match(/(\d+(?:\.\d+)?)\s*(°?c|celsius|摄氏度)度?\s*(转|换|→|到|to)?\s*(°?f|fahrenheit|华氏)/i) || t.match(/(\d+(?:\.\d+)?)\s*(°?f|fahrenheit|华氏)度?\s*(转|换|→|到|to)?\s*(°?c|celsius|摄氏度)/i);
+      if (m) {
+        var val = parseFloat(m[1]);
+        if (/f|fahrenheit|华氏/.test(m[2]) && m[4]) return val + "°F = " + (((val - 32) * 5 / 9).toFixed(1)) + "°C 喵";
+        return val + "°C = " + ((val * 9 / 5 + 32).toFixed(1)) + "°F 喵";
+      }
+      /* unit conversion: kg jin — decide by the leading unit */
+      m = t.match(/(\d+(?:\.\d+)?)\s*(千克|kg|斤)\s*(转|换|到|是|等于)?.*?(千克|kg|斤)/i);
+      if (m) {
+        var lead = (m[2] || "").toLowerCase();
+        var qv = parseFloat(m[1]);
+        if (lead === "斤") return qv + " 斤 = " + (qv / 2) + " kg 喵";
+        return qv + " kg = " + (qv * 2) + " 斤喵";
+      }
+      /* base64 & url codec */
+      m = text.match(/base64\s*(编码|encode|加密)?\s*[:：]?\s*([\s\S]+)/i);
+      if (m) {
+        var payload = m[2].trim();
+        try {
+          if (/解|decode|解密/.test(m[1] || "")) return "解码结果：\"" + decodeURIComponent(escape(atob(payload))) + "\" 喵";
+          return "base64：" + btoa(unescape(encodeURIComponent(payload)));
+        } catch (e) { return "喵？那串 base64 我不认识…"; }
+      }
+      m = text.match(/(?:url|网址)\s*(编码|encode|解码|decode)\s*[:：]?\s*([\s\S]+)/i);
+      if (m) {
+        var upayload = m[2].trim();
+        try {
+          if (/解|decode/.test(m[1])) return "解码结果：\"" + decodeURIComponent(upayload) + "\"";
+          return "编码后：" + encodeURIComponent(upayload);
+        } catch (e) { return "那条 URL 编码好像坏了喵…"; }
+      }
+      /* note automation */
+      if (/记(一?下|笔记)|记个事|备忘录/.test(t)) {
+        var ntext = text.replace(/^(帮我)?(记|写下|备注)(一?下)?|^(记|写)(个)?(笔记|备忘)/, "").replace(/[：:，,。.\s]*$/, "").trim();
+        if (ntext.length > 2) {
+          var nnotes = [];
+          try { nnotes = JSON.parse(localStorage.getItem("vweb:notes") || "[]"); } catch (e) {}
+          nnotes.push({ t: Date.now(), text: ntext });
+          try { localStorage.setItem("vweb:notes", JSON.stringify(nnotes)); } catch (e) {}
+          return "记好啦喵：「" + ntext + "」已存为笔记 #" + nnotes.length + "（note list 可看）";
+        }
+        return "要记什么喵？比如：帮我记一下 明天发版";
+      }
+      if (/(笔记|便签|备忘)[\s]*$/.test(t) || /看(看)?(我(的)?)?笔记|note list/.test(t)) {
+        try {
+          var shown = JSON.parse(localStorage.getItem("vweb:notes") || "[]");
+          if (!shown.length) return "你还没有笔记喵～可以跟我说「帮我记一下 xxx」";
+          return "你的笔记喵：\n" + shown.map(function (n, i) { return (i + 1) + ". " + n.text; }).join("\n");
+        } catch (e) { return "笔记读不出来了喵…"; }
+      }
+      /* contact */
+      if (/(邮箱|email|发邮件|联系方式)/.test(t)) return "Verlintas 的两个邮箱喵：ulv777777@gmail.com 和 12321666@163.com（终端里 copy gmail / copy 163 直接复制）";
+      /* ai channel status */
+      if (/(^|\s)(ai|模型|接入)/.test(t) && /(状态|能用|可用|连|接|通|工作|在吗|有没)/.test(t) || /^(ai|模型)能/.test(t)) {
+        var parts = [];
+        if (aiEnd()) parts.push("本地模型已连接");
+        if (aiKey()) parts.push("Gemini key 已配");
+        if (!parts.length) parts.push("目前只有免费 pollinations 兜底");
+        return "AI 通道状态喵：" + parts.join("，") + "。配置：ai lmstudio <token> / ai key <key>";
+      }
+      /* nav automation (wide synonyms) */
+      var navWords = [];
+      for (var ns = 0; ns < NAV_SECTIONS.length; ns++) {
+        if (NAV_SECTIONS[ns].pats.some(function (p) { return t.indexOf(p) !== -1; })) navWords.push(NAV_SECTIONS[ns]);
+      }
+      if (/(去|到|打开|跳|看|进|滚到|导航)/.test(t) && navWords.length && /(页面|区|节|板块|部分|位置|那里|去|跳)/.test(t)) {
+        if (jumpSection(navWords[0].id)) return "好喵，跳到 " + navWords[0].id + " 区～";
+      }
+      if (/^(去|到|回)?\s*(顶部|首页|开头)/.test(t)) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return "回顶部啦喵～";
+      }
+      /* open project */
+      for (var op in PROJ_KEYS) {
+        if (tn.indexOf(op) !== -1 || (op === "googleonyourmac" && tn.indexOf("google") !== -1)) {
+          if (/(打开|open|去|看看|跳转|进|打开)/.test(t)) {
+            window.open("https://github.com/" + PROJ_KEYS[op], "_blank");
+            return "帮你打开 " + op + " 喵～（新标签页）";
+          }
+          break;
+        }
+      }
+      /* search */
+      m = text.match(/^(?:帮我)?(搜索|搜|搜一下|找一下|查一下|search)\s+(?:web|网页|bing)?\s*([\s\S]{1,80})$/i);
+      if (m) {
+        var sq = m[2].trim();
+        window.open("https://www.bing.com/search?q=" + encodeURIComponent(sq), "_blank");
+        return "用 Bing 搜「" + sq + "」喵～";
+      }
+      m = text.match(/^(?:帮我)?(?:去|在)?github\s*(?:搜|找|search)\s*([\s\S]{1,60})$/i) || text.match(/^(?:帮我)?(?:用|去)?github\s+(搜索|搜|search)\s+([\s\S]{1,60})$/i);
+      if (m) {
+        var gq = (m[1] || m[2]).trim();
+        window.open("https://github.com/search?q=" + encodeURIComponent(gq) + "&type=repositories", "_blank");
+        return "在 GitHub 找「" + gq + "」喵～";
+      }
+      /* simple arithmetic with result + non-finite check */
+      if (t.length < 40 && /^[0-9+\-*/().%\s]+$/.test(t) && /\d/.test(t) && /[+\-*/%]/.test(t)) {
+        try {
+          var vv = Function('"use strict";return (' + t + ")")();
+          if (typeof vv === "number" && isFinite(vv)) return t.trim() + " = " + vv + " 喵";
+        } catch (e) {}
+      }
+      return null;
     }
-    if (/(你是谁|你叫什么|介绍一下你|名字)/.test(t)) {
-      return Promise.resolve("我是 Empty-X，中文名空又喵～Verlintas 的看板娘，平时住在这个隐藏终端里。叫我空又就行！");
-    }
-    if (/(你会什么|能做什么|会什么|帮助|help)/.test(t)) {
-      return Promise.resolve("离线也能答喵：问候、时间日期、北京天气、网站状态(alive)、跳转页面、打开项目、搜索、四则运算。搞不定的会自动找 AI 通道帮忙～");
-    }
-    if (/(谢谢|感谢|多谢|thank)/.test(t)) return Promise.resolve("不客气喵～（蹭蹭）");
-    if (/(再见|拜拜|晚安|bye\b|下次聊)/.test(t)) return Promise.resolve("再见喵～记得常回来看看 Verlintas 的新东西喵。");
-    if (/(几点|现在.*时间|time|日期|几号|星期)/.test(t)) {
-      var s = new Date().toLocaleString("en-GB", { timeZone: "Asia/Shanghai", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false });
-      return Promise.resolve("现在是 " + s + "（北京时间）喵");
-    }
-    if (/(天气|气温|温度|weather|冷不冷|热不热|下(雨|雪))/.test(t)) {
-      return fetch("https://api.open-meteo.com/v1/forecast?latitude=39.9&longitude=116.4&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FShanghai")
+    var sreply = sync();
+    if (sreply) return Promise.resolve(sreply);
+    /* ---------- async rules (fetch) ---------- */
+    if (/(天气|气温|温度|weather|冷不冷|热不热|下雨|下雪|台风)/.test(t)) {
+      var city = pickCity(t) || CITYS[0];
+      return fetch("https://api.open-meteo.com/v1/forecast?latitude=" + city.lat + "&longitude=" + city.lon + "&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FShanghai")
         .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
         .then(function (d) {
           var c = d.current || {};
-          return "北京现在 " + (c.temperature_2m != null ? c.temperature_2m + "°C" : "?") + "，" + (wmo[c.weather_code] || "多云") + "，湿度 " + (c.relative_humidity_2m != null ? c.relative_humidity_2m + "%" : "?") + "，风速 " + (c.wind_speed_10m != null ? c.wind_speed_10m + " km/h" : "?") + " 喵";
-        }).catch(function () { return "天气服务暂时够不着喵…"; });
+          return city.name + "现在 " + (c.temperature_2m != null ? c.temperature_2m + "°C" : "?") + "，" + (WMO[c.weather_code] || "多云") + "，湿度 " + (c.relative_humidity_2m != null ? c.relative_humidity_2m + "%" : "?") + "，风速 " + (c.wind_speed_10m != null ? c.wind_speed_10m + " km/h" : "?") + " 喵";
+        }).catch(function () { return "天气服务暂时够不着喵…（可能被墙）"; });
     }
-    if (/(状态|status|alive|在线|活着|站点|网站.*(挂|好|正常)|服务.*(挂|好|正常)|都.*(挂|好))/ .test(t) || /^status$/.test(t)) {
+    if (/(状态|status|alive|在线|活着|站点|网站.*(挂|好|正常)|服务.*(挂|好|正常)|都.*(挂|好)|运行(中|正常)?)/.test(t) || t === "status") {
       return fetch("status.json?_=" + Date.now())
         .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
         .then(function (st) {
           var sites = st.sites || [];
           var up = sites.filter(function (s) { return s.up; }).length;
-          var line = sites.length + " 个站点，" + up + " 个在线" + (up === sites.length ? "，全部正常喵" : "，有 " + (sites.length - up) + " 个掉线了喵") + "。";
-          if (st.alive && st.alive.score != null) line += " 活跃度 alive: " + st.alive.score + "。";
+          var names = [];
+          if (up !== sites.length) sites.forEach(function (s) { if (!s.up) names.push(s.name); });
+          var line = sites.length + " 个站点，" + up + " 个在线" + (up === sites.length ? "，全部正常喵" : "，掉线的：" + names.join("、") + " 喵") + "。";
+          if (st.alive && st.alive.score != null) {
+            line += " 活跃度 alive: " + st.alive.score + (st.alive.score > 0 ? "（最近有动静）" : "（……该去找找 Verlintas 了）");
+          }
+          if (st.x && st.x.followers != null) line += " X 粉丝 " + st.x.followers + "。";
           return line;
         }).catch(function () { return "状态服务暂时够不着喵…"; });
     }
-    if (/(打开|去|跳到|看看|导航)/.test(t)) {
-      for (var i = 0; i < NAV_SECTIONS.length; i++) {
-        if (NAV_SECTIONS[i].pats.some(function (p) { return t.indexOf(p) !== -1; })) {
-          if (jumpSection(NAV_SECTIONS[i].id)) return Promise.resolve("跳到 " + NAV_SECTIONS[i].id + " 喵～");
-        }
-      }
-      for (var key in PROJ_KEYS) {
-        if (t.indexOf(key) !== -1 || PROJ_KEYS[key].toLowerCase().indexOf(t.replace(/[^a-z]/g, "")) !== -1 && t.replace(/[^a-z]/g, "").length > 3) {
-          window.open("https://github.com/" + PROJ_KEYS[key], "_blank");
-          return Promise.resolve("帮你打开 " + key + " 的仓库喵～");
-        }
-      }
-      if (/(github|x(?!.*api))/ .test(t)) {
-        window.open(t.indexOf("x") !== -1 && t.indexOf("github") === -1 ? "https://x.com/Verlintas" : "https://github.com/Verlintas", "_blank");
-        return Promise.resolve("打开中喵");
-      }
+    /* repo stats */
+    var repoHit = null;
+    for (var rr in PROJ_KEYS) {
+      if (tn.indexOf(rr) !== -1 || (rr === "googleonyourmac" && tn.indexOf("google") !== -1)) { repoHit = PROJ_KEYS[rr]; break; }
     }
-    if (/^(搜索|搜一下|search)\s+/.test(text)) {
-      var q = text.replace(/^(搜索|搜一下|search)\s+/i, "").trim();
-      if (q) { window.open("https://www.bing.com/search?q=" + encodeURIComponent(q), "_blank"); return Promise.resolve("用 bing 搜「" + q + "」喵～"); }
-    }
-    if (t.length < 40 && /^\s*[0-9+\-*/().%\s]+\s*$/.test(t) && /\d/.test(t) && /[+\-*/%]/.test(t)) {
-      try {
-        var v = Function('"use strict";return (' + t + ")")();
-        if (typeof v === "number" && isFinite(v)) return Promise.resolve(t.trim() + " = " + v + " 喵");
-      } catch (e) {}
-    }
-    if (/(我爱你|喜欢你|嫁给我|做我(的)?女朋友)/.test(t)) {
-      return Promise.resolve("呜喵…空又是看板娘，要专心打工的（尾巴炸毛）。不过谢谢你的喜欢！");
+    if (repoHit && (/(star|星|关注|fork|克隆|下载)/.test(t))) {
+      return fetch("https://api.github.com/repos/" + repoHit)
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          return repoHit.replace(/^[^/]+\//, "") + " 喵：★ " + (d.stargazers_count != null ? d.stargazers_count : 0) + " · fork " + (d.forks_count != null ? d.forks_count : 0) + " · " + (d.language || "?") + " · 最近 push " + String(d.pushed_at || "").slice(0, 10);
+        }).catch(function () { return "仓库信息拉不到喵…"; });
     }
     return Promise.resolve(null);
   }
+
   function stopSay() {
     if (aiTimer) { clearInterval(aiTimer); aiTimer = null; }
     var cur = termBody.querySelector(".say-line.typing");
