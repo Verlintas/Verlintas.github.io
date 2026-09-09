@@ -48,6 +48,18 @@
     termHist = JSON.parse(localStorage.getItem("vweb:hist") || "[]");
     aliasMap = JSON.parse(localStorage.getItem("vweb:alias") || "{}");
   } catch (err) { termHist = []; aliasMap = {}; }
+  function aiHist() {
+    try { return JSON.parse(localStorage.getItem("vweb:aihist") || "[]"); } catch (e) { return []; }
+  }
+  function aiHistSave(h) {
+    try { localStorage.setItem("vweb:aihist", JSON.stringify(h.slice(-10))); } catch (e) {}
+  }
+  function aiHistPush(q, a) {
+    var h = aiHist();
+    h.push({ role: "user", content: q }, { role: "assistant", content: String(a || "").slice(0, 500) });
+    aiHistSave(h);
+  }
+  function aiHistClear() { aiHistSave([]); }
   function stopSay() {
     if (aiTimer) { clearInterval(aiTimer); aiTimer = null; }
     var cur = termBody.querySelector(".say-line.typing");
@@ -125,8 +137,21 @@
       else localStorage.removeItem("vweb:aikey");
     } catch (e) {}
   }
-  function geminiAsk(sys, user) {
-    var body = { contents: [{ role: "user", parts: [{ text: user }] }] };
+  function geminiAsk(messages) {
+    var sys = "";
+    var contents = [];
+    messages.forEach(function (m) {
+      if (m.role === "system") {
+        sys = (sys ? sys + "\n" : "") + m.content;
+      } else {
+        contents.push({
+          role: m.role === "assistant" ? "model" : "user",
+          parts: [{ text: m.content }],
+        });
+      }
+    });
+    if (!contents.length) contents.push({ role: "user", parts: [{ text: "" }] });
+    var body = { contents: contents };
     if (sys) body.systemInstruction = { parts: [{ text: sys }] };
     return fetch(
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + encodeURIComponent(aiKey()),
@@ -146,16 +171,20 @@
   function aiAsk(messages) {
     var user = "";
     var sys = "";
+    var histLines = [];
     for (var i = 0; i < messages.length; i++) {
-      if (messages[i].role === "user") user = messages[i].content;
-      if (messages[i].role === "system") sys = messages[i].content;
+      var m = messages[i];
+      if (m.role === "system") sys = (sys ? sys + "\n" : "") + m.content;
+      else if (m.role === "user" && i === messages.length - 1) user = m.content;
+      else histLines.push((m.role === "assistant" ? "A: " : "Q: ") + m.content);
     }
-    var combined = sys ? "(" + sys + ")\n\n" + user : user;
+    var combined = (sys ? "(" + sys + ")\n\n" : "") +
+      (histLines.length ? "Context:\n" + histLines.join("\n") + "\n\n" : "") + user;
     var chain = [
       {
         name: "gemini",
         skip: !aiKey(),
-        fn: function () { return geminiAsk(sys, user); },
+        fn: function () { return geminiAsk(messages); },
       },
       {
         name: "compat",
@@ -209,8 +238,9 @@
       tline("", [
         "<span class='tk-y'>ai:</span>           ai &lt;question&gt; — ask a small free model anything",
         "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact · open &lt;project|github|x&gt;",
-        "<span class='tk-y'>live data:</span>    status · feed · weather · alive · ping api|meteo",
-        "<span class='tk-y'>dev tools:</span>    calc · b64 e|d · url e|d · json · ts · rand · uuid · pass",
+        "<span class='tk-y'>live data:</span>    status · feed · weather · alive · ping api|meteo · ip · repo &lt;key&gt;",
+        "<span class='tk-y'>dev tools:</span>    calc · b64 e|d · url e|d · json · ts · rand · uuid · pass · cal",
+        "<span class='tk-y'>notes &amp; ai:</span>    note list|add|del|clear · forget · say &lt;text&gt; · fortune",
         "<span class='tk-y'>copy/search:</span>  copy &lt;gmail|163|github|x&gt; · search github|web &lt;q&gt;",
         "<span class='tk-y'>shell:</span>        alias [name=cmd] · man &lt;cmd&gt; · ls · whoami · date · neofetch · clear · exit",
         "<span class='tk-g'>↑/↓ history · Tab autocomplete</span>",
@@ -257,16 +287,21 @@
       }
       if (prompt.length > 500) { tline("t-err", "keep the question under 500 characters"); return; }
       stopSay();
-      var messages = [{ role: "user", content: prompt }];
-      if (sysPrompt) messages.unshift({ role: "system", content: sysPrompt });
-      tline("", "thinking…");
+      var messages = [];
+      if (sysPrompt) messages.push({ role: "system", content: sysPrompt });
+      var hist = aiHist();
+      hist.forEach(function (h) { messages.push(h); });
+      messages.push({ role: "user", content: prompt });
+      tline("", "thinking…" + (hist.length ? " <span class='tk-g'>(remembers " + (hist.length / 2) + " previous exchange" + (hist.length > 2 ? "s" : "") + ")</span>" : ""));
       aiAsk(messages).then(function (txt) {
         var body = termBody.querySelector(".t-line:last-child");
-        if (body && body.textContent === "thinking…") body.remove();
-        termSay(String(txt).trim() || "(empty reply)");
+        if (body && body.textContent.indexOf("thinking") === 0) body.remove();
+        var reply = String(txt).trim() || "(empty reply)";
+        termSay(reply);
+        aiHistPush(prompt, reply === "(empty reply)" ? "" : reply);
       }).catch(function (err) {
         var body = termBody.querySelector(".t-line:last-child");
-        if (body && body.textContent === "thinking…") body.remove();
+        if (body && body.textContent.indexOf("thinking") === 0) body.remove();
         tline("t-err", "ai unreachable — " + err.message);
       });
     },
@@ -281,6 +316,13 @@
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
         open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
+        ip: "ip — your public IP, location and ISP (ipwho.is)",
+        repo: "repo &lt;key|owner/name&gt; — GitHub repo stats: stars, forks, language, license, last push",
+        note: "note list — show notes · note add &lt;text&gt; — save one · note del &lt;n&gt; — delete · note clear — wipe (stored in this browser)",
+        cal: "cal — current month calendar (Beijing time), today highlighted",
+        say: "say &lt;text&gt; — Empty-X says it, with cat ears",
+        fortune: "fortune — a random wise (or not) quote",
+        forget: "forget — wipe Empty-X's conversation memory (last exchanges are remembered across messages)",
         status: "status — live site up/down, latency, aliveness score (refreshed every 15 min)",
         feed: "feed — latest 9 GitHub activities from the bundled snapshot",
         weather: "weather — current conditions in Beijing (open-meteo)",
@@ -445,6 +487,144 @@
     github: function () { tline("", "<a style='color:#ff9d9d' href='https://github.com/Verlintas' target='_blank' rel='noopener'>github.com/Verlintas</a>"); },
     x: function () { tline("", "<a style='color:#ff9d9d' href='https://x.com/Verlintas' target='_blank' rel='noopener'>x.com/Verlintas</a>"); },
     email: function () { tline("", "ulv777777@gmail.com · 12321666@163.com"); },
+    ip: function () {
+      fetch("https://ipwho.is/")
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          if (!d || !d.success) throw new Error("no data");
+          var line = "<span class='tk-y'>" + termEscape(d.ip || "?") + "</span>" +
+            (d.type ? " (" + d.type + ")" : "") +
+            " — " + termEscape(d.city ? d.city + ", " : "") + termEscape(d.country || "") +
+            (d.connection && d.connection.isp ? " · " + termEscape(d.connection.isp) : "");
+          tline("", line);
+        }, function () { tline("t-err", "ip lookup unreachable"); });
+    },
+    repo: function (args) {
+      var name = (args[0] || "").toLowerCase();
+      var full = REPOS[name] || name;
+      if (!full || full.indexOf("/") === -1) { tline("t-err", "usage: repo <key|owner/name> — keys: " + Object.keys(REPOS).join(" · ")); return; }
+      fetch("https://api.github.com/repos/" + full)
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          tline("", [
+            "<span class='tk-y'>" + termEscape(d.full_name) + "</span>  " + termEscape(String(d.description || "").slice(0, 90)),
+            (d.stargazers_count != null ? "★ " + d.stargazers_count + "  " : "") +
+              (d.forks_count != null ? "⑂ " + d.forks_count + "  " : "") +
+              "<span class='tk-g'>" + termEscape(d.language || "?") + " · " + termEscape((d.license && d.license.spdx_id) || "no license") + "</span>",
+            "<span class='tk-g'>last push " + termEscape(String(d.pushed_at || "").replace("T", " ").slice(0, 16)) + "</span>",
+          ].join("\n"));
+        }, function () { tline("t-err", "repo lookup failed — api.github.com unreachable or not found"); });
+    },
+    note: function (args) {
+      var act = (args[0] || "").toLowerCase();
+      var notes = [];
+      try { notes = JSON.parse(localStorage.getItem("vweb:notes") || "[]"); } catch (e) {}
+      function save() { try { localStorage.setItem("vweb:notes", JSON.stringify(notes)); } catch (e) {} }
+      if (!act || act === "list") {
+        if (!notes.length) { tline("", "no notes — 'note add <text>' to write one"); return; }
+        tline("", notes.map(function (n, i) {
+          var d = new Date(n.t);
+          return "<span class='tk-y'>" + (i + 1) + "</span> <span class='tk-g'>[" + d.toLocaleDateString("en-GB") + "]</span> " + termEscape(n.text);
+        }).join("\n"));
+        return;
+      }
+      if (act === "add") {
+        var text = args.slice(1).join(" ").trim();
+        if (!text) { tline("t-err", "usage: note add <text>"); return; }
+        notes.push({ t: Date.now(), text: text });
+        save();
+        tline("", "note #" + notes.length + " saved");
+        return;
+      }
+      if (act === "del") {
+        var idx = parseInt(args[1], 10) - 1;
+        if (isNaN(idx) || !notes[idx]) { tline("t-err", "note del <number>"); return; }
+        var removed = notes.splice(idx, 1);
+        save();
+        tline("", "deleted: " + termEscape(removed[0].text.slice(0, 60)));
+        return;
+      }
+      if (act === "clear") {
+        notes = [];
+        save();
+        tline("", "all notes cleared");
+        return;
+      }
+      tline("t-err", "usage: note list|add <text>|del <n>|clear");
+    },
+    cal: function () {
+      var now = new Date();
+      var parts = new Intl.DateTimeFormat("en-GB", { timeZone: "Asia/Shanghai", year: "numeric", month: "2-digit", day: "2-digit" }).formatToParts(now);
+      var map = {};
+      parts.forEach(function (p) { map[p.type] = p.value; });
+      var y = +map.year, mo = +map.month, today = +map.day;
+      var first = new Date(Date.UTC(y, mo - 1, 1));
+      var daysInMonth = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+      var lead = first.getUTCDay();
+      var lines = [];
+      lines.push("<span class='tk-y'>" + y + "-" + ("0" + mo).slice(-2) + "</span>");
+      lines.push("Su Mo Tu We Th Fr Sa");
+      var row = "";
+      for (var i = 0; i < lead; i++) row += "   ";
+      for (var d = 1; d <= daysInMonth; d++) {
+        var cell = (" " + d).slice(-2);
+        row += (d === today ? "<span class='tk-y'>" + cell + "</span>" : cell) + " ";
+        if ((lead + d) % 7 === 0) { lines.push(row); row = ""; }
+      }
+      if (row.trim()) lines.push(row);
+      lines.push("<span class='tk-g'>today highlighted · Beijing time</span>");
+      tline("", lines.join("\n"));
+    },
+    say: function (args) {
+      var text = args.join(" ").trim() || "喵。";
+      var width = 30;
+      var out = [];
+      var cur = "";
+      Array.prototype.forEach.call(text, function (ch) {
+        var w = ch.charCodeAt(0) > 255 ? 2 : 1;
+        var curW = 0;
+        for (var k = 0; k < cur.length; k++) curW += cur.charCodeAt(k) > 255 ? 2 : 1;
+        if (curW + w > width && cur) { out.push(cur); cur = ch; }
+        else cur += ch;
+      });
+      if (cur) out.push(cur);
+      var border = "─".repeat(width + 2);
+      var lines = ["╭" + border + "╮"];
+      out.forEach(function (l) {
+        var lw = 0;
+        for (var k = 0; k < l.length; k++) lw += l.charCodeAt(k) > 255 ? 2 : 1;
+        lines.push("│ " + l + " ".repeat(width - lw) + " │");
+      });
+      lines.push("╰" + border + "╯");
+      lines.push("");
+      lines.push("  /\\_/\\");
+      lines.push(" ( o.o )  < " + termEscape(out[0] || "") + "…");
+      lines.push("  > ^ <");
+      tline("", lines.join("\n"));
+    },
+    fortune: function () {
+      var quotes = [
+        "The best way to predict the future is to ship it.",
+        "Kotlin 不会报错，它只是给你更多报错。",
+        "It compiles on my machine — and only there.",
+        "2 AM rule: if it works at 2 AM, it ships at 2 AM.",
+        "Bugs are not features… unless you name them features.",
+        "删库跑路之前，先 git push。",
+        "The cloud is just someone else's Windows Server 2016.",
+        "My code has no bugs — it just develops unexpected features.",
+        "Just for fun. — Linus",
+        "猫娘三定律：不油腻、不掉线、不写 bug（第三条很难）。",
+        "A PR a day keeps the reviewer away.",
+        "If it ain't broken, git blame it anyway.",
+        "Testing is when you hold your breath and press build.",
+        "There are only two hard problems: caching, naming, and off-by-one.",
+      ];
+      tline("", "<span class='tk-g'>" + termEscape(quotes[Math.floor(Math.random() * quotes.length)]) + "</span>");
+    },
+    forget: function () {
+      aiHistClear();
+      tline("", "Empty-X forgot everything — fresh start 喵");
+    },
     clear: function () { stopSay(); termBody.innerHTML = ""; },
     exit: function () { closeTerm(); },
     sudo: function () { tline("t-err", "nice try. — no frameworks were harmed."); },
