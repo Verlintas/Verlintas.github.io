@@ -470,6 +470,7 @@
           return repoHit.replace(/^[^/]+\//, "") + " 喵：★ " + (d.stargazers_count != null ? d.stargazers_count : 0) + " · fork " + (d.forks_count != null ? d.forks_count : 0) + " · " + (d.language || "?") + " · 最近 push " + String(d.pushed_at || "").slice(0, 10);
         }).catch(function () { return "仓库信息拉不到喵…"; });
     }
+    if (window.__NLULIB) return window.__NLULIB.probe(text);
     return Promise.resolve(null);
   }
 
@@ -1769,4 +1770,10 @@
       }
     });
   }
+
+  /* AI availability for the nlu-lib continuation layer */
+  window.__emptyxAI = {
+    hasLocal: function () { return !!aiEnd(); },
+    hasKey: function () { return !!aiKey(); },
+  };
 })();
