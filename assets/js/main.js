@@ -237,7 +237,7 @@
     help: function () {
       tline("", [
         "<span class='tk-y'>ai:</span>           ai &lt;question&gt; — ask a small free model anything",
-        "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact · open &lt;project|github|x&gt;",
+        "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|numbers|live|contact · open &lt;project|github|x&gt;",
         "<span class='tk-y'>live data:</span>    status · feed · weather · alive · ping api|meteo · ip · repo &lt;key&gt;",
         "<span class='tk-y'>dev tools:</span>    calc · b64 e|d · url e|d · json · ts · rand · uuid · pass · cal",
         "<span class='tk-y'>notes &amp; ai:</span>    note list|add|del|clear · forget · say &lt;text&gt; · fortune",
@@ -313,7 +313,7 @@
            "'ai key &lt;GOOGLE_AI_KEY&gt;' enables the gemini-2.0-flash channel (stored only in this browser, best persona adherence); " +
            "'ai key show|clear'. Without a key it falls back through free pollinations channels (may be flaky). " +
            "replies type out; close or clear to interrupt",
-        nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
+        nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/numbers/live/contact)",
         open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
         ip: "ip — your public IP, location and ISP (ipwho.is)",
@@ -879,7 +879,7 @@
   });
 
   /* j/k section navigation (vim style) */
-  var NAV_IDS = ["about", "history", "projects", "stack", "live", "contact"];
+  var NAV_IDS = ["about", "history", "projects", "stack", "numbers", "live", "contact"];
   function currentSectionIdx() {
     var y = window.scrollY + window.innerHeight / 2;
     var best = 0, bestGap = Infinity;
@@ -1162,6 +1162,38 @@
     if (!document.hidden) loadStatus();
   }, 60000);
   window.addEventListener("focus", function () { loadFeed(); loadStatus(); });
+
+  /* ═══ by-the-numbers count-up ═══ */
+  var numEls = document.querySelectorAll(".num");
+  function runCount(el) {
+    var target = parseInt(el.dataset.target, 10) || 0;
+    var suffix = el.dataset.suffix || "";
+    var t0 = null;
+    var dur = 1100;
+    function frame(ts) {
+      if (!t0) t0 = ts;
+      var p = Math.min((ts - t0) / dur, 1);
+      var eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.round(target * eased) + suffix;
+      if (p < 1) requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  }
+  if ("IntersectionObserver" in window) {
+    var numIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          runCount(entry.target);
+          numIo.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    numEls.forEach(function (el) { numIo.observe(el); });
+  } else {
+    numEls.forEach(function (el) {
+      el.textContent = el.dataset.target + (el.dataset.suffix || "");
+    });
+  }
 
   /* ═══ click diamond particle burst + name-triggered diamond rain ═══ */
   var canvas = document.getElementById("fx");
