@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — lost in space</title>
+  <meta name="robots" content="noindex">
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      background: #050505;
+      color: #fff;
+      font-family: "Space Grotesk", "PingFang SC", system-ui, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    .grid-overlay {
+      position: fixed; inset: 0; pointer-events: none;
+      background-image:
+        linear-gradient(45deg, transparent 46.5%, rgba(255,255,255,0.06) 46.5%, rgba(255,255,255,0.06) 50%, transparent 50%, transparent 96.5%, rgba(255,255,255,0.06) 96.5%, rgba(255,255,255,0.06) 100%),
+        linear-gradient(-45deg, transparent 46.5%, rgba(255,255,255,0.06) 46.5%, rgba(255,255,255,0.06) 50%, transparent 50%, transparent 96.5%, rgba(255,255,255,0.06) 96.5%, rgba(255,255,255,0.06) 100%);
+      background-size: 64px 64px;
+    }
+    .center { position: relative; text-align: center; padding: 24px; max-width: 640px; }
+    svg.diamond {
+      width: clamp(90px, 16vw, 140px);
+      animation: drift 5s ease-in-out infinite;
+      filter: drop-shadow(0 0 18px rgba(255,0,0,0.35));
+    }
+    .diamond path { stroke: #ff0000; fill: none; stroke-width: 2; }
+    @keyframes drift {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-14px) rotate(3deg); }
+    }
+    h1 {
+      margin-top: 22px;
+      font-size: clamp(4rem, 15vw, 7.5rem);
+      font-weight: 700;
+      line-height: 1;
+      color: #ff0000;
+      text-shadow: 0 0 34px rgba(255, 0, 0, 0.4);
+      letter-spacing: 0.02em;
+      user-select: none;
+    }
+    .sub { margin-top: 14px; color: #cfcfcf; font-size: clamp(1rem, 2.4vw, 1.3rem); }
+    .mono {
+      margin-top: 8px;
+      font-family: "JetBrains Mono", ui-monospace, monospace;
+      color: #7a7a7a;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+    }
+    .actions { margin-top: 34px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    a.btn {
+      text-decoration: none;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 0.82rem;
+      letter-spacing: 0.06em;
+      padding: 12px 26px;
+      border-radius: 100px;
+      border: 1px solid rgba(255, 0, 0, 0.55);
+      color: #fff;
+      transition: background 0.25s, box-shadow 0.25s;
+    }
+    a.btn.solid { background: #ff0000; color: #fff; border-color: #ff0000; }
+    a.btn:hover { background: #ff0000; box-shadow: 0 0 28px rgba(255, 0, 0, 0.45); }
+    a.btn.solid:hover { box-shadow: 0 0 34px rgba(255, 0, 0, 0.6); }
+    .easter {
+      margin-top: 40px;
+      font-size: 0.7rem;
+      color: #555;
+      font-family: "JetBrains Mono", monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-overlay" aria-hidden="true"></div>
+  <div class="center">
+    <svg class="diamond" viewBox="0 0 100 100" aria-hidden="true">
+      <path d="M50 8 L92 50 L50 92 L8 50 Z"/>
+    </svg>
+    <h1>404</h1>
+    <p class="sub">this page drifted off into space.</p>
+    <p class="mono" id="pathLine">(and it took your URL with it)</p>
+    <div class="actions">
+      <a class="btn solid" href="/">back to base</a>
+      <a class="btn" href="https://github.com/Verlintas" target="_blank" rel="noopener">github</a>
+      <a class="btn" href="https://x.com/Verlintas" target="_blank" rel="noopener">x</a>
+    </div>
+    <p class="easter">if you typed this URL by hand… maybe don't, 喵</p>
+  </div>
+  <script>
+    try {
+      var p = decodeURIComponent(location.pathname);
+      if (p && p !== "/404.html") {
+        document.getElementById("pathLine").textContent = "lost: " + p;
+      }
+    } catch (e) {}
+  </script>
+</body>
+</html>

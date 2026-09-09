@@ -1185,9 +1185,25 @@
   document.addEventListener("pointerdown", function (e) {
     burst(e.clientX, e.clientY);
   });
-  var nameEl = document.querySelector(".hero-name");
+  var nameEl = document.getElementById("heroName");
   var nameClicks = 0;
   var lastNameClick = 0;
+  var heroRaf = false;
+  window.addEventListener("pointermove", function (e) {
+    if (heroRaf || !nameEl || !window.matchMedia("(pointer: fine)").matches) return;
+    heroRaf = true;
+    requestAnimationFrame(function () {
+      heroRaf = false;
+      var dx = (e.clientX / window.innerWidth - 0.5);
+      var dy = (e.clientY / window.innerHeight - 0.5);
+      nameEl.style.transform = "translate(" + (dx * 16).toFixed(1) + "px, " + (dy * 12).toFixed(1) + "px)";
+    });
+  });
+  var origTitle = document.title;
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) document.title = "come back 喵~";
+    else document.title = origTitle;
+  });
   if (nameEl) {
     nameEl.addEventListener("click", function () {
       var now = Date.now();
