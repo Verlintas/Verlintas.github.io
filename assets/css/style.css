@@ -641,6 +641,20 @@ body.is-loading { overflow: hidden; }
 .to-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
 .to-top:hover { background: var(--red); box-shadow: 0 0 24px rgba(255,0,0,0.45); }
 
+/* ── org line ── */
+.org-line {
+  margin-top: 26px;
+  color: #8a8a8a;
+  font-size: 0.86rem;
+}
+.org-line a {
+  color: #ff9d9d;
+  text-decoration: none;
+  border-bottom: 1px dashed rgba(255,0,0,0.5);
+  transition: color 0.2s;
+}
+.org-line a:hover { color: var(--red); }
+
 /* ── live ── */
 .live-grid {
   display: grid;
