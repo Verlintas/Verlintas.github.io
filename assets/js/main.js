@@ -1249,7 +1249,7 @@
       heroRaf = false;
       var dx = (e.clientX / window.innerWidth - 0.5);
       var dy = (e.clientY / window.innerHeight - 0.5);
-      nameEl.style.transform = "translate(" + (dx * 16).toFixed(1) + "px, " + (dy * 12).toFixed(1) + "px)";
+      nameEl.style.transform = "translate(" + (dx * 5).toFixed(2) + "px, " + (dy * 4).toFixed(2) + "px)";
     });
   });
   var origTitle = document.title;
