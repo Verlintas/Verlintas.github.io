@@ -829,9 +829,10 @@
     });
   });
 
-  /* stack chips: brand-color glow on hover */
+  /* stack chips: brand-color glow on hover (linked only) */
   var stackItems = document.querySelectorAll(".stack-item");
   stackItems.forEach(function (item) {
+    if (item.classList.contains("stack-no")) return;
     var color = item.dataset.c || "#ff0000";
     item.addEventListener("mouseenter", function () {
       item.style.borderColor = color;

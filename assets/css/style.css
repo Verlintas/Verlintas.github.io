@@ -404,10 +404,13 @@ main, .footer { position: relative; z-index: 1; }
   border: 1px solid var(--line);
   color: #e8e8e8;
   background: rgba(255,255,255,0.02);
-  cursor: default;
+  cursor: pointer;
+  text-decoration: none;
   transition: transform 0.2s, border-color 0.2s, color 0.2s;
 }
-.stack-item:hover { transform: translateY(-4px); }
+a.stack-item:hover { transform: translateY(-4px); }
+.stack-no { cursor: default; opacity: 0.75; }
+.stack-no:hover { transform: none; }
 
 /* ── contact ── */
 .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
