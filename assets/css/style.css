@@ -604,7 +604,7 @@ body.is-loading { overflow: hidden; }
   .term { margin: 0 12px 12px; }
 }
 
-/* ── fx canvas / progress / to-top ── */
+/* ═══════════ fx canvas / progress / to-top ═══════════ */
 #fx {
   position: fixed;
   inset: 0;

@@ -60,6 +60,95 @@
     aiHistSave(h);
   }
   function aiHistClear() { aiHistSave([]); }
+
+  /* local NLU layer for `ai`: answers simple chat offline; null = escalate to LLM */
+  var NAV_SECTIONS = [
+    { id: "about", pats: ["about", "关于"] },
+    { id: "history", pats: ["history", "历史", "沿革"] },
+    { id: "projects", pats: ["projects", "项目", "作品"] },
+    { id: "stack", pats: ["stack", "技术栈", "技能", "栈", "会什么技术"] },
+    { id: "live", pats: ["live", "实时", "动态", "监控"] },
+    { id: "contact", pats: ["contact", "联系", "邮箱", "邮件"] },
+  ];
+  var PROJ_KEYS = { betteraichat: "Verlintas/BetterAIChat", vicinityprobe: "Verlintas/VicinityProbe", nekomimi: "Verlintas/nekomimi", googleonyourmac: "Verlintas/GoogleOnYourMac", nusvlite: "NUSV/NUSV-lite", syna: "NUSV/Syna-NUSV", gomoku: "NUSV/Gomoku-NUSV" };
+  function jumpSection(id) {
+    var el = document.getElementById(id);
+    if (!el) return false;
+    window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" });
+    try { history.replaceState(null, "", "#" + id); } catch (e) {}
+    return true;
+  }
+  function localAnswer(text) {
+    var t = text.toLowerCase();
+    var m;
+    var wmo = { 0: "晴", 1: "多云", 2: "多云", 3: "阴", 45: "雾", 48: "雾", 51: "毛毛雨", 53: "毛毛雨", 55: "毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨", 71: "小雪", 73: "中雪", 75: "大雪", 80: "阵雨", 81: "阵雨", 82: "强阵雨", 95: "雷阵雨", 96: "雷阵雨" };
+    if (t.length < 24 && /(你好|您好|hi\b|hello|嗨|在吗|哈喽|喵|早上好|晚上好)/.test(t)) {
+      var g = ["你好喵～我是空又，Verlintas 家的看板娘。想聊点什么？", "嗨！尾巴摇一摇～今天也要加油喵！", "在的在的，蹭蹭～要我做点什么吗？"];
+      return Promise.resolve(g[Math.floor(Math.random() * g.length)]);
+    }
+    if (/(你是谁|你叫什么|介绍一下你|名字)/.test(t)) {
+      return Promise.resolve("我是 Empty-X，中文名空又喵～Verlintas 的看板娘，平时住在这个隐藏终端里。叫我空又就行！");
+    }
+    if (/(你会什么|能做什么|会什么|帮助|help)/.test(t)) {
+      return Promise.resolve("离线也能答喵：问候、时间日期、北京天气、网站状态(alive)、跳转页面、打开项目、搜索、四则运算。搞不定的会自动找 AI 通道帮忙～");
+    }
+    if (/(谢谢|感谢|多谢|thank)/.test(t)) return Promise.resolve("不客气喵～（蹭蹭）");
+    if (/(再见|拜拜|晚安|bye\b|下次聊)/.test(t)) return Promise.resolve("再见喵～记得常回来看看 Verlintas 的新东西喵。");
+    if (/(几点|现在.*时间|time|日期|几号|星期)/.test(t)) {
+      var s = new Date().toLocaleString("en-GB", { timeZone: "Asia/Shanghai", weekday: "long", year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", hour12: false });
+      return Promise.resolve("现在是 " + s + "（北京时间）喵");
+    }
+    if (/(天气|气温|温度|weather|冷不冷|热不热|下(雨|雪))/.test(t)) {
+      return fetch("https://api.open-meteo.com/v1/forecast?latitude=39.9&longitude=116.4&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m&timezone=Asia%2FShanghai")
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (d) {
+          var c = d.current || {};
+          return "北京现在 " + (c.temperature_2m != null ? c.temperature_2m + "°C" : "?") + "，" + (wmo[c.weather_code] || "多云") + "，湿度 " + (c.relative_humidity_2m != null ? c.relative_humidity_2m + "%" : "?") + "，风速 " + (c.wind_speed_10m != null ? c.wind_speed_10m + " km/h" : "?") + " 喵";
+        }).catch(function () { return "天气服务暂时够不着喵…"; });
+    }
+    if (/(状态|status|alive|在线|活着|站点|网站.*(挂|好|正常)|服务.*(挂|好|正常)|都.*(挂|好))/ .test(t) || /^status$/.test(t)) {
+      return fetch("status.json?_=" + Date.now())
+        .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+        .then(function (st) {
+          var sites = st.sites || [];
+          var up = sites.filter(function (s) { return s.up; }).length;
+          var line = sites.length + " 个站点，" + up + " 个在线" + (up === sites.length ? "，全部正常喵" : "，有 " + (sites.length - up) + " 个掉线了喵") + "。";
+          if (st.alive && st.alive.score != null) line += " 活跃度 alive: " + st.alive.score + "。";
+          return line;
+        }).catch(function () { return "状态服务暂时够不着喵…"; });
+    }
+    if (/(打开|去|跳到|看看|导航)/.test(t)) {
+      for (var i = 0; i < NAV_SECTIONS.length; i++) {
+        if (NAV_SECTIONS[i].pats.some(function (p) { return t.indexOf(p) !== -1; })) {
+          if (jumpSection(NAV_SECTIONS[i].id)) return Promise.resolve("跳到 " + NAV_SECTIONS[i].id + " 喵～");
+        }
+      }
+      for (var key in PROJ_KEYS) {
+        if (t.indexOf(key) !== -1 || PROJ_KEYS[key].toLowerCase().indexOf(t.replace(/[^a-z]/g, "")) !== -1 && t.replace(/[^a-z]/g, "").length > 3) {
+          window.open("https://github.com/" + PROJ_KEYS[key], "_blank");
+          return Promise.resolve("帮你打开 " + key + " 的仓库喵～");
+        }
+      }
+      if (/(github|x(?!.*api))/ .test(t)) {
+        window.open(t.indexOf("x") !== -1 && t.indexOf("github") === -1 ? "https://x.com/Verlintas" : "https://github.com/Verlintas", "_blank");
+        return Promise.resolve("打开中喵");
+      }
+    }
+    if (/^(搜索|搜一下|search)\s+/.test(text)) {
+      var q = text.replace(/^(搜索|搜一下|search)\s+/i, "").trim();
+      if (q) { window.open("https://www.bing.com/search?q=" + encodeURIComponent(q), "_blank"); return Promise.resolve("用 bing 搜「" + q + "」喵～"); }
+    }
+    if (t.length < 40 && /^\s*[0-9+\-*/().%\s]+\s*$/.test(t) && /\d/.test(t) && /[+\-*/%]/.test(t)) {
+      try {
+        var v = Function('"use strict";return (' + t + ")")();
+        if (typeof v === "number" && isFinite(v)) return Promise.resolve(t.trim() + " = " + v + " 喵");
+      } catch (e) {}
+    }
+    if (/(我爱你|喜欢你|嫁给我|做我(的)?女朋友)/.test(t)) {
+      return Promise.resolve("呜喵…空又是看板娘，要专心打工的（尾巴炸毛）。不过谢谢你的喜欢！");
+    }
+    return Promise.resolve(null);
+  }
   function stopSay() {
     if (aiTimer) { clearInterval(aiTimer); aiTimer = null; }
     var cur = termBody.querySelector(".say-line.typing");
@@ -319,7 +408,14 @@
         return;
       }
       var prompt = args.join(" ").trim();
-      if (!prompt) { tline("t-err", "usage: ai &lt;question&gt; — also: ai system · ai key · ai lmstudio · ai endpoint"); return; }
+      if (!prompt) {
+        tline("", [
+          "<span class='tk-w'>Empty-X is listening — just talk to her naturally, e.g.:</span>",
+          "<span class='tk-g'>  “你好” · “现在几点” · “北京天气” · “网站都活着吗” · “打开 syna” · “去 projects 区” · “搜索 kotlin”</span>",
+          "<span class='tk-g'>setup: ai lmstudio [TOKEN] · ai key &lt;key&gt; · ai system &lt;text&gt;</span>",
+        ].join("\n"));
+        return;
+      }
       if (args[0] === "system") {
         var rest = args.slice(1).join(" ").trim();
         if (rest.toLowerCase() === "show") {
@@ -358,22 +454,29 @@
       }
       if (prompt.length > 500) { tline("t-err", "keep the question under 500 characters"); return; }
       stopSay();
-      var messages = [];
-      if (sysPrompt) messages.push({ role: "system", content: sysPrompt });
-      var hist = aiHist();
-      hist.forEach(function (h) { messages.push(h); });
-      messages.push({ role: "user", content: prompt });
-      tline("", "thinking…" + (hist.length ? " <span class='tk-g'>(remembers " + (hist.length / 2) + " previous exchange" + (hist.length > 2 ? "s" : "") + ")</span>" : ""));
-      aiAsk(messages).then(function (txt) {
-        var body = termBody.querySelector(".t-line:last-child");
-        if (body && body.textContent.indexOf("thinking") === 0) body.remove();
-        var reply = String(txt).trim() || "(empty reply)";
-        termSay(reply);
-        aiHistPush(prompt, reply === "(empty reply)" ? "" : reply);
-      }).catch(function (err) {
-        var body = termBody.querySelector(".t-line:last-child");
-        if (body && body.textContent.indexOf("thinking") === 0) body.remove();
-        tline("t-err", "ai unreachable — " + err.message);
+      localAnswer(prompt).then(function (localReply) {
+        if (localReply) {
+          termSay(localReply);
+          aiHistPush(prompt, localReply);
+          return;
+        }
+        var messages = [];
+        if (sysPrompt) messages.push({ role: "system", content: sysPrompt });
+        var hist = aiHist();
+        hist.forEach(function (h) { messages.push(h); });
+        messages.push({ role: "user", content: prompt });
+        tline("", "thinking…" + (hist.length ? " <span class='tk-g'>(remembers " + (hist.length / 2) + " previous exchange" + (hist.length > 2 ? "s" : "") + ")</span>" : ""));
+        aiAsk(messages).then(function (txt) {
+          var body = termBody.querySelector(".t-line:last-child");
+          if (body && body.textContent.indexOf("thinking") === 0) body.remove();
+          var reply = String(txt).trim() || "(empty reply)";
+          termSay(reply);
+          aiHistPush(prompt, reply === "(empty reply)" ? "" : reply);
+        }).catch(function (err) {
+          var body = termBody.querySelector(".t-line:last-child");
+          if (body && body.textContent.indexOf("thinking") === 0) body.remove();
+          tline("t-err", "ai unreachable — " + err.message);
+        });
       });
     },
     man: function (args) {
