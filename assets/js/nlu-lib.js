@@ -211,27 +211,70 @@
     "猫的跳跃高度是身长的 5-6 倍，而你的页面加载速度……我们换个话题喵。",
   ];
 
-  /* ---------- large dataset: periodic table (fetched once, cached) ---------- */
-  var elementsCache = null;
-  function loadElements() {
-    if (elementsCache) return Promise.resolve(elementsCache);
+  /* ---------- same-origin datasets (built by scripts/build-nlu-data.mjs) ---------- */
+  var DATA_CACHE = {};
+  var DATA_VER = "v1";
+  function ensureData(name) {
+    if (DATA_CACHE[name]) return Promise.resolve(DATA_CACHE[name]);
     try {
-      var cached = localStorage.getItem("vweb:elements");
-      if (cached) { elementsCache = JSON.parse(cached); return Promise.resolve(elementsCache); }
+      var c = localStorage.getItem("vweb:data:" + name + ":" + DATA_VER);
+      if (c) { DATA_CACHE[name] = JSON.parse(c); return Promise.resolve(DATA_CACHE[name]); }
     } catch (e) {}
-    return fetch("https://raw.githubusercontent.com/Bowserinator/Periodic-Table-JSON/master/PeriodicTableJSON.json")
+    return fetch("assets/data/" + name + ".json")
       .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
       .then(function (d) {
-        var map = {};
-        (d.elements || []).forEach(function (el) {
-          map[String(el.number)] = el;
-          map[String(el.symbol).toLowerCase()] = el;
-          map[String(el.name).toLowerCase()] = el;
-        });
-        elementsCache = map;
-        try { localStorage.setItem("vweb:elements", JSON.stringify(map)); } catch (e) {}
-        return map;
+        DATA_CACHE[name] = d;
+        try { localStorage.setItem("vweb:data:" + name + ":" + DATA_VER, JSON.stringify(d)); } catch (e) {}
+        return d;
       });
+  }
+  var CN_ELEMENTS = ["", "氢", "氦", "锂", "铍", "硼", "碳", "氮", "氧", "氟", "氖", "钠", "镁", "铝", "硅", "磷", "硫", "氯", "氩", "钾", "钙", "钪", "钛", "钒", "铬", "锰", "铁", "钴", "镍", "铜", "锌", "镓", "锗", "砷", "硒", "溴", "氪", "铷", "锶", "钇", "锆", "铌", "钼", "锝", "钌", "铑", "钯", "银", "镉", "铟", "锡", "锑", "碲", "碘", "氙", "铯", "钡", "镧", "铈", "镨", "钕", "钷", "钐", "铕", "钆", "铽", "镝", "钬", "铒", "铥", "镱", "镥", "铪", "钽", "钨", "铼", "锇", "铱", "铂", "金", "汞", "铊", "铅", "铋", "钋", "砹", "氡", "钫", "镭", "锕", "钍", "镤", "铀", "镎", "钚", "镅", "锔", "锫", "锎", "锿", "镄", "钔", "锘", "铹"];
+  var ELEMENT_IDX = null;
+  function loadElements() {
+    if (ELEMENT_IDX) return Promise.resolve(ELEMENT_IDX);
+    return ensureData("elements").then(function (arr) {
+      var map = {};
+      arr.forEach(function (el) {
+        map[String(el.n)] = el;
+        map[String(el.s).toLowerCase()] = el;
+        map[String(el.m).toLowerCase()] = el;
+      });
+      CN_ELEMENTS.forEach(function (cn, i) {
+        if (cn && map[cn] === undefined && map[String(i)]) map[cn] = map[String(i)];
+      });
+      ELEMENT_IDX = map;
+      return map;
+    });
+  }
+  var IDIOM_IDX = null;
+  function loadIdioms() {
+    if (IDIOM_IDX) return Promise.resolve(IDIOM_IDX);
+    return ensureData("idioms").then(function (arr) {
+      var map = {};
+      arr.forEach(function (it) { map[it.w] = it.e; });
+      IDIOM_IDX = map;
+      return map;
+    });
+  }
+  var COUNTRY_IDX = null;
+  function loadCountries() {
+    if (COUNTRY_IDX) return Promise.resolve(COUNTRY_IDX);
+    return ensureData("countries").then(function (arr) {
+      COUNTRY_IDX = arr;
+      return arr;
+    });
+  }
+  function findCountry(text) {
+    var tl = text.toLowerCase();
+    var best = null;
+    COUNTRY_IDX.forEach(function (c) {
+      if (text.indexOf(c.zh) !== -1) {
+        if (!best || c.zh.length > best.zh.length) best = c;
+      } else if (c.en && String(c.en).length >= 4 && tl.indexOf(String(c.en).toLowerCase()) !== -1) {
+        if (!best) best = c;
+      }
+    });
+    return best;
   }
 
   /* ---------- date/time helpers for "N days later" etc ---------- */
@@ -257,6 +300,127 @@
     var mm;
     var numRe = /-?\d+(?:\.\d+)?/g;
     while ((mm = numRe.exec(t)) !== null) ints.push(parseFloat(mm[0]));
+
+    /* ═══════════ 0a. identity memory + playable games (stateful) ═══════════ */
+    var LS = {
+      get: function (k) { try { return JSON.parse(localStorage.getItem(k) || "null"); } catch (e) { return null; } },
+      set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} },
+      del: function (k) { try { localStorage.removeItem(k); } catch (e) {} },
+    };
+    function myName() { var n = LS.get("vweb:uname"); return typeof n === "string" && n ? n : null; }
+    function greetName() { var n = myName(); return n ? n + "， " : ""; }
+
+    /* --- name memory: "我是谁" / "我叫X" --- */
+    if (/(我是谁|我叫什么|我的名字(是|叫)?什么|记得我(叫|是)|知道我是谁|你认识我吗|还记得我吗)/.test(t)) {
+      var nm0 = myName();
+      if (nm0) return Promise.resolve(P(["你是 " + nm0 + " 喵！我记性好着呢（这个浏览器里的记性）。", "当然是 " + nm0 + " 呀～（尾巴摇摇）", nm0 + " 喵！你看，我没忘吧？"]));
+      return Promise.resolve(P([
+        "唔……你还没告诉我名字呢喵。你叫什么呀？",
+        "这个嘛——我们还没正式认识喵！我叫空又，你叫什么？",
+        "（歪头）空又的访客名单还是空的喵。来，告诉我你叫什么？",
+      ]));
+    }
+    var setname = text.match(/^(?:我叫|我是|人家叫|叫我|请叫我)\s*([\u4e00-\u9fffA-Za-z0-9_]{1,12})$/);
+    if (setname) {
+      var cand = setname[1].trim();
+      if (/^(谁|什么|啥|你|他|她|它|人|吗)$/.test(cand)) {
+        return Promise.resolve("哈哈，想套路我喵？快报上真名～");
+      }
+      LS.set("vweb:uname", cand);
+      return Promise.resolve(P([
+        "记住啦，" + cand + " 喵！（在记忆里给你留了个小鱼干位置）",
+        "好耶！" + cand + "，以后就这么叫你了喵～",
+        cand + "……嗯嗯，这个名字的缓存命中率 100% 喵！",
+      ]));
+    }
+    if (/(忘记我(的名字)?|删掉我(的名字)?|清除我(的名字)?)/.test(t)) {
+      LS.del("vweb:uname");
+      return Promise.resolve(P(["好——忘掉啦（装作翻页）喵。重新认识一下？我叫空又！", "名字缓存已清空喵。不过你想重新介绍自己的话，我随时听～"]));
+    }
+
+    /* --- game: guess the number (1-100) --- */
+    var guess = LS.get("vweb:guess");
+    if (guess && typeof guess.n === "number") {
+      if (/(不玩|放弃|算了|退出|结束|不猜)/.test(t)) {
+        LS.del("vweb:guess");
+        return Promise.resolve("好吧喵，答案是 " + guess.n + "。下次再来玩！");
+      }
+      var gm = text.match(/^\s*(\d{1,3})\s*$/) || text.match(/(?:我猜|猜|是)\s*(\d{1,3})/);
+      if (gm) {
+        var gv = parseInt(gm[1], 10);
+        guess.tries = (guess.tries || 0) + 1;
+        if (gv === guess.n) {
+          LS.del("vweb:guess");
+          var tn = guess.tries;
+          return Promise.resolve(P([
+            "🎉 猜中啦！就是 " + guess.n + "，用了 " + tn + " 次喵！要不要再来一局？（说「猜数字」）",
+            "对了对了！" + guess.n + " 喵！" + tn + " 次就中，有点厉害哦～再来一局？",
+          ]));
+        }
+        LS.set("vweb:guess", guess);
+        var diff = Math.abs(gv - guess.n);
+        var hint = diff <= 5 ? "（超接近了喵！）" : diff <= 15 ? "（有点近了）" : "（差得远呢）";
+        return Promise.resolve(gv > guess.n ? "大了喵～" + hint : "小了喵～" + hint);
+      }
+    }
+    if (/(猜数字|玩.*猜数)/.test(t)) {
+      var target = 1 + Math.floor(Math.random() * 100);
+      LS.set("vweb:guess", { n: target, tries: 0 });
+      return Promise.resolve(P([
+        "我想好了一个 1~100 的数喵，来猜！（说「不玩了」可以退出）",
+        "1 到 100，空又已经藏好数字了喵——开始猜吧！",
+      ]));
+    }
+    if (/(玩个游戏|来玩|玩游戏|有什么游戏|会什么游戏|游戏推荐)/.test(t)) {
+      return Promise.resolve("游戏菜单喵：1) 猜数字——说「猜数字」；2) 猜拳——说「石头/剪刀/布」；3) 故事接龙——说「讲故事」。选一个！");
+    }
+    /* --- game: rock paper scissors --- */
+    if (/(猜拳|石头剪刀布|剪刀石头布|来把石头|出拳)/.test(t) || (text.trim().length <= 6 && /^(石头|剪刀|布|rock|paper|scissors)/i.test(text.trim()))) {
+      var hands = ["石头", "剪刀", "布"];
+      var userHand = null;
+      if (/石头/.test(t)) userHand = "石头";
+      else if (/剪刀/.test(t)) userHand = "剪刀";
+      else if (/(布|paper)/.test(t)) userHand = "布";
+      var score = LS.get("vweb:rps") || { w: 0, l: 0, d: 0 };
+      if (!userHand) {
+        return Promise.resolve("石头剪刀布喵！你出哪个？（石头/剪刀/布）比分：你 " + score.w + " 胜 " + score.l + " 负 " + score.d + " 平");
+      }
+      var cpu = P(hands);
+      var res;
+      if (cpu === userHand) { score.d++; res = "平局！我们想到一块去了喵～"; }
+      else if ((userHand === "石头" && cpu === "剪刀") || (userHand === "剪刀" && cpu === "布") || (userHand === "布" && cpu === "石头")) { score.w++; res = "你赢啦！空又出 " + cpu + "，不服，再来！"; }
+      else { score.l++; res = "我赢了喵！空又出 " + cpu + "（尾巴翘起来）。复仇吗？"; }
+      LS.set("vweb:rps", score);
+      return Promise.resolve(res + "（比分：你 " + score.w + " - " + score.l + " 空又）");
+    }
+    /* --- game: story relay --- */
+    var story = LS.get("vweb:story");
+    if (story && story.active) {
+      if (/(结束|不接|算了|收尾|完结)/.test(t)) {
+        LS.del("vweb:story");
+        return Promise.resolve(P([
+          "……最后，故事在服务器的风扇声中安静地结束了。全剧终喵～（想再玩就说「讲故事」）",
+          "……于是他们过上了 no-bug 的生活。完结撒花喵！🎉",
+        ]));
+      }
+      if (text.trim().length <= 30 && !/[?？]$/.test(text.trim()) && !/(帮我|打开|搜索|查|多少|几点|谁|什么|为什么|怎么|吗|么|游戏|猜)/.test(t)) {
+        var turns = ["就在这时，天上忽然掉下来一个未捕获的异常！", "然后机房的风扇声突然变了调——像在唱歌喵。", "紧接着，一只橘猫从机柜后面探出头来，说：『编译通过。』", "屏幕闪了一下，终端里冒出一行小字：『继续，我听着呢。』", "忽然 Verlintas 从屏幕后面探出头，扔过来一包小鱼干。", "时间跳到凌晨 2:00，一切都变得合理了起来。"];
+        story.turns = (story.turns || 0) + 1;
+        LS.set("vweb:story", story);
+        if (story.turns >= 6) {
+          LS.del("vweb:story");
+          return Promise.resolve("你接上「" + text.trim() + "」——" + P(turns) + " 故事到这里圆满收尾喵～想续写就说「讲故事」！");
+        }
+        return Promise.resolve("你接上「" + text.trim() + "」——" + P(turns) + " 然后呢？接着编喵！");
+      }
+    }
+    if (/(讲故事|编故事|故事接龙|来点故事|讲个故事)/.test(t)) {
+      var who = P(["空又", "一只迷路的猫娘", "Verlintas", "一台会做梦的服务器"]);
+      var where = P(["凌晨两点的机房", "GitHub 某个没人看的 issue 里", "被遗忘的 CSS 文件深处", "开往北京的末班地铁上"]);
+      var what = P(["发现了一个会自己写诗的 bug", "捡到了一枚还在发光的菱形", "遇到了一个只吃 404 页面的幽灵", "收到了一封来自 1998 年的时间胶囊"]);
+      LS.set("vweb:story", { active: true, turns: 0 });
+      return Promise.resolve("从前，" + who + "在" + where + "，" + what + "。……接下来你来接一句喵！（说「结束」可以收尾）");
+    }
 
     /* ═══════════ 0. everyday conversation layer ═══════════ */
     var LEAD = ["嗯哼？", "喵？", "唔——", "诶？", "（抖抖耳朵）", ""];
@@ -512,7 +676,7 @@
     /* generic conversational pickup: echo + ask back, only for short chatty lines */
     var askingWord = /(多少|什么|为什么|怎么|谁|哪儿|哪里|哪|几|吗|呢|吧|是不是|能|会|可以|帮)/.test(t);
     var isQuestionish = /[?？]/.test(text);
-    var toolShaped = /\d/.test(short) || /(转|换算|等于|写个|编个|介绍一下|讲讲|来一个|来个|帮我|打开|记一下|搜索|搜|查一下|算|是几)/.test(t);
+    var toolShaped = /\d/.test(short) || /(转|换算|等于|写个|编个|介绍一下|讲讲|来一个|来个|帮我|打开|记一下|搜索|搜|查一下|算|是几|密度|熔点|沸点|电负性|构型|原子量|元素|首都|货币|区号|半径|光速|比例|圆周率|成语)/.test(t);
     if (!askingWord && !isQuestionish && !toolShaped && short.length >= 2 && short.length <= 14 && !/工具|help|命令|^ai /.test(t)) {
       var echo = short.replace(/[。.！!～~，,]+$/g, "");
       var tail = echo.length > 7 ? echo.slice(-6) : echo;
@@ -691,30 +855,45 @@
     }
 
     /* ============ 5. periodic table (118 elements, cached dataset) ============ */
-    var elIntent = /(元素|element|周期表|原子量|原子序|化学符号|元素符号)/.test(t);
+    var elIntent = /(元素|element|周期表|原子量|原子序|化学符号|元素符号|熔点|沸点|电负性|电子构型|密度)/.test(t);
     if (elIntent) {
       var elNeedle = null;
       m = text.match(/元素(?:周期表里)?[的:：]?(?:第)?(\d+)(?:号)?(?:元素)?(?:是)?(什么|啥|叫)/);
       if (m) elNeedle = m[1];
       if (!elNeedle) {
-        m = text.match(/([\u4e00-\u9fff]{1,8}|[A-Za-z]{1,10})\s*(?:元素|的)?(?:原子量|原子序数|化学符号|元素符号|是几号|的?(?:周期|族)|是什么元素)/);
-        if (m) elNeedle = m[1];
+        m = text.match(/(\d{1,3})\s*号\s*(?:元素)?(?:是|叫)?\s*(?:什么|啥)?/);
+        if (m && +m[1] >= 1 && +m[1] <= 118) elNeedle = m[1];
+      }
+      if (!elNeedle) {
+        m = text.match(/([\u4e00-\u9fff]{1,8}|[A-Za-z]{1,10})\s*(?:元素|的)?(?:原子量|原子序数|化学符号|元素符号|是几号|的?(?:周期|族)|是什么元素|的?熔点|的?沸点|的?密度|的?电负性|的?电子构型)/);
+        if (m) elNeedle = m[1].replace(/[的了吗呢啊是]+$/, "");
       }
       if (elNeedle) {
         return loadElements().then(function (map) {
           var el = map[elNeedle.toLowerCase()] || map[elNeedle];
-          if (!el) return "查遍 118 个元素也没有「" + esc(elNeedle) + "」喵…你确定拼对了？";
-          var parts = [];
-          if (/(原子量|原子质量|质量)/.test(t)) parts.push("原子量 " + el.atomic_mass);
-          if (/(原子序|几号|编号)/.test(t)) parts.push("原子序数 " + el.number);
-          if (/(化学符号|元素符号|symbol)/.test(t)) parts.push("符号 " + el.symbol);
-          if (/(周期表|什么元素|叫什么|是什么|名字)/.test(t) || !parts.length) parts.push("是" + el.name + "（" + el.symbol + "，" + el.number + " 号）");
-          if (/(状态|phase)/.test(t)) parts.push("常温状态 " + (el.phase || "?" ));
-          if (/(族|group)/.test(t)) parts.push("第 " + (el.group || "?") + " 族");
-          if (/(周期|period)/.test(t)) parts.push("第 " + (el.period || "?") + " 周期");
-          if (/(发现|discover)/.test(t) && el.discovered_by) parts.push("发现者 " + el.discovered_by);
-          return parts.join("，") + " 喵";
-        });
+          if (!el) return "查遍 " + Object.keys(map).length + " 个元素条目也没有「" + esc(elNeedle) + "」喵…你确定拼对了？";
+          var base = el.m + "（" + el.s + "，" + el.n + " 号）";
+          var PHASE = { solid: "固体", liquid: "液体", gas: "气体" };
+          var CAT = { "transition metal": "过渡金属", "alkali metal": "碱金属", "alkaline earth metal": "碱土金属", "metalloid": "类金属", "noble gas": "稀有气体", "nonmetal": "非金属", "halogen": "卤素", "post-transition metal": "后过渡金属", "lanthanide": "镧系元素", "actinide": "锕系元素", "unknown": "性质未知", "diatomic nonmetal": "双原子非金属", "polyatomic nonmetal": "多原子非金属" };
+          var catCN = CAT[String(el.cat || "").toLowerCase()] || el.cat;
+          var bits = [];
+          if (/(熔点|melt)/.test(t)) bits.push("熔点 " + (el.melt != null ? el.melt + " K（约 " + (el.melt - 273.15).toFixed(0) + "°C）" : "数据缺失"));
+          if (/(沸点|boil)/.test(t)) bits.push("沸点 " + (el.boil != null ? el.boil + " K（约 " + (el.boil - 273.15).toFixed(0) + "°C）" : "数据缺失"));
+          if (/(密度|density)/.test(t)) bits.push("密度 " + (el.dens != null ? el.dens + " g/cm³" : "数据缺失"));
+          if (/(电负性|eneg)/.test(t)) bits.push("电负性 " + (el.eneg != null ? el.eneg : "数据缺失"));
+          if (/(电子构型|构型|config)/.test(t)) bits.push("电子构型 " + (el.cfg || "?"));
+          if (/(原子量|原子质量|质量)/.test(t)) bits.push("原子量 " + el.mass);
+          if (/(原子序|几号|编号)/.test(t)) bits.push("原子序数 " + el.n);
+          if (/(化学符号|元素符号|symbol)/.test(t)) bits.push("符号 " + el.s);
+          if (/(类别|分类|金属吗|category)/.test(t)) bits.push("属于 " + (catCN || "?"));
+          if (/(状态|phase|固体|气体|液体)/.test(t)) bits.push("常温状态 " + (PHASE[String(el.phase || "").toLowerCase()] || el.phase || "?"));
+          if (/(族|group)/.test(t)) bits.push("第 " + (el.grp || "?") + " 族");
+          if (/(周期|period)/.test(t)) bits.push("第 " + (el.per || "?") + " 周期");
+          if (/(发现|谁)/.test(t) && el.disc) bits.push("发现者 " + el.disc);
+          if (/(简介|介绍|说说|summary)/.test(t) && el.sum) bits.push(el.sum);
+          if (!bits.length) bits.push("常温是" + (PHASE[String(el.phase || "").toLowerCase()] || "?") + "，属于 " + (catCN || "?"));
+          return base + "：" + bits.join("；") + " 喵";
+        }).catch(function () { return "元素数据库加载失败了喵…（刷新或联网后再试）"; });
       }
       if (/(多少|几个)元素|元素.*(几|多少)个/.test(t)) return Promise.resolve("元素周期表一共 118 个元素喵（1-118 号）");
       if (/(前20|前二十).*(口诀|背|记)/.test(t)) return Promise.resolve("氢氦锂铍硼，碳氮氧氟氖，钠镁铝硅磷，硫氯氩钾钙喵～");
@@ -744,6 +923,26 @@
     if (/(猫.{0,3}(冷)?知识|关于猫|猫冷知识)/.test(t)) return Promise.resolve(P(CAT_FACTS));
     if (/(终端|这个网站|本站).*(故事|传说|历史|秘密)/.test(t)) return Promise.resolve(P(CONSOLE_LORES));
 
+    /* ============ 6.5 famous constants ============ */
+    if (/(圆周率|π|pi(是多少|多少|的值|等于多少)?)/.test(t) && /(多少|是什么|值|等于|几位|π|pi)/i.test(t)) {
+      return Promise.resolve("π ≈ 3.14159265358979323846264338327950288…（前 35 位喵，背到第 10 位就够写代码了）");
+    }
+    if (/(自然常数|欧拉数|e 是多少|e等于多少)/.test(t) || /^e(是多少|的值|等于多少)/.test(t)) {
+      return Promise.resolve("自然常数 e ≈ 2.71828182845904523536…喵，复利和指数增长的幕后黑手。");
+    }
+    if (/(黄金比例|黄金分割|φ|phi)/.test(t)) {
+      return Promise.resolve("黄金比例 φ = (1+√5)/2 ≈ 1.6180339887498948482…喵，据说很美，但不如猫美。");
+    }
+    if (/(根号2|√2|sqrt\(?2\)?)/.test(t)) return Promise.resolve("√2 ≈ 1.4142135623730950488…喵，第一个被发现的无理数，当年还引发过命案（希帕索斯）。");
+    if (/(光速|speed of light)/.test(t)) return Promise.resolve("光速 c = 299,792,458 m/s ≈ 30 万 km/s 喵。精确值，因为一米就是这么定义的。");
+    if (/(绝对零度)/.test(t)) return Promise.resolve("绝对零度 = -273.15°C = 0 K 喵。到不了，到了也起不来（因为没有热运动了）。");
+    if (/(阿伏伽德罗)/.test(t)) return Promise.resolve("阿伏伽德罗常数 ≈ 6.02214076×10²³ /mol 喵。一摩尔东西的数量，多到数不清，像 Verlintas 的待办。");
+    if (/(引力常数|万有引力常数|G ?=)/.test(t) && /(多少|值|常数)/.test(t)) return Promise.resolve("万有引力常数 G ≈ 6.674×10⁻¹¹ N·m²/kg² 喵。宇宙最弱的力，但赢了全场。");
+    if (/(地球(的)?半径)/.test(t)) return Promise.resolve("地球平均半径约 6,371 km 喵（赤道半径 6,378 km，极半径 6,357 km——是个微微的扁球）。");
+    if (/(地球(的)?质量)/.test(t)) return Promise.resolve("地球质量 ≈ 5.972×10²⁴ kg 喵。换成斤是 1.19×10²⁵ 斤——别问，问就是秤坏了。");
+    if (/(地月距离|月亮(离我们)?多远|月球距离)/.test(t)) return Promise.resolve("地月平均距离约 384,400 km 喵，光走 1.28 秒。阿波罗来回花了 8 天。");
+    if (/(一年(有)?多少天|一年几天)/.test(t)) return Promise.resolve("回归年约 365.2422 天喵——所以每 4 年补一个闰日，但每 100 年又扣一个，每 400 年再补回来。历法就是个补丁堆。");
+
     /* ============ 7. self-knowledge fallbacks ============ */
     if (/(取(个)?名字|起个名(字)?|帮我.*名|命名)/.test(t) || (/(名字|命名)/.test(t) && /(好|建议|取)/.test(t))) {
       var NA = ["Neko", "Kitsune", "Aoi", "Sora", "Zero", "Nova", "Ember", "Quartz", "Pixel", "Luna"];
@@ -753,19 +952,63 @@
       return Promise.resolve("生成器出品（词库组合，永不重复）：" + picks2.join(" · ") + " 喵");
     }
     if (/自(己|我)介绍|简历|关于我/.test(t)) {
-      return Promise.resolve("空又 = Empty-X 喵。运行着：手写意图网 + 118 元素知识库 + 单位换算大全 + 组合语料生成器 + 会话记忆。配了本地模型的话我还能更聪明喵。");
+      return ensureData("manifest").then(function (mf) {
+        return "空又 = Empty-X 喵。知识库：" + mf.elements + " 条元素属性 · " + mf.idioms + " 条成语 · " + mf.countries + " 个国家资料 · 40+ 单位换算 · 数学/日期/文本生成器若干 · 会话记忆 45 分钟。配了本地模型我还能更聪明喵～";
+      }).catch(function () {
+        return "空又 = Empty-X 喵。运行着：手写意图网 + 元素周期表 + 成语库 + 国家资料 + 单位换算 + 组合语料生成器 + 会话记忆喵。";
+      });
     }
 
-    /* ============ 9. LLM-ish fallback: never go silent ============ */
-    var snippet = String(text).replace(/[。.!！?？~～，,、\s]+/g, "").slice(0, 14);
-    var fb = [
-      "唔……「" + snippet + "」这个问题超出空又的本地小词典了喵。不过我有三条路：1) 配个本地模型（ai lmstudio / ai key），我立刻升级；2) 问我拿手的：数算、元素、单位换算、天气、站点状态；3) 就当聊聊天，这个我也擅长喵～",
-      "让我捋一捋……「" + snippet + "」？嗯，本地知识库没覆盖到喵。老实说我现在更像一台会喵喵叫的规则机，但 Verlintas 给我留了升级接口——ai lmstudio 或 ai key 能让我真开口。要试试喵？",
-      "（歪头想了三秒）关于「" + snippet + "」我暂时没有靠谱答案喵。空又的原则：宁可不乱编，也不骗你。要不换个问法？或者我帮你到 GitHub 搜搜看？",
-      "嗯——「" + snippet + "」啊。我的小脑瓜转了一圈没找到对应条目喵（咔哒咔哒）。你可以：A) 打开终端敲 help 看看我哪些行；B) 配模型让我变 LLM；C) 换个话题，我陪你聊到天荒地老喵。",
-    ];
-    if (aiAvailable()) return Promise.resolve(null); /* real LLM takes over */
-    return Promise.resolve(P(fb));
+    /* ============ 9. dataset Q&A (countries, idioms) + LLM-ish fallback ============ */
+    function makeFallback() {
+      var snippet = String(text).replace(/[。.!！?？~～，,、\s]+/g, "").slice(0, 14);
+      var fb = [
+        "唔……「" + snippet + "」这个问题超出空又的本地小词典了喵。不过我有三条路：1) 配个本地模型（ai lmstudio / ai key），我立刻升级；2) 问我拿手的：数算、元素、成语、国家、单位换算、天气、站点状态；3) 就当聊聊天，这个我也擅长喵～",
+        "让我捋一捋……「" + snippet + "」？嗯，本地知识库没覆盖到喵。老实说我现在更像一台会喵喵叫的规则机，但 Verlintas 给我留了升级接口——ai lmstudio 或 ai key 能让我真开口。要试试喵？",
+        "（歪头想了三秒）关于「" + snippet + "」我暂时没有靠谱答案喵。空又的原则：宁可不乱编，也不骗你。要不换个问法？或者我帮你到 GitHub 搜搜看？",
+        "嗯——「" + snippet + "」啊。我的小脑瓜转了一圈没找到对应条目喵（咔哒咔哒）。你可以：A) 打开终端敲 help 看看我哪些行；B) 配模型让我变 LLM；C) 换个话题，我陪你聊到天荒地老喵。",
+      ];
+      return P(fb);
+    }
+    function tryCountry() {
+      if (!/(首都|货币|电话区号|区号|面积|哪个洲|属于哪|经纬|坐标|在哪个大洲)/.test(t)) return Promise.resolve(null);
+      return loadCountries().then(function () {
+        var c = findCountry(text);
+        if (!c) return null;
+        var ans = [];
+        if (/首都/.test(t)) ans.push("首都是 " + (c.capZh ? c.capZh + "（" + c.cap + "）" : (c.cap || "?")));
+        if (/(货币|钱|用什么钱)/.test(t)) ans.push("货币是 " + (c.cur || "?") + (c.curCode ? "（" + c.curCode + "）" : ""));
+        if (/(区号|电话)/.test(t)) ans.push("电话区号 +" + String(c.phone || "?").replace(/^\+/, ""));
+        if (/(洲|大洲|地区)/.test(t)) {
+          var REG = { "Australia and New Zealand": "大洋洲", "South-Eastern Asia": "东南亚", "Eastern Asia": "东亚", "Southern Asia": "南亚", "Western Asia": "西亚", "Central Asia": "中亚", "Northern Europe": "北欧", "Western Europe": "西欧", "Southern Europe": "南欧", "Eastern Europe": "东欧", "Central Europe": "中欧", "Northern America": "北美洲", "Central America": "中美洲", "Caribbean": "加勒比地区", "South America": "南美洲", "Northern Africa": "北非", "Western Africa": "西非", "Middle Africa": "中非", "Eastern Africa": "东非", "Southern Africa": "南部非洲", "Melanesia": "美拉尼西亚", "Micronesia": "密克罗尼西亚", "Polynesia": "波利尼西亚" };
+          ans.push("位于 " + (REG[c.region] || c.region || "?"));
+        }
+        if (/面积/.test(t)) ans.push("面积约 " + (c.area ? c.area.toLocaleString() : "?") + " km²");
+        if (/(经纬|坐标)/.test(t)) ans.push("坐标 " + (c.latlng ? c.latlng.join(", ") : "?"));
+        if (!ans.length) ans.push("首都 " + (c.capZh || c.cap || "?") + "，货币 " + (c.cur || "?") + "，位于 " + (c.region || "?"));
+        return c.zh + "： " + ans.join("，") + " 喵";
+      }).catch(function () { return null; });
+    }
+    function tryIdiom() {
+      if (!/(是什么意思|啥意思|什么含义|怎么解释|解释一下|什么意思|啥含义)/.test(t)) return Promise.resolve(null);
+      var clean = text.replace(/[？?。.!！，,、；;：:\s]/g, "");
+      var cands = [];
+      var frag = text.match(/([\u4e00-\u9fff]{3,6})(?:是|的)?(?:什么|啥)(?:意思|含义)/);
+      if (frag) cands.push(frag[1]);
+      for (var wi = 0; wi + 4 <= clean.length; wi++) cands.push(clean.slice(wi, wi + 4));
+      return loadIdioms().then(function (map) {
+        for (var ci = 0; ci < cands.length; ci++) if (map[cands[ci]]) return "「" + cands[ci] + "」：" + map[cands[ci]] + " 喵";
+        return null;
+      }).catch(function () { return null; });
+    }
+    return tryCountry().then(function (cr) {
+      if (cr) return cr;
+      return tryIdiom().then(function (ir) {
+        if (ir) return ir;
+        if (aiAvailable()) return null;
+        return makeFallback();
+      });
+    });
   }
 
   /* ---------- conversation state (keeps the chat going) ---------- */
