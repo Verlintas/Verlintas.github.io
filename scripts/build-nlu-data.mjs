@@ -6,6 +6,7 @@
    - mledoze/countries                 → countries.json
 */
 import { writeFile, mkdir } from "node:fs/promises";
+import { gunzipSync } from "node:zlib";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -177,15 +178,106 @@ async function buildCountries() {
   return out;
 }
 
-const [elements, idioms, countries] = await Promise.all([buildElements(), buildIdioms(), buildCountries()]);
+const BAD = /操你|傻逼|尼玛|妈逼|你妈|妈的|你妹|滚蛋|去死|贱人|贱|婊|妓|嫖|约炮|做爱|性爱|爱爱|啪啪|裸|阴茎|阴道|乳房|强奸|自杀|杀人|毒品|冰毒|大麻|赌博|博彩|彩票|发票|贷款|加微信|加qq|q群|群号|http|www\.|\.com|\.cn|手机号|身份证|银行卡|色情|黄片|习近平|共产党|法轮功|六四|台独|港独|肺炎|疫情|病毒|导弹|战争|屠杀|移民|偷渡|诈骗|传销|代购|刷单|骚|淫|怀孕|避孕|开房|上床|妹纸|撸|屌|鸡巴|jb|sm之|sm是|菊花痒/i;
+const JUNK = /^[\s\d\p{P}\p{S}]+$/u;
+
+function tarExtract(gzBuf, wantedExt) {
+  const tar = gunzipSync(gzBuf);
+  const files = [];
+  let off = 0;
+  while (off + 512 <= tar.length) {
+    const name = tar.toString("utf8", off, off + 100).replace(/\0.*$/, "");
+    if (!name) { off += 512; continue; }
+    const sizeStr = tar.toString("utf8", off + 124, off + 136).replace(/\0.*$/, "").trim();
+    const size = parseInt(sizeStr, 8) || 0;
+    const dataStart = off + 512;
+    if (name.endsWith(wantedExt)) files.push({ name, data: tar.subarray(dataStart, dataStart + size) });
+    off = dataStart + Math.ceil(size / 512) * 512;
+  }
+  return files;
+}
+
+function brandify(s) {
+  return s.replace(/小黄鸡/g, "空又").replace(/黄鸡/g, "空又").replace(/小黄鸭/g, "空又")
+    .replace(/小通/g, "空又").replace(/通通/g, "空又");
+}
+
+async function buildQA() {
+  const pairs = [];
+  /* 1) chatterbot Chinese categories (high quality, keep first) */
+  const cats = ["greetings", "conversations", "emotion", "humor", "food", "money", "history", "psychology", "science", "trivia", "ai", "botprofile", "gossip"];
+  for (const cat of cats) {
+    try {
+      const r = await fetch("https://cdn.jsdelivr.net/gh/gunthercox/chatterbot-corpus@master/chatterbot_corpus/data/chinese/" + cat + ".yml");
+      if (!r.ok) continue;
+      const txt = await r.text();
+      const re = /- - (.+)\n  - (.+)/g;
+      let m;
+      while ((m = re.exec(txt)) !== null) {
+        const q = m[1].trim();
+        const a = m[2].trim();
+        if (q.length < 2 || q.length > 22 || a.length < 1 || a.length > 60) continue;
+        if (BAD.test(q) || BAD.test(a) || JUNK.test(q)) continue;
+        pairs.push({ q: q, a: brandify(a), w: 2 });
+      }
+    } catch (e) { /* skip */ }
+  }
+  const chatterCount = pairs.length;
+  /* 2) xiaohuangji 500k corpus (retrieval-based classic) */
+  const r2 = await fetch("https://codeload.github.com/pzy2000/-/tar.gz/refs/heads/main");
+  if (!r2.ok) throw new Error("xhj download failed " + r2.status);
+  const gz = Buffer.from(await r2.arrayBuffer());
+  const conv = tarExtract(gz, ".conv")[0];
+  if (conv) {
+    const text = conv.data.toString("utf8");
+    const lines = text.split("\n");
+    let cur = [];
+    const seenQ = new Map();
+    const all = [];
+    for (const ln of lines) {
+      if (ln === "E") {
+        if (cur.length >= 2) {
+          const q = cur[0].replace(/^M\s*/, "").trim();
+          const a = cur[1].replace(/^M\s*/, "").trim();
+          if (q.length >= 2 && q.length <= 20 && a.length >= 2 && a.length <= 60 && !/^(是|不|哦|嗯|啊|哈|呵|额|呃|噢|哎|嗨|喂|草|的|了|吗)$/.test(a) &&
+              !BAD.test(q) && !BAD.test(a) && !JUNK.test(q) && !JUNK.test(a) &&
+              !/[\uD800-\uDFFF]/.test(q) && !/[\uD800-\uDFFF]/.test(a)) {
+            all.push([brandify(q), brandify(a)]);
+          }
+        }
+        cur = [];
+      } else if (ln.startsWith("M ")) {
+        if (cur.length < 2) cur.push(ln);
+      }
+    }
+    for (const [q, a] of all) {
+      const cur = seenQ.get(q);
+      if (cur) { cur.c++; }
+      else seenQ.set(q, { a: a, c: 1 });
+    }
+    const uniq = Array.from(seenQ.entries());
+    /* high-frequency questions first: the more people asked it, the more
+       "everyday" it is — this is what makes the bot answer common chit-chat */
+    uniq.sort((x, y) => y[1].c - x[1].c);
+    const TARGET = 20000;
+    for (let i = 0; i < uniq.length && pairs.length < chatterCount + TARGET; i++) {
+      pairs.push({ q: uniq[i][0], a: uniq[i][1].a, w: 1 });
+    }
+  }
+  return pairs;
+}
+
+const [elements, idioms, countries, qa] = await Promise.all([buildElements(), buildIdioms(), buildCountries(), buildQA()]);
 await mkdir(OUT, { recursive: true });
 await writeFile(join(OUT, "elements.json"), JSON.stringify(elements));
 await writeFile(join(OUT, "idioms.json"), JSON.stringify(idioms));
 await writeFile(join(OUT, "countries.json"), JSON.stringify(countries));
+await writeFile(join(OUT, "qa.json"), JSON.stringify(qa));
 await writeFile(join(OUT, "manifest.json"), JSON.stringify({
   generated: new Date().toISOString().slice(0, 10),
   elements: elements.length,
   idioms: idioms.length,
   countries: countries.length,
+  qa: qa.length,
 }));
-console.log("elements:", elements.length, "| idioms:", idioms.length, "| countries:", countries.length);
+console.log("elements:", elements.length, "| idioms:", idioms.length, "| countries:", countries.length, "| qa:", qa.length);

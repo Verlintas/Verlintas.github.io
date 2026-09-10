@@ -256,6 +256,26 @@
       return map;
     });
   }
+  var QA_IDX = null;
+  function qaGrams(s) {
+    var set = {};
+    var n = 0;
+    for (var i = 0; i + 2 <= s.length; i++) { set[s.slice(i, i + 2)] = 1; n++; }
+    if (s.length === 1) { set[s] = 1; n++; }
+    return { m: set, n: n };
+  }
+  function loadQA() {
+    if (QA_IDX) return Promise.resolve(QA_IDX);
+    return ensureData("qa").then(function (arr) {
+      arr.forEach(function (it) {
+        var g = qaGrams(it.q);
+        it.g = g.m;
+        it.gl = g.n;
+      });
+      QA_IDX = arr;
+      return arr;
+    });
+  }
   var COUNTRY_IDX = null;
   function loadCountries() {
     if (COUNTRY_IDX) return Promise.resolve(COUNTRY_IDX);
@@ -403,7 +423,8 @@
           "……于是他们过上了 no-bug 的生活。完结撒花喵！🎉",
         ]));
       }
-      if (text.trim().length <= 30 && !/[?？]$/.test(text.trim()) && !/(帮我|打开|搜索|查|多少|几点|谁|什么|为什么|怎么|吗|么|游戏|猜)/.test(t)) {
+      if (text.trim().length <= 30 && !/[?？]$/.test(text.trim()) &&
+          !/(帮我|打开|搜索|查|多少|几点|谁|什么|为什么|怎么|吗|么|游戏|猜|难过|好累|无聊|夸|喜欢|讨厌|睡|饿|怕|笑话|歌|元素|成语|首都|密度|熔点|我是谁|名字)/.test(t)) {
         var turns = ["就在这时，天上忽然掉下来一个未捕获的异常！", "然后机房的风扇声突然变了调——像在唱歌喵。", "紧接着，一只橘猫从机柜后面探出头来，说：『编译通过。』", "屏幕闪了一下，终端里冒出一行小字：『继续，我听着呢。』", "忽然 Verlintas 从屏幕后面探出头，扔过来一包小鱼干。", "时间跳到凌晨 2:00，一切都变得合理了起来。"];
         story.turns = (story.turns || 0) + 1;
         LS.set("vweb:story", story);
@@ -498,7 +519,7 @@
         "（歪头）这是个陷阱题吗？夸多了怕你骄傲，不夸怕你伤心……综合评分 99/100，扣一分因为没带小鱼干喵。",
       ]));
     }
-    if (/(你|空又).{0,4}(喜欢|爱|好感)(不?喜欢|不爱|上)?(我|人家)?|你喜欢我吗|你爱我吗|爱不爱我|你(会|能)?喜欢上我/.test(t) && !/(相信|懂|理解)爱|爱情/.test(t) && /(吗|？|\?|嘛|啊|呀|我|上我)/.test(text)) {
+    if (/(你|空又).{0,4}(喜欢|爱|好感)(我|人家)|你喜欢我吗|你爱我吗|爱不爱我|喜欢你吗|喜欢我(吗|么|不)|你(会|能)?喜欢上我|你喜欢(我|人家)/.test(t) && !/(相信|懂|理解)爱|爱情|狗|猫|动物/.test(t)) {
       return chatSay(P([
         "喜……喜欢呀喵！（耳朵尖发烫）但是不能说太多，说太多怕你骄傲～",
         "这个问题嘛……（尾巴不自觉摇起来）当然喜欢啦，不然怎么会陪你聊这么久喵。",
@@ -583,6 +604,13 @@
         "空又守则：不撒谎喵。顶多是……把不知道的事情包装成可爱的拒绝。",
         "骗你干嘛喵？我又不靠这个冲 KPI——我的 KPI 是小鱼干。",
         "编程猫娘的第一原则：永远 return 真话；编不出来就 return undefined 并承认。",
+      ]));
+    }
+    if (/(喜欢|爱).{0,3}(狗|猫|动物|宠物)/.test(t)) {
+      return chatSay(P([
+        "猫！当然是猫喵——但狗也不讨厌啦，狗负责热情，猫负责高冷，分工不同。",
+        "（尾巴一僵）这个问题……作为猫娘我必须说：猫。但是狗子确实很可爱，勉强并列吧喵。",
+        "喜欢啊，毛茸茸的我都喜欢喵～不过别在我面前叫别的猫「可爱」，会吃醋的。",
       ]));
     }
     if (/(你(喜欢|爱)(什么|啥)(颜色|食物|吃|歌|音乐|游戏|书|季节|天气|动物|数字|编程语言)|你的(爱好|兴趣|嗜好)|你平时喜欢做什么)/.test(t)) {
@@ -673,22 +701,7 @@
     if (/(歌|音乐|听歌|旋律|乐队|rap)/.test(t) && !/会什么|功能/.test(t)) {
       return chatSay(P(["在听什么歌喵？空又的耳朵对旋律很敏感～", "音乐是写代码的 BGM 喵。分享一首最近循环的？", "（跟着节奏摇尾巴）好听吗？给空又也来一首！"]));
     }
-    /* generic conversational pickup: echo + ask back, only for short chatty lines */
-    var askingWord = /(多少|什么|为什么|怎么|谁|哪儿|哪里|哪|几|吗|呢|吧|是不是|能|会|可以|帮)/.test(t);
-    var isQuestionish = /[?？]/.test(text);
-    var toolShaped = /\d/.test(short) || /(转|换算|等于|写个|编个|介绍一下|讲讲|来一个|来个|帮我|打开|记一下|搜索|搜|查一下|算|是几|密度|熔点|沸点|电负性|构型|原子量|元素|首都|货币|区号|半径|光速|比例|圆周率|成语)/.test(t);
-    if (!askingWord && !isQuestionish && !toolShaped && short.length >= 2 && short.length <= 14 && !/工具|help|命令|^ai /.test(t)) {
-      var echo = short.replace(/[。.！!～~，,]+$/g, "");
-      var tail = echo.length > 7 ? echo.slice(-6) : echo;
-      return chatSay(P([
-        "你刚说「" + tail + "」…嗯嗯，然后呢喵？",
-        "「" + tail + "」啊——展开说说？空又的耳朵竖着呢。",
-        "这样呀喵。那你觉得呢？",
-        "嗯嗯（认真点头）…那后来呢？",
-        "唔…有意思喵，继续说？",
-        "原来如此～（其实在等你展开）",
-      ]));
-    }
+
     /* ============ 1. pure math, ANY number ============ */
     if (/(因数|约数|整除|divisor)/.test(t) && !/质因数|分解/.test(t) && ints.length && ints[0] <= 200000) {
       var ds = divisors(ints[0]);
@@ -970,6 +983,37 @@
       ];
       return P(fb);
     }
+    function tryEcho() {
+      var short = String(text).trim();
+      var tl = short.toLowerCase();
+      if (short.length < 2 || short.length > 14) return null;
+      if (/[?？]/.test(short)) return null;
+      if (/(多少|什么|为什么|怎么|谁|哪儿|哪里|哪|几|吗|呢|吧|是不是|能|会|可以|帮)/.test(tl)) return null;
+      if (/\d/.test(short)) return null;
+      if (/(转|换算|等于|写个|编个|介绍一下|讲讲|来一个|来个|帮我|打开|记一下|搜索|搜|查一下|算|是几|密度|熔点|沸点|电负性|构型|原子量|元素|首都|货币|区号|半径|光速|比例|圆周率|成语|游戏|猜|故事)/.test(tl)) return null;
+      var echo = short.replace(/[。.！!～~，,]+$/g, "");
+      var tail = echo.length > 7 ? echo.slice(-6) : echo;
+      return P([
+        "你刚说「" + tail + "」…嗯嗯，然后呢喵？",
+        "「" + tail + "」啊——展开说说？空又的耳朵竖着呢。",
+        "这样呀喵。那你觉得呢？",
+        "嗯嗯（认真点头）…那后来呢？",
+        "唔…有意思喵，继续说？",
+        "原来如此～（其实在等你展开）",
+      ]);
+    }
+    function tryHandwritten() {
+      if (/(做朋友|交朋友|交个朋友|处朋友|当你朋友|成为朋友)/.test(t)) return P([
+        "好呀！从今天起你就是空又的朋友了喵（拉钩）。朋友福利：优先插队聊天。",
+        "成交！朋友卡已发放喵～记得常来，别让我对着终端数风扇转速。",
+        "（伸出爪子）握爪！从现在开始你就是自己人了喵。",
+      ]);
+      if (/(你相信光|相信光吗)/.test(t)) return P(["相信喵！毕竟我每天看着终端背光，光就是我的早饭。", "相信啊——不然你以为我这一身猫娘设定是靠什么发光的喵？"]);
+      if (/(你有梦想|你的梦想|理想是什么)/.test(t)) return P(["梦想是有一天被访问量撑爆服务器喵（然后 Verlintas 给我升级）。", "梦想：让每个来聊天的人都笑着离开，顺便教会他们 git commit 前先 pull。"]);
+      if (/(你怕(什么|啥)|害怕什么|你的恐惧)/.test(t)) return P(["怕你把终端关了不回来喵……哦还有榴莲。", "怕代码删库、怕断电、怕你问完「我是谁」就跑掉。"]);
+      if (/(你喜欢我吗|你爱我吗)/.test(t)) return null;
+      return null;
+    }
     function tryCountry() {
       if (!/(首都|货币|电话区号|区号|面积|哪个洲|属于哪|经纬|坐标|在哪个大洲)/.test(t)) return Promise.resolve(null);
       return loadCountries().then(function () {
@@ -1001,12 +1045,41 @@
         return null;
       }).catch(function () { return null; });
     }
+    function tryQA(text) {
+      var q = text.replace(/[^\u4e00-\u9fffA-Za-z0-9]/g, "");
+      if (q.length < 2 || q.length > 24) return Promise.resolve(null);
+      return loadQA().then(function (arr) {
+        var qg = qaGrams(q);
+        var qkeys = Object.keys(qg.m);
+        var best = null, bestScore = 0;
+        for (var i = 0; i < arr.length; i++) {
+          var it = arr[i];
+          if (Math.abs(it.q.length - q.length) > 8) continue;
+          var g = it.g;
+          var inter = 0;
+          for (var k = 0; k < qkeys.length; k++) if (g[qkeys[k]]) inter++;
+          var union = qg.n + it.gl - inter;
+          var score = union ? inter / union : 0;
+          if (score > bestScore) { bestScore = score; best = it; }
+        }
+        var need = q.length <= 4 ? 0.6 : 0.5;
+        if (best && bestScore >= need) return best.a;
+        return null;
+      }).catch(function () { return null; });
+    }
     return tryCountry().then(function (cr) {
       if (cr) return cr;
       return tryIdiom().then(function (ir) {
         if (ir) return ir;
-        if (aiAvailable()) return null;
-        return makeFallback();
+        return tryQA(text).then(function (qr) {
+          if (qr) return qr;
+          var hw = tryHandwritten();
+          if (hw) return hw;
+          var ec = tryEcho();
+          if (ec) { saveCtx(String(text).slice(0, 40), ec); return ec; }
+          if (aiAvailable()) return null;
+          return makeFallback();
+        });
       });
     });
   }
