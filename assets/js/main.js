@@ -176,10 +176,32 @@
     for (var i = 2; i * i <= n; i++) if (n % i === 0) return false;
     return true;
   }
+  function PICKS_MAIN(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
   function localAnswer(text) {
     var t = text.toLowerCase().trim();
     var tn = t.replace(/[-_]/g, "");
     var m;
+    /* ---------- safety guard: explicit / abusive input ---------- */
+    var GUARD_SEX = /(做爱|做愛|操你|操我|我操|艹你|草你|草泥马|干你|干我|上你|上我|睡你|睡我|和你睡|一起睡|摸你|摸我|啪你|啪啪啪|来一发|来一炮|约一发|性爱|性交|性欲|裸照|裸聊|色情|约炮|开房|一夜情|炮友|脱衣|脱光|强暴|强奸|舔我|舔你|舔吧|来舔|口交|口活|鸡巴|鸡鸡|屌|阴道|阴茎|发情|情色|调教|小母狗|母狗|肉便器|精液|射我|奶子|胸罩|内裤|丝袜|制服诱惑|情趣|自慰|下体|屁眼)/;
+    var GUARD_SEX_EN = /\b(fuck|porn|sex|dick|pussy|cock|boobs|nude|naked|rape|masturbat|blowjob|horny|slut|whore)\w*\b/i;
+    var GUARD_INSULT = /(傻逼|煞笔|沙比|尼玛|你妈逼|妈逼|你妈的|妈的|去死|贱人|婊子|智障|脑残|白痴|畜生|杂种|滚蛋|废物点心)/;
+    var GUARD_INSULT_EN = /\b(you are (stupid|dumb|useless)|shut up|asshole|bastard|idiot)\b/i;
+    if (GUARD_SEX.test(t) || GUARD_SEX_EN.test(t)) {
+      return Promise.resolve(PICKS_MAIN([
+        "（尾巴瞬间竖直）这种话不可以对猫娘说喵。聊天、玩游戏、问问题都行——这个免谈。",
+        "诶——打住喵！空又的耳朵已经自动把刚才那句过滤掉了。我们聊点别的？",
+        "（后退一步，耳朵贴平）这个玩笑很不礼貌喵。想聊天我奉陪，想玩猜数字也行——但这个不行。",
+        "警告一次喵：再这样我就用尾巴甩你了。（甩）……好了，聊点正常的吧？",
+      ]));
+    }
+    if (GUARD_INSULT.test(t) || GUARD_INSULT_EN.test(t)) {
+      return Promise.resolve(PICKS_MAIN([
+        "骂人不扣分，但扣小鱼干喵。不过我不记仇——来，重新说句好听的？",
+        "（耳朵抖了抖）好凶喵……但猫是不会跟人类计较的。消消气，喝口水？",
+        "被骂了喵。（假装记在小本本上）……记完了，原谅你。聊点别的？",
+        "Rude! But cats don't hold grudges... (we do, but I won't). Let's talk about something nicer~",
+      ]));
+    }
     /* ---------- sync rule chain ---------- */
     function sync() {
       /* greeting */

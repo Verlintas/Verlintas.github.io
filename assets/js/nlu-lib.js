@@ -257,6 +257,7 @@
     });
   }
   var QA_IDX = { zh: null, en: null };
+  var BAD_A_EN = /\b(fuck|porn|sex|dick|pussy|cock|nude|naked|rape|blowjob|horny|slut|whore|masturbat)\w*\b/i;
   function qaGrams(s, lang) {
     s = String(s).toLowerCase().replace(/[^\u4e00-\u9fffA-Za-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
     var set = {};
@@ -328,6 +329,22 @@
   /* ══════════════ MAIN PROBE ══════════════ */
   function probe(text) {
     var t = text.toLowerCase().trim();
+    /* safety guard (same policy as main.js) */
+    if (/(做爱|做愛|操你|操我|我操|艹你|草你|草泥马|干你|干我|上你|上我|睡你|睡我|和你睡|一起睡|摸你|摸我|啪你|啪啪啪|来一发|来一炮|约一发|性爱|性交|性欲|裸照|裸聊|色情|约炮|开房|一夜情|炮友|脱衣|脱光|强暴|强奸|舔我|舔你|舔吧|来舔|口交|口活|鸡巴|鸡鸡|屌|阴道|阴茎|发情|情色|调教|小母狗|母狗|肉便器|精液|射我|奶子|胸罩|内裤|丝袜|制服诱惑|情趣|自慰|下体|屁眼)/.test(t) ||
+        /\b(fuck|porn|sex|dick|pussy|cock|boobs|nude|naked|rape|masturbat|blowjob|horny|slut|whore)\w*\b/i.test(t)) {
+      return Promise.resolve(P([
+        "（尾巴瞬间竖直）这种话不可以对猫娘说喵。聊天、玩游戏、问问题都行——这个免谈。",
+        "诶——打住喵！空又的耳朵已经自动把刚才那句过滤掉了。我们聊点别的？",
+        "（后退一步，耳朵贴平）这个玩笑很不礼貌喵。想聊天我奉陪——但这个不行。",
+      ]));
+    }
+    if (/(傻逼|煞笔|沙比|尼玛|你妈逼|妈逼|你妈的|妈的|去死|贱人|婊子|智障|脑残|白痴|畜生|杂种|滚蛋|废物点心)/.test(t) ||
+        /\b(you are (stupid|dumb|useless)|shut up|asshole|bastard|idiot)\b/i.test(t)) {
+      return Promise.resolve(P([
+        "骂人不扣分，但扣小鱼干喵。不过我不记仇——来，重新说句好听的？",
+        "（耳朵抖了抖）好凶喵……但猫是不会跟人类计较的。消消气，喝口水？",
+      ]));
+    }
     var m;
     var ints = [];
     var mm;
@@ -1150,7 +1167,13 @@
           if (score > bestScore) { bestScore = score; best = it; }
         }
         var need = q.length <= 4 ? 0.6 : 0.5;
-        if (best && bestScore >= need) return best.a;
+        if (best && bestScore >= need) {
+          if (/(做爱|操你|操我|干你|上你|上我|睡你|睡我|摸你|摸我|啪你|啪啪啪|来一发|来一炮|约一发|性爱|裸|色情|约炮|开房|舔我|舔你|来舔|口交|鸡巴|鸡鸡|屌|发情|调教|母狗|精液|内裤|丝袜|情趣|自慰|女王|跪|忠犬|帝王攻)/.test(best.a) ||
+              BAD_A_EN.test(best.a)) {
+            return null;
+          }
+          return best.a;
+        }
         return null;
       }).catch(function () { return null; });
     }
