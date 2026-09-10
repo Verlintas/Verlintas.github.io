@@ -178,6 +178,19 @@ async function buildCountries() {
   return out;
 }
 
+let CHATTER_CACHE = null;
+async function chatterbotYml(lang, cat) {
+  if (!CHATTER_CACHE) {
+    const r = await fetch("https://codeload.github.com/gunthercox/chatterbot-corpus/tar.gz/refs/heads/master");
+    if (!r.ok) throw new Error("chatterbot download failed " + r.status);
+    const gz = Buffer.from(await r.arrayBuffer());
+    CHATTER_CACHE = tarExtract(gz, (n) => /chatterbot_corpus\/data\/.*\.yml$/.test(n));
+  }
+  const want = "/data/" + lang + "/" + cat + ".yml";
+  const f = CHATTER_CACHE.find((x) => x.name.endsWith(want));
+  return f ? f.data.toString("utf8") : null;
+}
+
 const BAD = /操你|傻逼|尼玛|妈逼|你妈|妈的|你妹|滚蛋|去死|贱人|贱|婊|妓|嫖|约炮|做爱|性爱|爱爱|啪啪|裸|阴茎|阴道|乳房|强奸|自杀|杀人|毒品|冰毒|大麻|赌博|博彩|彩票|发票|贷款|加微信|加qq|q群|群号|http|www\.|\.com|\.cn|手机号|身份证|银行卡|色情|黄片|习近平|共产党|法轮功|六四|台独|港独|肺炎|疫情|病毒|导弹|战争|屠杀|移民|偷渡|诈骗|传销|代购|刷单|骚|淫|怀孕|避孕|开房|上床|妹纸|撸|屌|鸡巴|jb|sm之|sm是|菊花痒/i;
 const JUNK = /^[\s\d\p{P}\p{S}]+$/u;
 
@@ -191,7 +204,8 @@ function tarExtract(gzBuf, wantedExt) {
     const sizeStr = tar.toString("utf8", off + 124, off + 136).replace(/\0.*$/, "").trim();
     const size = parseInt(sizeStr, 8) || 0;
     const dataStart = off + 512;
-    if (name.endsWith(wantedExt)) files.push({ name, data: tar.subarray(dataStart, dataStart + size) });
+    const hit = typeof wantedExt === "function" ? wantedExt(name) : name.endsWith(wantedExt);
+    if (hit) files.push({ name, data: tar.subarray(dataStart, dataStart + size) });
     off = dataStart + Math.ceil(size / 512) * 512;
   }
   return files;
@@ -208,9 +222,8 @@ async function buildQA() {
   const cats = ["greetings", "conversations", "emotion", "humor", "food", "money", "history", "psychology", "science", "trivia", "ai", "botprofile", "gossip"];
   for (const cat of cats) {
     try {
-      const r = await fetch("https://cdn.jsdelivr.net/gh/gunthercox/chatterbot-corpus@master/chatterbot_corpus/data/chinese/" + cat + ".yml");
-      if (!r.ok) continue;
-      const txt = await r.text();
+      const txt = await chatterbotYml("chinese", cat);
+      if (!txt) continue;
       const re = /- - (.+)\n  - (.+)/g;
       let m;
       while ((m = re.exec(txt)) !== null) {
@@ -267,17 +280,97 @@ async function buildQA() {
   return pairs;
 }
 
-const [elements, idioms, countries, qa] = await Promise.all([buildElements(), buildIdioms(), buildCountries(), buildQA()]);
+const BAD_EN = /\b(sex|porn|fuck|shit|dick|cock|pussy|nigger|rape|suicide|nazi|drugs|kill you|masturbat)\w*\b/i;
+
+function parseAIML(txt) {
+  const out = [];
+  const re = /<category>([\s\S]*?)<\/category>/gi;
+  let m;
+  while ((m = re.exec(txt)) !== null) {
+    const body = m[1];
+    const pm = body.match(/<pattern>([\s\S]*?)<\/pattern>/i);
+    if (!pm) continue;
+    let pat = pm[1].replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().toLowerCase();
+    if (!pat || pat.length < 2 || pat.length > 42) continue;
+    if (/[*_^]/.test(pat)) continue;
+    if (/[{}<>]/.test(pat)) continue;
+    const tm = body.match(/<template>([\s\S]*?)<\/template>/i);
+    if (!tm) continue;
+    if (/<get\b|<bot\b|<set\b|<person2?\b|<gender\b|<condition\b|<srai\b|<sr\b|<topicstar|<thatstar/i.test(tm[1])) continue;
+    let tpl = tm[1].replace(/<think>[\s\S]*?<\/think>/gi, " ");
+    const lis = [];
+    tpl.replace(/<li>([\s\S]*?)<\/li>/gi, (x, y) => { lis.push(y); return " "; });
+    const candidates = lis.length ? lis : [tpl];
+    let ans = candidates[Math.floor(Math.random() * candidates.length)]
+      .replace(/<srai>[\s\S]*?<\/srai>/gi, " ")
+      .replace(/<[^>]+>/g, " ")
+      .replace(/\s+/g, " ").trim();
+    if (!ans || ans.length < 2 || ans.length > 90) continue;
+    if (/[{}]/.test(ans)) continue;
+    if (/(^|\s)(my|your|his|her|their)\s*[.!?,]?$/i.test(ans)) continue;
+    if (/don'?t know|no idea|not sure|ask me (another|something)|i have no answer|unknown/i.test(ans) && ans.length < 60) continue;
+    if (BAD_EN.test(pat) || BAD_EN.test(ans)) continue;
+    out.push({ q: pat, a: ans, w: 1 });
+  }
+  return out;
+}
+
+async function buildQAEn() {
+  const pairs = [];
+  /* 1) chatterbot english categories */
+  const cats = ["greetings", "conversations", "emotion", "humor", "food", "money", "health", "movies", "sports", "literature", "computers", "coding", "ai", "botprofile", "psychology", "history", "science", "trivia", "gossip", "politics"];
+  for (const cat of cats) {
+    try {
+      const txt = await chatterbotYml("english", cat);
+      if (!txt) continue;
+      const re = /- - (.+)\n  - (.+)/g;
+      let m;
+      while ((m = re.exec(txt)) !== null) {
+        const q = m[1].trim().toLowerCase();
+        const a = m[2].trim();
+        if (q.length < 2 || q.length > 42 || a.length < 1 || a.length > 90) continue;
+        if (BAD_EN.test(q) || BAD_EN.test(a)) continue;
+        pairs.push({ q: q, a: a, w: 3 });
+      }
+    } catch (e) { /* skip */ }
+  }
+  const chatterCount = pairs.length;
+  /* 2) ALICE AIML corpus (daily files first, knowledge later) */
+  const DAILY = /(conversations|emotion|food|humor|gossip|inquiry|interjection|bot_profile|ai|astrology|history|literature|movies|computers|drugs)/;
+  const r2 = await fetch("https://codeload.github.com/wuweiit/AliceBot/tar.gz/refs/heads/master");
+  if (!r2.ok) throw new Error("alicebot download failed " + r2.status);
+  const gz = Buffer.from(await r2.arrayBuffer());
+  const files = tarExtract(gz, (n) => /\.(xml|aiml)$/i.test(n) && n.indexOf("Corpus/English/") !== -1);
+  const daily = [], knowledge = [];
+  for (const f of files) {
+    const short = f.name.split("/").pop();
+    const parsed = parseAIML(f.data.toString("utf8"));
+    if (DAILY.test(short)) daily.push(...parsed.map((x) => ({ ...x, w: 2 })));
+    else knowledge.push(...parsed);
+  }
+  const seen = new Set(pairs.map((x) => x.q));
+  for (const it of daily.concat(knowledge)) {
+    if (seen.has(it.q)) continue;
+    seen.add(it.q);
+    pairs.push(it);
+    if (pairs.length >= chatterCount + 20000) break;
+  }
+  return pairs;
+}
+
+const [elements, idioms, countries, qa, qaEn] = await Promise.all([buildElements(), buildIdioms(), buildCountries(), buildQA(), buildQAEn()]);
 await mkdir(OUT, { recursive: true });
 await writeFile(join(OUT, "elements.json"), JSON.stringify(elements));
 await writeFile(join(OUT, "idioms.json"), JSON.stringify(idioms));
 await writeFile(join(OUT, "countries.json"), JSON.stringify(countries));
 await writeFile(join(OUT, "qa.json"), JSON.stringify(qa));
+await writeFile(join(OUT, "qa-en.json"), JSON.stringify(qaEn));
 await writeFile(join(OUT, "manifest.json"), JSON.stringify({
   generated: new Date().toISOString().slice(0, 10),
   elements: elements.length,
   idioms: idioms.length,
   countries: countries.length,
   qa: qa.length,
+  qa_en: qaEn.length,
 }));
-console.log("elements:", elements.length, "| idioms:", idioms.length, "| countries:", countries.length, "| qa:", qa.length);
+console.log("elements:", elements.length, "| idioms:", idioms.length, "| countries:", countries.length, "| qa:", qa.length, "| qa_en:", qaEn.length);

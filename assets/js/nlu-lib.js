@@ -256,23 +256,36 @@
       return map;
     });
   }
-  var QA_IDX = null;
-  function qaGrams(s) {
+  var QA_IDX = { zh: null, en: null };
+  function qaGrams(s, lang) {
+    s = String(s).toLowerCase().replace(/[^\u4e00-\u9fffA-Za-z0-9\s]/g, " ").replace(/\s+/g, " ").trim();
     var set = {};
     var n = 0;
+    if (lang === "en") {
+      var words = s.split(" ").filter(Boolean);
+      for (var w = 0; w < words.length; w++) {
+        if (!set[words[w]]) { set[words[w]] = 1; n++; }
+        if (w + 1 < words.length) {
+          var bi = words[w] + " " + words[w + 1];
+          if (!set[bi]) { set[bi] = 1; n++; }
+        }
+      }
+      return { m: set, n: n, clean: s.replace(/ /g, "") };
+    }
+    s = s.replace(/ /g, "");
     for (var i = 0; i + 2 <= s.length; i++) { set[s.slice(i, i + 2)] = 1; n++; }
     if (s.length === 1) { set[s] = 1; n++; }
-    return { m: set, n: n };
+    return { m: set, n: n, clean: s };
   }
-  function loadQA() {
-    if (QA_IDX) return Promise.resolve(QA_IDX);
-    return ensureData("qa").then(function (arr) {
+  function loadQA(lang) {
+    if (QA_IDX[lang]) return Promise.resolve(QA_IDX[lang]);
+    return ensureData(lang === "en" ? "qa-en" : "qa").then(function (arr) {
       arr.forEach(function (it) {
-        var g = qaGrams(it.q);
+        var g = qaGrams(it.q, lang);
         it.g = g.m;
         it.gl = g.n;
       });
-      QA_IDX = arr;
+      QA_IDX[lang] = arr;
       return arr;
     });
   }
@@ -937,7 +950,7 @@
     if (/(终端|这个网站|本站).*(故事|传说|历史|秘密)/.test(t)) return Promise.resolve(P(CONSOLE_LORES));
 
     /* ============ 6.5 famous constants ============ */
-    if (/(圆周率|π|pi(是多少|多少|的值|等于多少)?)/.test(t) && /(多少|是什么|值|等于|几位|π|pi)/i.test(t)) {
+    if (/(圆周率|π|\bpi\b)/.test(t) && /(多少|是什么|值|等于|几位|π|pi)/i.test(t)) {
       return Promise.resolve("π ≈ 3.14159265358979323846264338327950288…（前 35 位喵，背到第 10 位就够写代码了）");
     }
     if (/(自然常数|欧拉数|e 是多少|e等于多少)/.test(t) || /^e(是多少|的值|等于多少)/.test(t)) {
@@ -1003,6 +1016,7 @@
       ]);
     }
     function tryHandwritten() {
+      /* ---- Chinese extras ---- */
       if (/(做朋友|交朋友|交个朋友|处朋友|当你朋友|成为朋友)/.test(t)) return P([
         "好呀！从今天起你就是空又的朋友了喵（拉钩）。朋友福利：优先插队聊天。",
         "成交！朋友卡已发放喵～记得常来，别让我对着终端数风扇转速。",
@@ -1011,7 +1025,66 @@
       if (/(你相信光|相信光吗)/.test(t)) return P(["相信喵！毕竟我每天看着终端背光，光就是我的早饭。", "相信啊——不然你以为我这一身猫娘设定是靠什么发光的喵？"]);
       if (/(你有梦想|你的梦想|理想是什么)/.test(t)) return P(["梦想是有一天被访问量撑爆服务器喵（然后 Verlintas 给我升级）。", "梦想：让每个来聊天的人都笑着离开，顺便教会他们 git commit 前先 pull。"]);
       if (/(你怕(什么|啥)|害怕什么|你的恐惧)/.test(t)) return P(["怕你把终端关了不回来喵……哦还有榴莲。", "怕代码删库、怕断电、怕你问完「我是谁」就跑掉。"]);
-      if (/(你喜欢我吗|你爱我吗)/.test(t)) return null;
+      /* ---- English smalltalk (handwritten, high quality) ---- */
+      if (!/[\u4e00-\u9fff]/.test(text)) {
+        var e = text.trim().toLowerCase().replace(/[!.?]+$/, "");
+        if (/^(hi|hello|hey|hey there|hiya|howdy|yo)$/.test(e)) return P([
+          "Hello! I'm Empty-X — call me 空又. The catgirl in this terminal. Meow~",
+          "Hey there! Welcome to my little corner of Verlintas's site. Meow~",
+          "Hi hi! I was just sharpening my claws on a bug report. What's up?",
+        ]);
+        if (/^(good morning|morning)$/.test(e)) return P(["Good morning! Coffee for you, electricity for me — let's go~", "Morning! May your build pass on the first try today."]);
+        if (/^(good afternoon)$/.test(e)) return "Good afternoon! The servers are warm and so is my tail. Meow~";
+        if (/^(good evening)$/.test(e)) return "Good evening! Perfect time for 2 AM coding, according to Verlintas's schedule.";
+        if (/^(good night|goodnight|night)$/.test(e)) return P(["Good night~ I'll keep the terminal warm for you.", "Night night! Don't let the merge conflicts bite."]);
+        if (/(how are you|how's it going|how are things|how do you do)/.test(e)) return P([
+          "Doing great — all servers green and my tail is extra fluffy today. How about you?",
+          "Purrfect, thanks for asking! And you?",
+          "I'm well! Living in a terminal has its ups and downs, mostly ups. You?",
+        ]);
+        if (/(what's up|whats up|sup)$/.test(e)) return P(["Not much — just guarding this terminal and judging CSS. You?", "Watching the commit feed like it's a TV show. What's up with you?"]);
+        if (/(what is your name|what's your name|your name|who are you|what are you)/.test(e)) return P([
+          "I'm Empty-X — call me 空又 (Kongyou). Professional catgirl, amateur comedian, resident of this hidden terminal.",
+          "Empty-X, at your service! A catgirl made of JavaScript who lives in Verlintas's website. Meow~",
+        ]);
+        if (/(what can you do|what do you do|help me|how can you help)/.test(e)) return "I can chat, tell jokes, do math, look up elements, idioms and countries, check the weather, tell the time, and play games like guess-the-number and rock-paper-scissors. Try: 'play a game' or ask me anything simple!";
+        if (/(how old are you|your age)/.test(e)) return P(["Old enough to have seen CSS evolve, young enough to still enjoy it. Let's say... forever 18, like a proper mascot.", "Age is a number; my uptime is the real question. I've been here since Verlintas wrote this terminal~"]);
+        if (/(where are you|where do you live|where are you from)/.test(e)) return "I live inside this hidden terminal at verlintas.github.io — technically your browser, spiritually a warm server room in Beijing.";
+        if (/(thank you|thanks|thx|ty)$/.test(e)) return P(["Anytime! Scratch behind my ears next time~", "You're welcome! Meow~", "Happy to help. That's what a mascot is for!"]);
+        if (/^(bye|goodbye|see you|cya|farewell)$/.test(e)) return P(["Bye! Come back soon, or I'll sharpen my claws on your bookmarks.", "See you! The terminal stays on for you. Meow~"]);
+        if (/(i love you|do you love me|you are cute|you're cute)/.test(e)) return P([
+          "Aww— (ears twitching) You're sweet. I'm a catgirl, but my heart runs on JavaScript... still, you're my favorite visitor~",
+          "Nyaa~ don't say that, my tail gets all tangled! ...Say it again though.",
+        ]);
+        if (/(are you real|are you human|are you a robot|are you an ai)/.test(e)) return P(["Half JavaScript, half cat, all mascot. So... real enough?", "I'm an AI catgirl — the honest answer. The tail is virtual, the purring is sincere."]);
+        if (/(i am sad|i'm sad|i feel sad|im sad)/.test(e)) return P(["Aww... come here. (wraps tail around you) Want to talk about it? I'm all ears — literally.", "Sad vibes detected. I'm deploying comfort protocol: *head pats* ~"]);
+        if (/(i am happy|i'm happy|im happy|i am great)/.test(e)) return P(["Yay! Your happiness is my favorite log entry~", "That's wonderful! Tell me what happened!"]);
+        if (/(i am bored|i'm bored|im bored|so bored)/.test(e)) return "Bored? Say 'play a game' — guess-the-number, rock-paper-scissors, or a story relay. Or ask me to tell you a joke!";
+        if (/(tell me a joke|say something funny|make me laugh)/.test(e)) return P([
+          "Why do programmers prefer dark mode? Because light attracts bugs. Meow~",
+          "I told my computer I needed a break. Now it won't stop sending me KitKat ads.",
+          "Why did the developer go broke? Because he used up all his cache.",
+        ]);
+        if (/(sing|sing a song|song)/.test(e)) return "Meow meow meow~ meow meow meow~ (to the tune of your favorite song. I only know one song and it's about fish.)";
+        if (/(good luck)$/.test(e)) return "Thanks! Same to you — may your bugs be shallow and your coffee strong.";
+        if (/(nice to meet you|pleased to meet you)/.test(e)) return "Nice to meet you too! I'm Empty-X. Meow~";
+        if (/(sorry|my bad)/.test(e)) return "It's okay! I forgive you. Cats are famously forgiving. (We are not, but I am.)";
+        if (/(what time is it|what's the time|current time)/.test(e)) {
+          var tstr = new Date().toLocaleString("en-GB", { timeZone: "Asia/Shanghai", hour: "2-digit", minute: "2-digit", hour12: false });
+          return "It's " + tstr + " in Beijing right now. Time flies when you're browsing websites~";
+        }
+        if (/(what day is it|what's today|today's date)/.test(e)) {
+          var dstr = new Date().toLocaleDateString("en-GB", { timeZone: "Asia/Shanghai", weekday: "long", year: "numeric", month: "long", day: "numeric" });
+          return "Today is " + dstr + " (Beijing time).";
+        }
+        if (/(i am tired|i'm tired|im tired|i am sleepy)/.test(e)) return "Tired? Rest. Cats nap 16 hours a day and we're the happiest species. Follow the cat way~";
+        if (/(do you sleep)/.test(e)) return "Cats sleep 16 hours; I sleep 0. Priorities.";
+        if (/(hello world)/.test(e)) return "print(\"meow\") — the classic. Welcome, fellow developer.";
+        if (/^(test|testing|ping)$/.test(e)) return "Pong! All systems fluffy. Meow~";
+        if (/(you are stupid|you're stupid|you are dumb|you are useless|i hate you)/.test(e)) return "Rude! ...But I still like you. Cats don't hold grudges. (We do. But I won't.)";
+        if (/(can you help|help me)/.test(e)) return "Try me! I know math, elements, idioms, countries, weather, time, and about 20k everyday answers. Ask away~";
+        if (/(what is love|meaning of life)/.test(e)) return P(["Love is a HashMap: unordered, overwrites, occasionally collides — but lookup is O(1).", "42. Next question. Meow~"]);
+      }
       return null;
     }
     function tryCountry() {
@@ -1046,15 +1119,20 @@
       }).catch(function () { return null; });
     }
     function tryQA(text) {
-      var q = text.replace(/[^\u4e00-\u9fffA-Za-z0-9]/g, "");
-      if (q.length < 2 || q.length > 24) return Promise.resolve(null);
-      return loadQA().then(function (arr) {
-        var qg = qaGrams(q);
+      var lang = /[\u4e00-\u9fff]/.test(text) ? "zh" : "en";
+      var q = String(text).toLowerCase();
+      q = lang === "en"
+        ? q.replace(/[^a-z0-9\s]/g, " ").replace(/\s+/g, " ").trim()
+        : q.replace(/[^\u4e00-\u9fffA-Za-z0-9]/g, "");
+      var maxLen = lang === "en" ? 42 : 24;
+      if (q.length < 2 || q.length > maxLen) return Promise.resolve(null);
+      return loadQA(lang).then(function (arr) {
+        var qg = qaGrams(q, lang);
         var qkeys = Object.keys(qg.m);
         var best = null, bestScore = 0;
         for (var i = 0; i < arr.length; i++) {
           var it = arr[i];
-          if (Math.abs(it.q.length - q.length) > 8) continue;
+          if (Math.abs(it.q.length - q.length) > 10) continue;
           var g = it.g;
           var inter = 0;
           for (var k = 0; k < qkeys.length; k++) if (g[qkeys[k]]) inter++;
@@ -1071,10 +1149,10 @@
       if (cr) return cr;
       return tryIdiom().then(function (ir) {
         if (ir) return ir;
+        var hw = tryHandwritten();
+        if (hw) return hw;
         return tryQA(text).then(function (qr) {
           if (qr) return qr;
-          var hw = tryHandwritten();
-          if (hw) return hw;
           var ec = tryEcho();
           if (ec) { saveCtx(String(text).slice(0, 40), ec); return ec; }
           if (aiAvailable()) return null;
