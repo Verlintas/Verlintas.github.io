@@ -1,11 +1,50 @@
 {
-  "generated": "2026-09-11T18:36:50Z",
+  "generated": "2026-09-11T21:21:15Z",
   "alive": {
-    "score": 51,
+    "score": 50,
     "last_push": "2026-09-10T15:14:09Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "NUSV/NUSV.github.io"
+      },
+      "created_at": "2026-09-10T14:32:38Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "NUSV/NUSV.github.io"
+      },
+      "created_at": "2026-09-10T14:30:34Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "NUSV/NUSV.github.io"
+      },
+      "created_at": "2026-09-10T14:30:28Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1266,45 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas.github.io"
-      },
-      "created_at": "2026-09-07T16:46:13Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas.github.io"
-      },
-      "created_at": "2026-09-08T18:33:13Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas.github.io"
-      },
-      "created_at": "2026-09-08T18:28:50Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 181,
+      "ms": 111,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 60,
+      "ms": 112,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1237,
+      "ms": 1198,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1135,
+      "ms": 1040,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 810,
+      "ms": 956,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 404,
+    "followers": 405,
     "tweets": 100,
     "likes": 817,
     "last_post": null,
     "last_post_source": null,
     "last_post_checked": "2026-09-11T18:36:50Z",
-    "delta_pending": "2026-09-11T18:36:50Z"
+    "delta_pending": null
   }
 }
