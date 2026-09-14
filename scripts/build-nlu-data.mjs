@@ -366,6 +366,7 @@ await writeFile(join(OUT, "countries.json"), JSON.stringify(countries));
 await writeFile(join(OUT, "qa.json"), JSON.stringify(qa));
 await writeFile(join(OUT, "qa-en.json"), JSON.stringify(qaEn));
 await writeFile(join(OUT, "manifest.json"), JSON.stringify({
+  version: Date.now(),
   generated: new Date().toISOString().slice(0, 10),
   elements: elements.length,
   idioms: idioms.length,

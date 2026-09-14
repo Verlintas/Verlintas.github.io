@@ -213,20 +213,38 @@
 
   /* ---------- same-origin datasets (built by scripts/build-nlu-data.mjs) ---------- */
   var DATA_CACHE = {};
-  var DATA_VER = "v1";
+  var DATA_VER = null;
+  var VER_READY = fetch("assets/data/manifest.json?_=" + Date.now(), { cache: "no-store" })
+    .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
+    .then(function (mf) {
+      DATA_VER = String(mf.version || mf.generated || "1");
+      /* drop caches from older dataset builds */
+      try {
+        for (var i = localStorage.length - 1; i >= 0; i--) {
+          var k = localStorage.key(i);
+          if (k && k.indexOf("vweb:data:") === 0 && k.indexOf(":" + DATA_VER) === -1) {
+            localStorage.removeItem(k);
+          }
+        }
+      } catch (e) {}
+    })
+    .catch(function () { DATA_VER = DATA_VER || "1"; });
   function ensureData(name) {
     if (DATA_CACHE[name]) return Promise.resolve(DATA_CACHE[name]);
-    try {
-      var c = localStorage.getItem("vweb:data:" + name + ":" + DATA_VER);
-      if (c) { DATA_CACHE[name] = JSON.parse(c); return Promise.resolve(DATA_CACHE[name]); }
-    } catch (e) {}
-    return fetch("assets/data/" + name + ".json")
-      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
-      .then(function (d) {
-        DATA_CACHE[name] = d;
-        try { localStorage.setItem("vweb:data:" + name + ":" + DATA_VER, JSON.stringify(d)); } catch (e) {}
-        return d;
-      });
+    return VER_READY.then(function () {
+      var key = "vweb:data:" + name + ":" + DATA_VER;
+      try {
+        var c = localStorage.getItem(key);
+        if (c) { DATA_CACHE[name] = JSON.parse(c); return DATA_CACHE[name]; }
+      } catch (e) {}
+      return fetch("assets/data/" + name + ".json?v=" + DATA_VER)
+        .then(function (r) { if (!r.ok) throw new Error("http " + r.status); return r.json(); })
+        .then(function (d) {
+          DATA_CACHE[name] = d;
+          try { localStorage.setItem(key, JSON.stringify(d)); } catch (e) {}
+          return d;
+        });
+    });
   }
   var CN_ELEMENTS = ["", "氢", "氦", "锂", "铍", "硼", "碳", "氮", "氧", "氟", "氖", "钠", "镁", "铝", "硅", "磷", "硫", "氯", "氩", "钾", "钙", "钪", "钛", "钒", "铬", "锰", "铁", "钴", "镍", "铜", "锌", "镓", "锗", "砷", "硒", "溴", "氪", "铷", "锶", "钇", "锆", "铌", "钼", "锝", "钌", "铑", "钯", "银", "镉", "铟", "锡", "锑", "碲", "碘", "氙", "铯", "钡", "镧", "铈", "镨", "钕", "钷", "钐", "铕", "钆", "铽", "镝", "钬", "铒", "铥", "镱", "镥", "铪", "钽", "钨", "铼", "锇", "铱", "铂", "金", "汞", "铊", "铅", "铋", "钋", "砹", "氡", "钫", "镭", "锕", "钍", "镤", "铀", "镎", "钚", "镅", "锔", "锫", "锎", "锿", "镄", "钔", "锘", "铹"];
   var ELEMENT_IDX = null;
