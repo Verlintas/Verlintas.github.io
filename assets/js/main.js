@@ -5,6 +5,8 @@
   var loader = document.getElementById("loader");
   var body = document.body;
   var bootLog = document.getElementById("bootLog");
+  var bootQueue = [];
+  var bootTimer = null;
   var booted = false;
   function bootDone() {
     if (booted) return;
@@ -13,7 +15,8 @@
     body.classList.remove("is-loading");
     setTimeout(function () { if (loader) loader.remove(); }, 700);
   }
-  var checksDone = runBootChecks();
+  var checksDone;
+  try { checksDone = runBootChecks(); } catch (e) { checksDone = Promise.resolve(); }
   var minShow = new Promise(function (res) { setTimeout(res, 2500); });
   var maxShow = new Promise(function (res) { setTimeout(res, 4200); });
   function scheduleBoot() {
@@ -25,8 +28,6 @@
   loader.addEventListener("click", bootDone);
 
   /* ═══ boot checks: make the splash screen do real work ═══ */
-  var bootQueue = [];
-  var bootTimer = null;
   function emitBoot(item) {
     if (!bootLog) return;
     var d = document.createElement("div");
@@ -35,13 +36,15 @@
     bootLog.appendChild(d);
   }
   function bootLine(cls, text) {
-    bootQueue.push({ cls: cls, text: text });
-    if (bootTimer) return;
-    emitBoot(bootQueue.shift()); /* first line shows immediately */
-    bootTimer = setInterval(function () {
-      if (!bootQueue.length) { clearInterval(bootTimer); bootTimer = null; return; }
-      emitBoot(bootQueue.shift());
-    }, 190);
+    try {
+      bootQueue.push({ cls: cls, text: text });
+      if (bootTimer) return;
+      emitBoot(bootQueue.shift()); /* first line shows immediately */
+      bootTimer = setInterval(function () {
+        if (!bootQueue.length) { clearInterval(bootTimer); bootTimer = null; return; }
+        emitBoot(bootQueue.shift());
+      }, 190);
+    } catch (e) { /* never let the log break the boot flow */ }
   }
   function withTimeout(p, ms) {
     return Promise.race([
