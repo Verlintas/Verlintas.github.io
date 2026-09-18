@@ -14,8 +14,8 @@
     setTimeout(function () { if (loader) loader.remove(); }, 700);
   }
   var checksDone = runBootChecks();
-  var minShow = new Promise(function (res) { setTimeout(res, 1900); });
-  var maxShow = new Promise(function (res) { setTimeout(res, 2800); });
+  var minShow = new Promise(function (res) { setTimeout(res, 2500); });
+  var maxShow = new Promise(function (res) { setTimeout(res, 3800); });
   function scheduleBoot() {
     Promise.race([Promise.all([checksDone, minShow]), maxShow]).then(bootDone);
   }
@@ -25,12 +25,23 @@
   loader.addEventListener("click", bootDone);
 
   /* ═══ boot checks: make the splash screen do real work ═══ */
-  function bootLine(cls, text) {
+  var bootQueue = [];
+  var bootTimer = null;
+  function emitBoot(item) {
     if (!bootLog) return;
     var d = document.createElement("div");
-    d.className = cls;
-    d.textContent = text;
+    d.className = item.cls;
+    d.textContent = item.text;
     bootLog.appendChild(d);
+  }
+  function bootLine(cls, text) {
+    bootQueue.push({ cls: cls, text: text });
+    if (bootTimer) return;
+    emitBoot(bootQueue.shift()); /* first line shows immediately */
+    bootTimer = setInterval(function () {
+      if (!bootQueue.length) { clearInterval(bootTimer); bootTimer = null; return; }
+      emitBoot(bootQueue.shift());
+    }, 230);
   }
   function withTimeout(p, ms) {
     return Promise.race([
