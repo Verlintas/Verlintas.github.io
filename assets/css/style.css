@@ -530,8 +530,8 @@ a.stack-item:hover { transform: translateY(-4px); }
   text-align: left;
 }
 .boot-log div { opacity: 0; animation: bootIn 0.3s ease forwards; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.boot-log .ok { color: #2ecc71; }
-.boot-log .warn { color: #ffb300; }
+.boot-log .ok { color: #ff5555; }
+.boot-log .warn { color: #ff9d4d; }
 @keyframes bootIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: none; } }
 @keyframes nameReveal {
   to { opacity: 1; filter: blur(0); transform: scale(1); }
