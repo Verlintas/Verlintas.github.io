@@ -731,6 +731,19 @@ body.is-loading { overflow: hidden; }
 .feed-when { color: #6a6a6a; font-family: var(--font-mono); font-size: 0.72rem; white-space: nowrap; flex-shrink: 0; }
 .feed-empty { color: #6a6a6a; font-family: var(--font-mono); font-size: 0.85rem; }
 
+/* accessibility: tame animations when the OS asks for it */
+@media (prefers-reduced-motion: reduce) {
+  .fade-up { animation: none; opacity: 1; }
+  .marquee-track { animation: none; }
+  .hero-glow { animation: none; }
+  .dot, .s-up, .s-down { animation: none; }
+  .hero-scroll { animation: none; }
+  .ld-flow { animation: none; }
+  .loader-name { animation: none; opacity: 1; filter: none; transform: none; }
+  .loader-name::after { animation: none; transform: scaleX(1); }
+  .reveal { transition: none; opacity: 1; transform: none; }
+}
+
 @media (max-width: 760px) {
   .about-grid { grid-template-columns: 1fr; }
   .proj-grid { grid-template-columns: 1fr; }

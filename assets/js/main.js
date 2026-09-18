@@ -15,7 +15,7 @@
   }
   var checksDone = runBootChecks();
   var minShow = new Promise(function (res) { setTimeout(res, 2500); });
-  var maxShow = new Promise(function (res) { setTimeout(res, 3800); });
+  var maxShow = new Promise(function (res) { setTimeout(res, 4200); });
   function scheduleBoot() {
     Promise.race([Promise.all([checksDone, minShow]), maxShow]).then(bootDone);
   }
@@ -41,7 +41,7 @@
     bootTimer = setInterval(function () {
       if (!bootQueue.length) { clearInterval(bootTimer); bootTimer = null; return; }
       emitBoot(bootQueue.shift());
-    }, 230);
+    }, 190);
   }
   function withTimeout(p, ms) {
     return Promise.race([
@@ -116,6 +116,45 @@
     } catch (e) {
       bootLine("warn", "· local cache — unavailable");
     }
+    /* 6. AI channel readiness */
+    jobs.push(Promise.resolve().then(function () {
+      var parts = [];
+      try {
+        if (window.__emptyxAI && window.__emptyxAI.hasLocal && window.__emptyxAI.hasLocal()) parts.push("local model");
+        if (window.__emptyxAI && window.__emptyxAI.hasKey && window.__emptyxAI.hasKey()) parts.push("gemini key");
+      } catch (e) {}
+      bootLine(parts.length ? "ok" : "warn", parts.length
+        ? "✓ AI channel — " + parts.join(" + ") + " ready"
+        : "· AI channel — free fallback (ai lmstudio / ai key to upgrade)");
+    }));
+    /* 7. memory of you */
+    jobs.push(Promise.resolve().then(function () {
+      try {
+        var nm = null, hist = 0;
+        try { nm = JSON.parse(localStorage.getItem("vweb:uname") || "null"); } catch (e) {}
+        try { hist = (JSON.parse(localStorage.getItem("vweb:aihist") || "[]") || []).length / 2; } catch (e) {}
+        var msg = nm ? "✓ memory — knows you as " + nm : "✓ memory — fresh session";
+        if (hist >= 1) msg += " · " + hist + " past exchange" + (hist > 1 ? "s" : "");
+        bootLine("ok", msg);
+      } catch (e) { bootLine("warn", "· memory — unavailable"); }
+    }));
+    /* 8. network */
+    jobs.push(Promise.resolve().then(function () {
+      var on = navigator.onLine !== false;
+      var conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+      var et = conn && conn.effectiveType ? conn.effectiveType : "";
+      bootLine(on ? "ok" : "warn", on ? "✓ network — online" + (et ? " · " + et : "") : "! network — offline (cached mode)");
+    }));
+    /* 9. effects capability */
+    jobs.push(Promise.resolve().then(function () {
+      var reduce = false;
+      try { reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) {}
+      var fx = document.getElementById("fx");
+      var cv = !!(fx && fx.getContext);
+      bootLine(reduce ? "warn" : (cv ? "ok" : "warn"), reduce
+        ? "· reduced motion — animations tamed"
+        : (cv ? "✓ canvas fx — particles armed" : "· canvas fx — unavailable"));
+    }));
     return Promise.all(jobs).catch(function () {});
   }
 
