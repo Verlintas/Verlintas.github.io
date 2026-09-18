@@ -4,14 +4,109 @@
   /* ═══ boot loader ═══ */
   var loader = document.getElementById("loader");
   var body = document.body;
+  var bootLog = document.getElementById("bootLog");
+  var booted = false;
   function bootDone() {
+    if (booted) return;
+    booted = true;
     loader.classList.add("done");
     body.classList.remove("is-loading");
     setTimeout(function () { if (loader) loader.remove(); }, 700);
   }
-  window.addEventListener("load", function () { setTimeout(bootDone, 1900); });
-  setTimeout(function () { if (document.readyState === "complete") setTimeout(bootDone, 1900); }, 2500);
+  var checksDone = runBootChecks();
+  var minShow = new Promise(function (res) { setTimeout(res, 1900); });
+  var maxShow = new Promise(function (res) { setTimeout(res, 2800); });
+  function scheduleBoot() {
+    Promise.race([Promise.all([checksDone, minShow]), maxShow]).then(bootDone);
+  }
+  if (document.readyState === "complete") scheduleBoot();
+  else window.addEventListener("load", scheduleBoot);
+  setTimeout(function () { if (document.readyState === "complete") scheduleBoot(); }, 2500);
   loader.addEventListener("click", bootDone);
+
+  /* ═══ boot checks: make the splash screen do real work ═══ */
+  function bootLine(cls, text) {
+    if (!bootLog) return;
+    var d = document.createElement("div");
+    d.className = cls;
+    d.textContent = text;
+    bootLog.appendChild(d);
+  }
+  function withTimeout(p, ms) {
+    return Promise.race([
+      Promise.resolve(p).catch(function () { return null; }),
+      new Promise(function (res) { setTimeout(function () { res(null); }, ms); }),
+    ]);
+  }
+  function runBootChecks() {
+    if (!bootLog) return Promise.resolve();
+    var jobs = [];
+    /* 1. fonts */
+    jobs.push(withTimeout(document.fonts && document.fonts.ready ? document.fonts.ready.then(function () { return 1; }) : 1, 2200)
+      .then(function (r) {
+        bootLine(r ? "ok" : "warn", r ? "✓ fonts ready" : "· fonts still loading");
+      }));
+    /* 2. dataset manifest (warms the nlu version check + reports inventory) */
+    jobs.push(withTimeout(
+      fetch("assets/data/manifest.json?_=" + Date.now(), { cache: "no-store" }).then(function (r) {
+        if (!r.ok) throw 0;
+        return r.json();
+      }),
+      2200
+    ).then(function (mf) {
+      if (mf && mf.qa) {
+        window.__bootManifest = mf;
+        bootLine("ok", "✓ datasets — " + Number(mf.qa).toLocaleString() + " Q&A · " + mf.idioms + " idioms · " + mf.elements + " elements · " + mf.countries + " countries");
+      } else {
+        bootLine("warn", "· datasets — manifest unreachable (lazy-load later)");
+      }
+    }));
+    /* 3. live status warmup (Live panel renders instantly from this) */
+    jobs.push(withTimeout(
+      fetch("status.json?_=" + Date.now()).then(function (r) {
+        if (!r.ok) throw 0;
+        return r.json();
+      }),
+      2200
+    ).then(function (st) {
+      if (st && st.sites && st.sites.length) {
+        window.__bootStatus = st;
+        var up = st.sites.filter(function (s) { return s.up; }).length;
+        bootLine("ok", "✓ live status — " + up + "/" + st.sites.length + " sites up" + (st.alive && st.alive.score != null ? " · alive " + st.alive.score : ""));
+      } else {
+        bootLine("warn", "· live status — unreachable (snapshot mode)");
+      }
+    }));
+    /* 4. github api reachability (decides live feed vs snapshot) */
+    var t0 = performance.now();
+    jobs.push(withTimeout(
+      fetch("https://api.github.com/users/Verlintas/events/public?per_page=1").then(function (r) {
+        if (!r.ok) throw 0;
+        return r;
+      }),
+      2200
+    ).then(function (r) {
+      if (r && r.ok) {
+        window.__bootGhDirect = true;
+        bootLine("ok", "✓ github api — " + Math.round(performance.now() - t0) + "ms (live feed)");
+      } else {
+        window.__bootGhDirect = false;
+        feedBackoffUntil = Date.now() + 5 * 60 * 1000;
+        bootLine("warn", "! github api unreachable — cached snapshot mode");
+      }
+    }));
+    /* 5. local cache state */
+    try {
+      var n = 0;
+      for (var i = 0; i < localStorage.length; i++) {
+        if ((localStorage.key(i) || "").indexOf("vweb:") === 0) n++;
+      }
+      bootLine("ok", "✓ local cache — " + n + " entries (auto-versioned)");
+    } catch (e) {
+      bootLine("warn", "· local cache — unavailable");
+    }
+    return Promise.all(jobs).catch(function () {});
+  }
 
   /* ═══ 2 AM easter egg (Beijing time) ═══ */
   var twoAm = document.getElementById("twoAm");
@@ -1634,10 +1729,7 @@
     li.appendChild(dot); li.appendChild(name); li.appendChild(state);
     return li;
   }
-  function loadStatus() {
-    fetch("status.json?_=" + Date.now())
-      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
-      .then(function (st) {
+  function renderStatus(st) {
         statusList.querySelectorAll(".status-item:not(#statusEmpty)").forEach(function (li) { li.remove(); });
         statusEmpty.style.display = "none";
         if (st.alive && st.alive.score != null) {
@@ -1666,7 +1758,18 @@
         if (Date.now() < feedBackoffUntil && st.activity && renderActivity(st.activity)) {
           /* during backoff, keep the feed fresh from the bundled snapshot */
         }
-      })
+  }
+  function loadStatus() {
+    /* reuse the splash-screen warmup result if available */
+    if (window.__bootStatus) {
+      var pre = window.__bootStatus;
+      window.__bootStatus = null;
+      renderStatus(pre);
+      return;
+    }
+    fetch("status.json?_=" + Date.now())
+      .then(function (r) { if (!r.ok) throw new Error(); return r.json(); })
+      .then(renderStatus)
       .catch(function () {
         if (!statusList.querySelector(".status-item:not(#statusEmpty)")) {
           statusEmpty.textContent = "status unavailable — auto-retrying";
