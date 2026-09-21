@@ -1,11 +1,141 @@
 {
-  "generated": "2026-09-21T17:05:50Z",
+  "generated": "2026-09-21T21:06:49Z",
   "alive": {
-    "score": 55,
-    "last_push": "2026-09-21T15:30:33Z",
+    "score": 56,
+    "last_push": "2026-09-21T16:23:19Z",
     "last_x_post": "2026-09-20T19:48:24Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T15:06:36Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T16:23:19Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T15:53:54Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T15:04:14Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T15:02:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T14:58:23Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T14:56:20Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T14:54:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T15:03:40Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-09-21T15:01:19Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1175,136 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV.github.io"
-      },
-      "created_at": "2026-09-18T16:22:08Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV.github.io"
-      },
-      "created_at": "2026-09-18T16:21:50Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/Syna-NUSV"
-      },
-      "created_at": "2026-09-18T16:30:29Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/Syna-NUSV"
-      },
-      "created_at": "2026-09-18T16:30:22Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/Syna-NUSV"
-      },
-      "created_at": "2026-09-18T16:29:10Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-09-18T16:57:44Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV.github.io"
-      },
-      "created_at": "2026-09-18T16:27:42Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "ReleaseEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-09-18T16:56:19Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "published"
-      }
-    },
-    {
-      "type": "ReleaseEvent",
-      "repo": {
-        "name": "NUSV/Gomoku-NUSV"
-      },
-      "created_at": "2026-09-18T16:55:57Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "published"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV.github.io"
-      },
-      "created_at": "2026-09-18T16:55:18Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 148,
+      "ms": 222,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 154,
+      "ms": 127,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1677,
+      "ms": 1627,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1480,
+      "ms": 1354,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1643,
+      "ms": 1546,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 585,
-    "tweets": 132,
-    "likes": 1126,
+    "followers": 586,
+    "tweets": 135,
+    "likes": 1155,
     "last_post": "2026-09-20T19:48:24Z",
     "last_post_source": "counter-delta",
-    "last_post_checked": "2026-09-21T17:05:49Z",
-    "delta_pending": null
+    "last_post_checked": "2026-09-21T21:06:48Z",
+    "delta_pending": "2026-09-21T21:06:48Z"
   }
 }
