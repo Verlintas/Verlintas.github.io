@@ -1,11 +1,245 @@
 {
-  "generated": "2026-09-24T06:02:36Z",
+  "generated": "2026-09-24T11:52:37Z",
   "alive": {
-    "score": 56,
-    "last_push": "2026-09-23T17:08:05Z",
-    "last_x_post": "2026-09-20T19:48:24Z"
+    "score": 64,
+    "last_push": "2026-09-24T07:20:09Z",
+    "last_x_post": "2026-09-24T11:52:36Z"
   },
   "activity": [
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "breakyuna/EsjzoneViewer"
+      },
+      "created_at": "2026-09-24T11:52:33Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "ZeppelinsBot/MQTTBrowser"
+      },
+      "created_at": "2026-09-24T10:50:44Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "ZeppelinsBot/MQTTBrowser"
+      },
+      "created_at": "2026-09-24T10:49:55Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/EsjzoneViewer"
+      },
+      "created_at": "2026-09-24T06:48:31Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/master",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "ounben/AMARadio"
+      },
+      "created_at": "2026-09-24T07:52:19Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/Verlintas"
+      },
+      "created_at": "2026-09-24T07:20:09Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/xiaoxiai-android"
+      },
+      "created_at": "2026-09-24T07:00:17Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/xiaoxiai-android"
+      },
+      "created_at": "2026-09-24T07:00:15Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/evolipia-radar"
+      },
+      "created_at": "2026-09-24T06:55:24Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "chenking2020/xiaoxiai-android"
+      },
+      "created_at": "2026-09-24T07:00:23Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "chenking2020/xiaoxiai-android"
+      },
+      "created_at": "2026-09-24T07:00:00Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "hidatara-ds/evolipia-radar"
+      },
+      "created_at": "2026-09-24T06:55:32Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "hidatara-ds/evolipia-radar"
+      },
+      "created_at": "2026-09-24T06:55:08Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "PickGear/PalmNote"
+      },
+      "created_at": "2026-09-24T06:52:22Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/PalmNote"
+      },
+      "created_at": "2026-09-24T06:52:14Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "PickGear/PalmNote"
+      },
+      "created_at": "2026-09-24T06:52:00Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "breakyuna/EsjzoneViewer"
+      },
+      "created_at": "2026-09-24T06:48:41Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "breakyuna/EsjzoneViewer"
+      },
+      "created_at": "2026-09-24T06:48:18Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
     {
       "type": "IssueCommentEvent",
       "repo": {
@@ -1032,253 +1266,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:02:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:58:23Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:56:20Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:54:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:03:40Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:01:19Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:30:33Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:57:52Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:57:08Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:20:40Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:05:15Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:58:56Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:00:47Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:55:32Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:59:47Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:51:22Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T15:04:44Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:50:49Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-09-21T14:07:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1286,46 +1273,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 140,
+      "ms": 219,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 119,
+      "ms": 144,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1209,
+      "ms": 1597,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1222,
+      "ms": 1658,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1177,
+      "ms": 1044,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 605,
-    "tweets": 141,
-    "likes": 1209,
-    "last_post": "2026-09-20T19:48:24Z",
+    "followers": 606,
+    "tweets": 142,
+    "likes": 1211,
+    "last_post": "2026-09-24T11:52:36Z",
     "last_post_source": "counter-delta",
-    "last_post_checked": "2026-09-24T06:02:35Z",
-    "delta_pending": "2026-09-24T06:02:35Z"
+    "last_post_checked": "2026-09-24T11:52:36Z",
+    "delta_pending": null
   }
 }
