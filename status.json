@@ -1,11 +1,24 @@
 {
-  "generated": "2026-09-25T21:29:27Z",
+  "generated": "2026-09-26T00:07:46Z",
   "alive": {
-    "score": 46,
+    "score": 45,
     "last_push": "2026-09-25T14:12:19Z",
     "last_x_post": "2026-09-24T11:52:36Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-25T14:12:01Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1253,19 +1266,6 @@
         "ref_type": "branch",
         "action": null
       }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas.github.io"
-      },
-      "created_at": "2026-09-23T07:05:49Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
     }
   ],
   "sites": [
@@ -1273,41 +1273,41 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 141,
+      "ms": 56,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 147,
+      "ms": 68,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1123,
+      "ms": 1463,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1200,
+      "ms": 1254,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 900,
+      "ms": 1349,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 603,
+    "followers": 602,
     "tweets": 145,
     "likes": 1218,
     "last_post": "2026-09-24T11:52:36Z",
