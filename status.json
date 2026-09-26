@@ -1,11 +1,245 @@
 {
-  "generated": "2026-09-26T05:05:11Z",
+  "generated": "2026-09-26T09:55:38Z",
   "alive": {
-    "score": 47,
-    "last_push": "2026-09-26T03:09:18Z",
+    "score": 53,
+    "last_push": "2026-09-26T08:22:53Z",
     "last_x_post": "2026-09-24T11:52:36Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:30:47Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/position-store-eviction",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:24:50Z",
+      "payload": {
+        "size": null,
+        "ref": "fix/task-removed-ended-playback",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "NUSV/NUSV-lite"
+      },
+      "created_at": "2026-09-26T08:22:53Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/test-orca",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "NUSV/NUSV-lite"
+      },
+      "created_at": "2026-09-26T08:22:22Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/test-orca",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "NUSV/NUSV-lite"
+      },
+      "created_at": "2026-09-26T08:21:55Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/test-orca",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:37:29Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:36:12Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:35:01Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:34:29Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:32:32Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:24:52Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:24:32Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:24:30Z",
+      "payload": {
+        "size": null,
+        "ref": "perf/cache-date-format",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:24:06Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:24:02Z",
+      "payload": {
+        "size": null,
+        "ref": "fix/position-store-eviction",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:23:44Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:23:38Z",
+      "payload": {
+        "size": null,
+        "ref": "fix/final-position-save",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "Lives0808/MediaPlayer"
+      },
+      "created_at": "2026-09-26T07:22:49Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1058,214 +1292,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "ZeppelinsBot/MQTTBrowser"
-      },
-      "created_at": "2026-09-23T16:53:04Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "FreetimeMaker/GeoWeather"
-      },
-      "created_at": "2026-09-23T16:49:14Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "FreetimeMaker/GeoWeather"
-      },
-      "created_at": "2026-09-23T16:48:48Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "ounben/AMARadio"
-      },
-      "created_at": "2026-09-23T16:26:31Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "og-cz/esfine"
-      },
-      "created_at": "2026-09-23T16:06:23Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "og-cz/esfine"
-      },
-      "created_at": "2026-09-23T16:05:53Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "guuyn/OpenClaw-Android"
-      },
-      "created_at": "2026-09-23T16:03:48Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "guuyn/OpenClaw-Android"
-      },
-      "created_at": "2026-09-23T16:02:56Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "ounben/AMARadio"
-      },
-      "created_at": "2026-09-23T15:51:28Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-09-23T15:51:21Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/master",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "ounben/AMARadio"
-      },
-      "created_at": "2026-09-23T15:50:10Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "afyzfur/afyzhub"
-      },
-      "created_at": "2026-09-23T15:41:15Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "afyzfur/afyzhub"
-      },
-      "created_at": "2026-09-23T15:39:59Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "mkx173/Featherline"
-      },
-      "created_at": "2026-09-23T15:28:45Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "closed"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "mkx173/Featherline"
-      },
-      "created_at": "2026-09-23T15:28:45Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-09-23T06:44:47Z",
-      "payload": {
-        "size": null,
-        "ref": "chore/add-license",
-        "ref_type": "branch",
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1273,46 +1299,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 168,
+      "ms": 103,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 275,
+      "ms": 87,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1819,
+      "ms": 968,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1026,
+      "ms": 1315,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 904,
+      "ms": 795,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 603,
+    "followers": 605,
     "tweets": 145,
     "likes": 1218,
     "last_post": "2026-09-24T11:52:36Z",
     "last_post_source": "counter-delta",
-    "last_post_checked": "2026-09-26T05:05:10Z",
+    "last_post_checked": "2026-09-26T09:55:37Z",
     "delta_pending": null
   }
 }
