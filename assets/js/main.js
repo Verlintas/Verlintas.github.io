@@ -218,7 +218,7 @@
     { id: "live", pats: ["live", "实时", "动态", "监控"] },
     { id: "contact", pats: ["contact", "联系", "邮箱", "邮件"] },
   ];
-  var PROJ_KEYS = { betteraichat: "Verlintas/BetterAIChat", vicinityprobe: "Verlintas/VicinityProbe", nekomimi: "Verlintas/nekomimi", googleonyourmac: "Verlintas/GoogleOnYourMac", nusvlite: "NUSV/NUSV-lite", syna: "NUSV/Syna-NUSV", gomoku: "NUSV/Gomoku-NUSV" };
+  var PROJ_KEYS = { betteraichat: "Verlintas/BetterAIChat", vicinityprobe: "Verlintas/VicinityProbe", openvisum: "Verlintas/OpenVisum", googleonyourmac: "Verlintas/GoogleOnYourMac", nusvlite: "NUSV/NUSV-lite", syna: "NUSV/Syna-NUSV", gomoku: "NUSV/Gomoku-NUSV" };
   function jumpSection(id) {
     var el = document.getElementById(id);
     if (!el) return false;
@@ -239,7 +239,7 @@
   var PROJ_INTRO = {
     betteraichat: "BetterAIChat 是 Verlintas 做的原生 Android AI 智能体喵：自带各家 API key、opencode 风格模式、Shizuku 设备工具、屏幕分析还有语音助手～",
     vicinityprobe: "VicinityProbe 是个环境测量与安全测试工具箱喵：96 项探针、传感器融合、抓包分析(JA3)、NFC 安全测试都有～",
-    nekomimi: "nekomimi（猫猫助手）是基于 Android 无障碍服务的文本改写工具喵：正则替换、动态占位符、预设风格包，长期挂机也不掉线～",
+    openvisum: "OpenVisum 是 Verlintas 做的开源 Android 视频播放器喵：libVLC 驱动、几乎什么格式都能播、自动识别音轨与字幕，还有 9 套主题色～",
     googleonyourmac: "GoogleOnYourMac 让 Google 服务在 macOS 上像原生应用一样用喵：10 个服务 × Chromium/Chrome/Safari 三种内核～",
     nusvlite: "NUSV-lite 是 NUSV 的官方 Android 客户端喵：内容中心、11 个小游戏、60+ 工具、小组件和主题商店都装在里面～",
     syna: "Syna 是 NUSV 的离线优先局域网通讯喵：端到端加密、阅后即焚、群聊、自托管，还带一套反篡改盾～",
@@ -692,7 +692,7 @@
   var REPOS = {
     betteraichat: "Verlintas/BetterAIChat",
     vicinityprobe: "Verlintas/VicinityProbe",
-    nekomimi: "Verlintas/nekomimi",
+    openvisum: "Verlintas/OpenVisum",
     googleonyourmac: "Verlintas/GoogleOnYourMac",
     nusvlite: "NUSV/NUSV-lite",
     syna: "NUSV/Syna-NUSV",
@@ -983,7 +983,7 @@
            "'ai endpoint <url>' for any OpenAI-compatible server · 'ai endpoint token <t>' · 'ai endpoint clear'. " +
            "'ai system <text|show|reset>' tweaks persona (persists). replies type out; close or clear to interrupt",
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
-        open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku",
+        open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
         ip: "ip — your public IP, location and ISP (ipwho.is)",
         repo: "repo &lt;key|owner/name&gt; — GitHub repo stats: stars, forks, language, license, last push",
@@ -1032,7 +1032,7 @@
       if (key === "github") window.open("https://github.com/Verlintas", "_blank");
       else if (key === "x") window.open("https://x.com/Verlintas", "_blank");
       else if (repo) window.open("https://github.com/" + repo, "_blank");
-      else { tline("t-err", "unknown target — projects: betteraichat · vicinityprobe · nekomimi · googleonyourmac · nusvlite · syna · gomoku"); return; }
+      else { tline("t-err", "unknown target — projects: betteraichat · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku"); return; }
       tline("", "opening <span class='tk-y'>" + termEscape(key) + "</span> in a new tab");
     },
     copy: function (args) {
@@ -1129,7 +1129,7 @@
       tline("", [
         "<span class='tk-w'>BetterAIChat</span>   <span class='tk-g'>android ai agent</span>",
         "<span class='tk-w'>VicinityProbe</span>  <span class='tk-g'>security toolkit</span>",
-        "<span class='tk-w'>nekomimi</span>       <span class='tk-g'>text rewriter</span>",
+        "<span class='tk-w'>OpenVisum</span>      <span class='tk-g'>vlc video player</span>",
         "<span class='tk-w'>GoogleOnYourMac</span> <span class='tk-g'>macOS wrappers</span>",
         "<span class='tk-w'>NUSV-lite</span>      <span class='tk-g'>org client</span>",
         "<span class='tk-w'>Syna-NUSV</span>      <span class='tk-g'>e2e messenger</span>",
