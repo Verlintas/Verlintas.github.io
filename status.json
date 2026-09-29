@@ -1,11 +1,154 @@
 {
-  "generated": "2026-09-29T11:35:57Z",
+  "generated": "2026-09-29T17:02:51Z",
   "alive": {
-    "score": 47,
-    "last_push": "2026-09-29T09:40:30Z",
-    "last_x_post": null
+    "score": 54,
+    "last_push": "2026-09-29T15:13:02Z",
+    "last_x_post": "2026-09-29T17:02:50Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T09:25:04Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T09:04:46Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T15:13:02Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-28T20:30:41Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T08:16:09Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/ShoppingPlatImgCatcher"
+      },
+      "created_at": "2026-09-29T14:40:48Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T08:02:48Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T14:18:21Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T07:49:43Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T13:21:41Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T12:52:16Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1136,149 +1279,6 @@
         "ref_type": null,
         "action": "opened"
       }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:24:30Z",
-      "payload": {
-        "size": null,
-        "ref": "perf/cache-date-format",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Lives0808/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:24:06Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:24:02Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/position-store-eviction",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Lives0808/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:23:44Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:23:38Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/final-position-save",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "Lives0808/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:22:49Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-26T01:22:36Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-26T03:09:18Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-09-26T01:04:09Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "ReleaseEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-09-26T01:03:50Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "published"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T14:12:01Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1286,46 +1286,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 73,
+      "ms": 107,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 52,
+      "ms": 101,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 997,
+      "ms": 4177,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1146,
+      "ms": 1410,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1171,
+      "ms": 1016,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 682,
-    "tweets": 163,
-    "likes": 1319,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-09-29T11:35:56Z",
-    "delta_pending": "2026-09-29T11:35:56Z"
+    "followers": 684,
+    "tweets": 164,
+    "likes": 1323,
+    "last_post": "2026-09-29T17:02:50Z",
+    "last_post_source": "counter-delta",
+    "last_post_checked": "2026-09-29T17:02:50Z",
+    "delta_pending": null
   }
 }
