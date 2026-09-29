@@ -1,11 +1,128 @@
 {
-  "generated": "2026-09-29T05:37:33Z",
+  "generated": "2026-09-29T11:35:57Z",
   "alive": {
-    "score": 44,
-    "last_push": "2026-09-29T04:58:46Z",
+    "score": 47,
+    "last_push": "2026-09-29T09:40:30Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T09:40:30Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/KoraAI"
+      },
+      "created_at": "2026-09-29T09:25:13Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/KoraAI"
+      },
+      "created_at": "2026-09-29T09:25:02Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Lives0808/KoraAI"
+      },
+      "created_at": "2026-09-29T09:24:47Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T09:11:10Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T08:51:33Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T08:38:30Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T06:16:43Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-28T14:31:19Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1162,123 +1279,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T13:43:59Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T14:09:51Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T13:36:12Z",
-      "payload": {
-        "size": null,
-        "ref": "main",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T14:12:19Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T14:12:23Z",
-      "payload": {
-        "size": null,
-        "ref": "v1.0.0",
-        "ref_type": "tag",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T14:03:28Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T13:56:00Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-09-25T14:05:42Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-09-25T07:11:51Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1286,46 +1286,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 69,
+      "ms": 73,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 101,
+      "ms": 52,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1671,
+      "ms": 997,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 809,
+      "ms": 1146,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1152,
+      "ms": 1171,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 681,
-    "tweets": 161,
-    "likes": 1314,
+    "followers": 682,
+    "tweets": 163,
+    "likes": 1319,
     "last_post": null,
     "last_post_source": null,
-    "last_post_checked": "2026-09-29T05:37:32Z",
-    "delta_pending": null
+    "last_post_checked": "2026-09-29T11:35:56Z",
+    "delta_pending": "2026-09-29T11:35:56Z"
   }
 }
