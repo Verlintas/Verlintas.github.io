@@ -109,17 +109,18 @@ def x_last_post(old_x=None, token=None):
     if result.get("ok") and result.get("tweets") is not None:
         prev_tweets = (old_x or {}).get("tweets")
         pending = (old_x or {}).get("delta_pending")
-        if prev_tweets is not None and result["tweets"] > prev_tweets:
+        if prev_tweets is None:
+            # previous probe stored no counter (e.g. {"ok": false, "note": ...}) — nothing to compare
+            result["delta_pending"] = pending
+        elif result["tweets"] > prev_tweets:
             if pending:
                 result["last_post"] = iso(datetime.now(timezone.utc))
                 result["last_post_source"] = "counter-delta"
                 result["delta_pending"] = None
             else:
                 result["delta_pending"] = iso(datetime.now(timezone.utc))
-        elif result["tweets"] <= prev_tweets:
-            result["delta_pending"] = None
         else:
-            result["delta_pending"] = pending
+            result["delta_pending"] = None
         if not result.get("last_post"):
             result["last_post"] = (old_x or {}).get("last_post")
             result["last_post_source"] = (old_x or {}).get("last_post_source")
@@ -317,7 +318,13 @@ def main():
         r = probe(s["url"])
         sites.append({"name": s["name"], "url": s["url"], **r})
 
-    x = x_last_post(old_x=old.get("x"), token=os.environ.get("X_BEARER_TOKEN") or None)
+    # One flaky source must not fail the whole probe (a crash here meant the
+    # status.json never recovered and the workflow emailed on every run).
+    try:
+        x = x_last_post(old_x=old.get("x"), token=os.environ.get("X_BEARER_TOKEN") or None)
+    except Exception as e:
+        print("x probe failed: %s" % type(e).__name__)
+        x = old.get("x") or {"ok": False, "note": "probe failed"}
     events = github_events(token=os.environ.get("GITHUB_TOKEN") or None)
     now = datetime.now(timezone.utc)
     if events is None:
