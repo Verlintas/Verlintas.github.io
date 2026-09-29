@@ -1,11 +1,466 @@
 {
-  "generated": "2026-09-27T07:59:07Z",
+  "generated": "2026-09-29T05:37:33Z",
   "alive": {
-    "score": 53,
-    "last_push": "2026-09-27T06:33:26Z",
+    "score": 44,
+    "last_push": "2026-09-29T04:58:46Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T04:58:46Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-28T14:35:52Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T04:21:30Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-28T14:31:48Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-28T19:46:01Z",
+      "payload": {
+        "size": null,
+        "ref": "main",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-28T20:40:35Z",
+      "payload": {
+        "size": null,
+        "ref": "v0.1.0",
+        "ref_type": "tag",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-28T20:32:17Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-28T20:31:09Z",
+      "payload": {
+        "size": null,
+        "ref": "v0.1.0",
+        "ref_type": "tag",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-28T20:00:49Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-28T14:31:20Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-28T14:18:21Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T17:06:46Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T18:02:08Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-09-27T16:29:23Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-09-27T16:33:25Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T18:26:10Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T18:25:41Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T18:19:47Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T18:17:44Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T18:13:10Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T17:56:54Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-09-27T17:22:56Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T17:03:14Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T16:52:27Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T16:46:52Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T16:45:51Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T16:45:28Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T16:33:47Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T16:29:20Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-09-27T16:29:08Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T06:11:12Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T12:35:45Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-09-27T04:47:28Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-09-27T06:26:03Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-09-27T04:27:20Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -824,487 +1279,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-09-25T04:11:05Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/orca"
-      },
-      "created_at": "2026-09-24T15:49:40Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/tab-title-refresh-after-clear",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/meshcore-mobile-app"
-      },
-      "created_at": "2026-09-24T14:50:59Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/meshcore-mobile-app"
-      },
-      "created_at": "2026-09-24T14:50:57Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/orca"
-      },
-      "created_at": "2026-09-24T15:29:00Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/tab-title-refresh-after-clear",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Muslim"
-      },
-      "created_at": "2026-09-24T14:44:54Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestReviewCommentEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:51Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:51Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewCommentEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:50Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:51Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewCommentEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:46Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:47Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewCommentEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:46Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:49:47Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "thatSFguy/meshcore-mobile-app"
-      },
-      "created_at": "2026-09-24T15:36:44Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:29:08Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "stablyai/orca"
-      },
-      "created_at": "2026-09-24T15:14:24Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "thatSFguy/meshcore-mobile-app"
-      },
-      "created_at": "2026-09-24T14:51:06Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "thatSFguy/meshcore-mobile-app"
-      },
-      "created_at": "2026-09-24T14:50:43Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Alaa91H/Muslim"
-      },
-      "created_at": "2026-09-24T14:45:01Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "Alaa91H/Muslim"
-      },
-      "created_at": "2026-09-24T14:44:40Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "hidatara-ds/evolipia-radar"
-      },
-      "created_at": "2026-09-24T14:39:20Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "og-cz/esfine"
-      },
-      "created_at": "2026-09-24T14:39:17Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "herb-sin/afilaxy-kmm"
-      },
-      "created_at": "2026-09-24T14:39:14Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "chenking2020/xiaoxiai-android"
-      },
-      "created_at": "2026-09-24T14:39:10Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "guuyn/OpenClaw-Android"
-      },
-      "created_at": "2026-09-24T14:39:07Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "afyzfur/afyzhub"
-      },
-      "created_at": "2026-09-24T14:39:04Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "FreetimeMaker/GeoWeather"
-      },
-      "created_at": "2026-09-24T14:39:00Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "breakyuna/EsjzoneViewer"
-      },
-      "created_at": "2026-09-24T14:38:56Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "ZeppelinsBot/MQTTBrowser"
-      },
-      "created_at": "2026-09-24T14:19:46Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "PickGear/PalmNote"
-      },
-      "created_at": "2026-09-24T14:13:19Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "breakyuna/EsjzoneViewer"
-      },
-      "created_at": "2026-09-24T11:52:33Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "ZeppelinsBot/MQTTBrowser"
-      },
-      "created_at": "2026-09-24T10:50:44Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "ZeppelinsBot/MQTTBrowser"
-      },
-      "created_at": "2026-09-24T10:49:55Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-09-24T06:48:31Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/master",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "ounben/AMARadio"
-      },
-      "created_at": "2026-09-24T07:52:19Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-09-24T07:20:09Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,40 +1286,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 111,
+      "ms": 69,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 125,
+      "ms": 101,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1334,
+      "ms": 1671,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 971,
+      "ms": 809,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1342,
+      "ms": 1152,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 681,
+    "tweets": 161,
+    "likes": 1314,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-09-29T05:37:32Z",
+    "delta_pending": null
   }
 }
