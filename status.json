@@ -1,11 +1,63 @@
 {
-  "generated": "2026-09-30T00:43:17Z",
+  "generated": "2026-09-30T06:02:02Z",
   "alive": {
-    "score": 51,
-    "last_push": "2026-09-29T15:45:19Z",
+    "score": 50,
+    "last_push": "2026-09-30T03:15:49Z",
     "last_x_post": "2026-09-29T17:02:50Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-30T03:15:49Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-09-29T05:46:59Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/Verlintas.github.io"
+      },
+      "created_at": "2026-09-29T05:37:22Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "herb-sin/afilaxy-kmm"
+      },
+      "created_at": "2026-09-30T02:07:34Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1227,58 +1279,6 @@
         "ref_type": "branch",
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV-lite"
-      },
-      "created_at": "2026-09-26T08:22:53Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/test-orca",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV-lite"
-      },
-      "created_at": "2026-09-26T08:22:22Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/test-orca",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "NUSV/NUSV-lite"
-      },
-      "created_at": "2026-09-26T08:21:55Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/test-orca",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Lives0808/MediaPlayer"
-      },
-      "created_at": "2026-09-26T07:37:29Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
     }
   ],
   "sites": [
@@ -1286,46 +1286,46 @@
       "name": "verlintas.github.io",
       "url": "https://verlintas.github.io",
       "up": true,
-      "ms": 141,
+      "ms": 79,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 105,
+      "ms": 64,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1331,
+      "ms": 842,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1204,
+      "ms": 1273,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1134,
+      "ms": 844,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 684,
-    "tweets": 164,
-    "likes": 1328,
+    "followers": 685,
+    "tweets": 165,
+    "likes": 1343,
     "last_post": "2026-09-29T17:02:50Z",
     "last_post_source": "counter-delta",
-    "last_post_checked": "2026-09-30T00:43:17Z",
-    "delta_pending": null
+    "last_post_checked": "2026-09-30T06:02:02Z",
+    "delta_pending": "2026-09-30T06:02:02Z"
   }
 }
