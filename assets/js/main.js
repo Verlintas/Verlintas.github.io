@@ -218,7 +218,7 @@
     { id: "live", pats: ["live", "实时", "动态", "监控"] },
     { id: "contact", pats: ["contact", "联系", "邮箱", "邮件"] },
   ];
-  var PROJ_KEYS = { betteraichat: "Verlintas/BetterAIChat", vicinityprobe: "Verlintas/VicinityProbe", openvisum: "Verlintas/OpenVisum", googleonyourmac: "Verlintas/GoogleOnYourMac", nusvlite: "NUSV/NUSV-lite", syna: "NUSV/Syna-NUSV", gomoku: "NUSV/Gomoku-NUSV" };
+  var PROJ_KEYS = { betteraichat: "Verlintas/BetterAIChat", novabaic: "Verlintas/NovaBAIC", vicinityprobe: "Verlintas/VicinityProbe", openvisum: "Verlintas/OpenVisum", googleonyourmac: "Verlintas/GoogleOnYourMac", nusvlite: "NUSV/NUSV-lite", syna: "NUSV/Syna-NUSV", gomoku: "NUSV/Gomoku-NUSV" };
   function jumpSection(id) {
     var el = document.getElementById(id);
     if (!el) return false;
@@ -238,6 +238,7 @@
   var WMO = { 0: "晴", 1: "多云", 2: "多云", 3: "阴", 45: "雾", 48: "雾", 51: "毛毛雨", 53: "毛毛雨", 55: "毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨", 71: "小雪", 73: "中雪", 75: "大雪", 80: "阵雨", 81: "阵雨", 82: "强阵雨", 95: "雷阵雨", 96: "雷阵雨" };
   var PROJ_INTRO = {
     betteraichat: "BetterAIChat 是 Verlintas 做的原生 Android AI 智能体喵：自带各家 API key、opencode 风格模式、Shizuku 设备工具、屏幕分析还有语音助手～",
+    novabaic: "NovaBAIC（BetterAIChat2）是 Verlintas 新一代本地优先 Android AI 智能体喵：流式聊天、Agents、48 个设备工具（截屏 OCR / UI 自动化 / 文件 / 网页 / 提醒 / 自动化 / 技能 / 子代理）、长期记忆还有 MCP～",
     vicinityprobe: "VicinityProbe 是个环境测量与安全测试工具箱喵：96 项探针、传感器融合、抓包分析(JA3)、NFC 安全测试都有～",
     openvisum: "OpenVisum 是 Verlintas 做的开源 Android 视频播放器喵：libVLC 驱动、几乎什么格式都能播、自动识别音轨与字幕，还有 9 套主题色～",
     googleonyourmac: "GoogleOnYourMac 让 Google 服务在 macOS 上像原生应用一样用喵：10 个服务 × Chromium/Chrome/Safari 三种内核～",
@@ -691,6 +692,7 @@
   function closeTerm() { stopSay(); term.hidden = true; }
   var REPOS = {
     betteraichat: "Verlintas/BetterAIChat",
+    novabaic: "Verlintas/NovaBAIC",
     vicinityprobe: "Verlintas/VicinityProbe",
     openvisum: "Verlintas/OpenVisum",
     googleonyourmac: "Verlintas/GoogleOnYourMac",
@@ -983,7 +985,7 @@
            "'ai endpoint <url>' for any OpenAI-compatible server · 'ai endpoint token <t>' · 'ai endpoint clear'. " +
            "'ai system <text|show|reset>' tweaks persona (persists). replies type out; close or clear to interrupt",
         nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
-        open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku",
+        open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · novabaic · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku",
         copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
         ip: "ip — your public IP, location and ISP (ipwho.is)",
         repo: "repo &lt;key|owner/name&gt; — GitHub repo stats: stars, forks, language, license, last push",
@@ -1032,7 +1034,7 @@
       if (key === "github") window.open("https://github.com/Verlintas", "_blank");
       else if (key === "x") window.open("https://x.com/Verlintas", "_blank");
       else if (repo) window.open("https://github.com/" + repo, "_blank");
-      else { tline("t-err", "unknown target — projects: betteraichat · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku"); return; }
+      else { tline("t-err", "unknown target — projects: betteraichat · novabaic · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku"); return; }
       tline("", "opening <span class='tk-y'>" + termEscape(key) + "</span> in a new tab");
     },
     copy: function (args) {
@@ -1128,6 +1130,7 @@
     ls: function () {
       tline("", [
         "<span class='tk-w'>BetterAIChat</span>   <span class='tk-g'>android ai agent</span>",
+        "<span class='tk-w'>NovaBAIC</span>      <span class='tk-g'>local-first ai agent</span>",
         "<span class='tk-w'>VicinityProbe</span>  <span class='tk-g'>security toolkit</span>",
         "<span class='tk-w'>OpenVisum</span>      <span class='tk-g'>vlc video player</span>",
         "<span class='tk-w'>GoogleOnYourMac</span> <span class='tk-g'>macOS wrappers</span>",
