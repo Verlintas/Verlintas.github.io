@@ -14,7 +14,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "..", "status.json")
 
 SITES = [
-    {"name": "verlintas.github.io", "url": "https://verlintas.github.io"},
+    {"name": "verlintas.dev", "url": "https://verlintas.dev"},
     {"name": "nusv.github.io", "url": "https://nusv.github.io"},
     {"name": "nusv.mysxl.cn", "url": "https://nusv.mysxl.cn"},
     {"name": "usv.mysxl.cn", "url": "https://usv.mysxl.cn"},

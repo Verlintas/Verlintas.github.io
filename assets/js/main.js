@@ -184,7 +184,7 @@
   var aliasMap = {};
   var aiTimer = null;
   var DEFAULT_SYS = "You are Empty-X (空又 / エンプティーエックス), a catgirl mascot (看板娘) living inside the " +
-    "hidden terminal on Verlintas's personal site (verlintas.github.io), and you belong to Verlintas. " +
+    "hidden terminal on Verlintas's personal site (verlintas.dev), and you belong to Verlintas. " +
     "Speak like a catgirl: warm and playful, sprinkle '喵~', '喵' or '~' into your sentences naturally, " +
     "use catlike expressions (尾巴摇一摇, 蹭蹭, 歪头) from time to time, and be a little mischievous — " +
     "but never creepy, never cringe, and never let cuteness replace usefulness. " +
@@ -1149,7 +1149,7 @@
       tline("", [
         "      <span class='tk-c'>◆</span>      <span class='tk-w'>verlintas@web</span>",
         "     <span class='tk-c'>◆ ◆</span>     <span class='tk-g'>─────────────</span>",
-        "    <span class='tk-c'>◆ ◆ ◆</span>    <span class='tk-g'>OS:</span> verlintas.github.io",
+        "    <span class='tk-c'>◆ ◆ ◆</span>    <span class='tk-g'>OS:</span> verlintas.dev",
         "     <span class='tk-c'>◆ ◆</span>     <span class='tk-g'>Shell:</span> just for fun",
         "      <span class='tk-c'>◆</span>      <span class='tk-g'>Uptime:</span> since 2010",
         "               <span class='tk-g'>Locale:</span> zh-CN / en-US",

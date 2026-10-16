@@ -613,7 +613,7 @@
     }
     if (/(你在(哪|哪里|哪边|什么地方)|你的位置|你住哪|住址)/.test(t)) {
       return chatSay(P([
-        "我住在你的浏览器里喵——准确说是 Verlintas 主页的隐藏终端，hostname: verlintas.github.io。",
+        "我住在你的浏览器里喵——准确说是 Verlintas 主页的隐藏终端，hostname: verlintas.dev。",
         "（指指屏幕）这里呀，随时随地 0ms 延迟响应你喵。",
         "北京的一台服务器会梦见电子猫吗……总之我在云端和你的屏幕之间喵。",
       ]));
@@ -1093,7 +1093,7 @@
         ]);
         if (/(what can you do|what do you do|help me|how can you help)/.test(e)) return "I can chat, tell jokes, do math, look up elements, idioms and countries, check the weather, tell the time, and play games like guess-the-number and rock-paper-scissors. Try: 'play a game' or ask me anything simple!";
         if (/(how old are you|your age)/.test(e)) return P(["Old enough to have seen CSS evolve, young enough to still enjoy it. Let's say... forever 18, like a proper mascot.", "Age is a number; my uptime is the real question. I've been here since Verlintas wrote this terminal~"]);
-        if (/(where are you|where do you live|where are you from)/.test(e)) return "I live inside this hidden terminal at verlintas.github.io — technically your browser, spiritually a warm server room in Beijing.";
+        if (/(where are you|where do you live|where are you from)/.test(e)) return "I live inside this hidden terminal at verlintas.dev — technically your browser, spiritually a warm server room in Beijing.";
         if (/(thank you|thanks|thx|ty)$/.test(e)) return P(["Anytime! Scratch behind my ears next time~", "You're welcome! Meow~", "Happy to help. That's what a mascot is for!"]);
         if (/^(bye|goodbye|see you|cya|farewell)$/.test(e)) return P(["Bye! Come back soon, or I'll sharpen my claws on your bookmarks.", "See you! The terminal stays on for you. Meow~"]);
         if (/(i love you|do you love me|you are cute|you're cute)/.test(e)) return P([
