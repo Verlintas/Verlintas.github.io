@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-21T20:39:59Z",
+  "generated": "2026-10-21T23:42:29Z",
   "alive": {
     "score": 3,
     "last_push": "2026-10-18T03:39:16Z",
@@ -1312,46 +1312,40 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 242,
+      "ms": 186,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 172,
+      "ms": 58,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1012,
+      "ms": 1208,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1024,
+      "ms": 872,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1729,
+      "ms": 889,
       "status": 200
     }
   ],
   "x": {
-    "ok": true,
-    "followers": 1689,
-    "tweets": 378,
-    "likes": 2702,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-10-21T20:39:58Z",
-    "delta_pending": "2026-10-21T20:39:58Z"
+    "ok": false,
+    "note": "unreachable"
   }
 }
