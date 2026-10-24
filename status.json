@@ -1,11 +1,24 @@
 {
-  "generated": "2026-10-23T22:33:14Z",
+  "generated": "2026-10-24T01:09:58Z",
   "alive": {
     "score": 6,
-    "last_push": "2026-10-23T14:23:37Z",
+    "last_push": "2026-10-23T14:30:00Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-23T14:30:00Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1292,19 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-09-29T08:38:30Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,41 +1312,41 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 291,
+      "ms": 266,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 137,
+      "ms": 62,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1408,
+      "ms": 978,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1790,
+      "ms": 2470,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1141,
+      "ms": 1460,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 1739,
+    "followers": 1738,
     "tweets": 389,
     "likes": 2786,
     "last_post": null,
