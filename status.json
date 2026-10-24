@@ -1,11 +1,50 @@
 {
-  "generated": "2026-10-24T10:47:48Z",
+  "generated": "2026-10-24T14:24:49Z",
   "alive": {
-    "score": 10,
-    "last_push": "2026-10-23T14:30:00Z",
+    "score": 12,
+    "last_push": "2026-10-24T10:53:23Z",
     "last_x_post": "2026-10-24T10:47:47Z"
   },
   "activity": [
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "TKkk-iOSer/WeChatPlugin-MacOS"
+      },
+      "created_at": "2026-10-24T13:43:53Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-24T10:53:23Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-24T10:49:50Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "WatchEvent",
       "repo": {
@@ -1266,45 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-09-29T12:52:16Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-09-29T09:40:30Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-09-29T09:11:10Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 310,
+      "ms": 241,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 145,
+      "ms": 63,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 966,
+      "ms": 1579,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1351,
+      "ms": 924,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1142,
+      "ms": 1191,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 1743,
-    "tweets": 396,
-    "likes": 2850,
+    "followers": 1748,
+    "tweets": 398,
+    "likes": 2865,
     "last_post": "2026-10-24T10:47:47Z",
     "last_post_source": "counter-delta",
-    "last_post_checked": "2026-10-24T10:47:47Z",
-    "delta_pending": null
+    "last_post_checked": "2026-10-24T14:24:49Z",
+    "delta_pending": "2026-10-24T14:24:49Z"
   }
 }
