@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-25T00:29:36Z",
+  "generated": "2026-10-25T05:13:35Z",
   "alive": {
-    "score": 17,
+    "score": 16,
     "last_push": "2026-10-24T15:07:40Z",
     "last_x_post": "2026-10-24T17:32:33Z"
   },
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 268,
+      "ms": 334,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 119,
+      "ms": 139,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1023,
+      "ms": 1419,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1267,
+      "ms": 1330,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1130,
+      "ms": 1544,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 1752,
-    "tweets": 405,
-    "likes": 2877,
+    "followers": 1754,
+    "tweets": 407,
+    "likes": 2907,
     "last_post": "2026-10-24T17:32:33Z",
     "last_post_source": "counter-delta",
-    "last_post_checked": "2026-10-24T22:24:10Z",
-    "delta_pending": null
+    "last_post_checked": "2026-10-25T05:13:34Z",
+    "delta_pending": "2026-10-25T05:13:34Z"
   }
 }
