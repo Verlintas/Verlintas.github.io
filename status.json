@@ -1,11 +1,24 @@
 {
-  "generated": "2026-10-26T00:44:34Z",
+  "generated": "2026-10-26T05:27:35Z",
   "alive": {
-    "score": 11,
+    "score": 10,
     "last_push": "2026-10-25T11:35:19Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "openfrontio/OpenFrontIO"
+      },
+      "created_at": "2026-10-26T02:24:34Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1292,19 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-09-29T15:13:02Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,40 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 245,
+      "ms": 321,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 321,
+      "ms": 145,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1944,
+      "ms": 1231,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1789,
+      "ms": 992,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1424,
+      "ms": 1279,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 1768,
+    "tweets": 425,
+    "likes": 2981,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-10-26T05:27:34Z",
+    "delta_pending": null
   }
 }
