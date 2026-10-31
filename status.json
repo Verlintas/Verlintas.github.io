@@ -1,11 +1,63 @@
 {
-  "generated": "2026-10-31T00:50:24Z",
+  "generated": "2026-10-31T06:52:56Z",
   "alive": {
-    "score": 32,
-    "last_push": "2026-10-29T16:43:39Z",
+    "score": 31,
+    "last_push": "2026-10-29T18:17:35Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-29T17:04:20Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-29T15:31:18Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-29T18:17:35Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-29T14:39:50Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1227,58 +1279,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Alaa91H/Muslim"
-      },
-      "created_at": "2026-10-08T02:42:04Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-10-04T08:08:31Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenTraduko"
-      },
-      "created_at": "2026-10-04T14:07:05Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "HMCL-dev/HMCL"
-      },
-      "created_at": "2026-10-04T11:56:57Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
     }
   ],
   "sites": [
@@ -1286,46 +1286,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 355,
+      "ms": 281,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 140,
+      "ms": 139,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1746,
+      "ms": 1908,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1735,
+      "ms": 1086,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1139,
+      "ms": 1533,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 1841,
-    "tweets": 506,
-    "likes": 3325,
+    "followers": 1851,
+    "tweets": 508,
+    "likes": 3337,
     "last_post": null,
     "last_post_source": null,
-    "last_post_checked": "2026-10-31T00:50:22Z",
-    "delta_pending": null
+    "last_post_checked": "2026-10-31T06:52:56Z",
+    "delta_pending": "2026-10-31T06:52:56Z"
   }
 }
