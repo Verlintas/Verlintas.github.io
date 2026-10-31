@@ -1,11 +1,24 @@
 {
-  "generated": "2026-10-31T06:52:56Z",
+  "generated": "2026-10-31T13:32:31Z",
   "alive": {
-    "score": 31,
-    "last_push": "2026-10-29T18:17:35Z",
-    "last_x_post": null
+    "score": 33,
+    "last_push": "2026-10-30T02:50:24Z",
+    "last_x_post": "2026-10-31T13:32:30Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-30T02:50:24Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1266,19 +1279,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-10-10T16:17:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1286,46 +1286,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 281,
+      "ms": 242,
       "status": 200
     },
     {
       "name": "nusv.github.io",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 139,
+      "ms": 60,
       "status": 200
     },
     {
       "name": "nusv.mysxl.cn",
       "url": "https://nusv.mysxl.cn",
       "up": true,
-      "ms": 1908,
+      "ms": 1401,
       "status": 200
     },
     {
       "name": "usv.mysxl.cn",
       "url": "https://usv.mysxl.cn",
       "up": true,
-      "ms": 1086,
+      "ms": 1428,
       "status": 200
     },
     {
       "name": "elecusv.mysxl.cn",
       "url": "https://elecusv.mysxl.cn",
       "up": true,
-      "ms": 1533,
+      "ms": 1236,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 1851,
-    "tweets": 508,
-    "likes": 3337,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-10-31T06:52:56Z",
-    "delta_pending": "2026-10-31T06:52:56Z"
+    "followers": 1853,
+    "tweets": 509,
+    "likes": 3340,
+    "last_post": "2026-10-31T13:32:30Z",
+    "last_post_source": "counter-delta",
+    "last_post_checked": "2026-10-31T13:32:30Z",
+    "delta_pending": null
   }
 }
