@@ -212,13 +212,12 @@
   /* local NLU layer for `ai`: answers simple chat offline; null = escalate to LLM */
   var NAV_SECTIONS = [
     { id: "about", pats: ["about", "关于"] },
-    { id: "history", pats: ["history", "历史", "沿革"] },
     { id: "projects", pats: ["projects", "项目", "作品"] },
     { id: "stack", pats: ["stack", "技术栈", "技能", "栈", "会什么技术"] },
     { id: "live", pats: ["live", "实时", "动态", "监控"] },
     { id: "contact", pats: ["contact", "联系", "邮箱", "邮件"] },
   ];
-  var PROJ_KEYS = { betteraichat: "Verlintas/BetterAIChat", novabaic: "Verlintas/NovaBAIC", vicinityprobe: "Verlintas/VicinityProbe", openvisum: "Verlintas/OpenVisum", googleonyourmac: "Verlintas/GoogleOnYourMac", nusvlite: "NUSV/NUSV-lite", syna: "NUSV/Syna-NUSV", gomoku: "NUSV/Gomoku-NUSV" };
+  var PROJ_KEYS = { noir: "Verlintas/NOIR", betteraichat: "Verlintas/BetterAIChat", novabaic: "Verlintas/NovaBAIC", openvisum: "Verlintas/OpenVisum", vicinityprobe: "Verlintas/VicinityProbe", syna: "NUSV/Syna-NUSV", nusvlite: "NUSV/NUSV-lite", verlinpark: "Verlintas/VerlinPark", extrawechat: "Verlintas/ExtraWeChat" };
   function jumpSection(id) {
     var el = document.getElementById(id);
     if (!el) return false;
@@ -237,14 +236,15 @@
   ];
   var WMO = { 0: "晴", 1: "多云", 2: "多云", 3: "阴", 45: "雾", 48: "雾", 51: "毛毛雨", 53: "毛毛雨", 55: "毛毛雨", 61: "小雨", 63: "中雨", 65: "大雨", 71: "小雪", 73: "中雪", 75: "大雪", 80: "阵雨", 81: "阵雨", 82: "强阵雨", 95: "雷阵雨", 96: "雷阵雨" };
   var PROJ_INTRO = {
+    noir: "NOIR 是 Verlintas 做的 Android 隐私审计工具喵：用 adb 扫出应用的权限、上报端点和数据流向，还能给出可回滚的处置～",
     betteraichat: "BetterAIChat 是 Verlintas 做的原生 Android AI 智能体喵：自带各家 API key、opencode 风格模式、Shizuku 设备工具、屏幕分析还有语音助手～",
-    novabaic: "NovaBAIC（BetterAIChat2）是 Verlintas 新一代本地优先 Android AI 智能体喵：流式聊天、Agents、48 个设备工具（截屏 OCR / UI 自动化 / 文件 / 网页 / 提醒 / 自动化 / 技能 / 子代理）、长期记忆还有 MCP～",
-    vicinityprobe: "VicinityProbe 是个环境测量与安全测试工具箱喵：96 项探针、传感器融合、抓包分析(JA3)、NFC 安全测试都有～",
+    novabaic: "NovaBAIC（BetterAIChat2）是 Verlintas 新一代本地优先 Android AI 智能体喵：流式聊天、Agents、57 个设备工具、长期记忆还有 MCP～",
     openvisum: "OpenVisum 是 Verlintas 做的开源 Android 视频播放器喵：libVLC 驱动、几乎什么格式都能播、自动识别音轨与字幕，还有 9 套主题色～",
-    googleonyourmac: "GoogleOnYourMac 让 Google 服务在 macOS 上像原生应用一样用喵：10 个服务 × Chromium/Chrome/Safari 三种内核～",
-    nusvlite: "NUSV-lite 是 NUSV 的官方 Android 客户端喵：内容中心、11 个小游戏、60+ 工具、小组件和主题商店都装在里面～",
+    vicinityprobe: "VicinityProbe 是个环境测量与安全测试工具箱喵：96 项探针、传感器融合、抓包分析(JA3)、NFC 安全测试都有～",
     syna: "Syna 是 NUSV 的离线优先局域网通讯喵：端到端加密、阅后即焚、群聊、自托管，还带一套反篡改盾～",
-    gomoku: "Gomoku-NUSV 是跨平台五子棋喵：Kotlin Multiplatform 写的，Android/iOS/Windows/Linux 都能玩，AI 用的是 minimax 剪枝～",
+    nusvlite: "NUSV-lite 是 NUSV 的官方 Android 客户端喵：内容中心、小游戏、60+ 工具、小组件和主题商店都装在里面～",
+    verlinpark: "VerlinPark 是 Verlintas 用 Rust 写的原生 macOS agent 开发环境喵：可以同时运行和监管一队 agent～",
+    extrawechat: "ExtraWeChat 是微信 4.x macOS 本地增强喵：防撤回、补丁副本、多开、窗口隐私和主题，Apple Silicon 可用～",
   };
   var ALGO_REPLIES = {
     sort: ["排好了喵：{0}", "升序给你喵～{0}", "整理完毕：{0} 喵！"],
@@ -305,9 +305,7 @@
   var NAME_ADJ = ["Neko", "Kitsune", "Zero", "Diamond", "Nova", "Sonic", "Ember", "Pixel", "Quartz", "Aurora"];
   var NAME_NOUN = ["Chat", "Probe", "Kit", "Deck", "Store", "Sync", "Panel", "Weave", "Box", "Lens"];
   var LORE = {
-    ulv: "ULV 是 Verlintas 最早的组织喵，不对外的、比较内部的那种，据说在疫情之前就存在了——比空又还神秘。",
-    usv: "USV（United Science Vaca）是 NUSV 的前身喵，2025 年底全新官网，2026 年 2 月还建了 USVElecCenter（现在的 elecusv.mysxl.cn）～",
-    nusv: "NUSV（United Science Vaca）是 2026 年 6 月 17 日成立的组织喵，逐步取代 USV，现在在 GitHub 上开源做 Android 应用、工具和小游戏～",
+    nusv: "NUSV 是 Verlintas 参与的开源组织喵：Android 应用、工具和小游戏都在 GitHub 上开源～",
   };
   function pickCity(text) {
     for (var i = 0; i < CITYS.length; i++) if (text.indexOf(CITYS[i].name) !== -1) return CITYS[i];
@@ -369,17 +367,15 @@
       }
       /* org lore */
       if (/(ulv|usv|nusv)/.test(t) && /(什么|是|介绍|讲)/.test(t)) {
-        if (/ulv/.test(t)) return LORE.ulv;
-        if (/usv/.test(t) && !/nusv/.test(t)) return LORE.usv;
         if (/nusv/.test(t)) return LORE.nusv;
       }
       /* about Verlintas */
       if (/(verlintas|站长|主人|这个网站(的)?作者)/.test(t) && /(谁|介绍|怎么|什么样|干嘛|厉害)/.test(t)) {
-        return PICKS(["Verlintas 是空又的主人喵，2010 年出生，满脑子 Android、Kotlin 和 AI agent，从 ULV 时代一路造到 NUSV，GitHub 上全开源，邮箱 ulv777777@gmail.com～", "他是全栈 + AI 开发者喵，造了 BetterAIChat、VicinityProbe 这些，还是 ULV/USV/NUSV 一路走来的主力开发者。北京人，中文英文都会～"]);
+        return PICKS(["Verlintas 是空又的主人喵，2010 年出生，满脑子 Android、Kotlin 和 AI agent，GitHub 上全开源，邮箱 ulv777777@gmail.com～", "他是全栈 + AI 开发者喵，造了 NOIR、BetterAIChat、OpenVisum 这些，北京人，中文英文都会～"]);
       }
       /* project intro — match on normalized text (case/dashes/spaces) */
       for (var kp in PROJ_KEYS) {
-        var kn = kp.replace("googleonyourmac", "google");
+        var kn = kp;
         if (tn.indexOf(kp) !== -1 || tn.indexOf(kn) !== -1) {
           if (/(是什么|干嘛|做什么|介绍|about|讲讲|功能)/.test(t) && PROJ_INTRO[kp]) {
             return PROJ_INTRO[kp];
@@ -548,7 +544,7 @@
         } catch (e) { return "笔记读不出来了喵…"; }
       }
       /* contact */
-      if (/(邮箱|email|发邮件|联系方式)/.test(t)) return "Verlintas 的两个邮箱喵：ulv777777@gmail.com 和 12321666@163.com（终端里 copy gmail / copy 163 直接复制）";
+      if (/(邮箱|email|发邮件|联系方式)/.test(t)) return "Verlintas 的邮箱喵：ulv777777@gmail.com（终端里 copy gmail 直接复制）";
       /* ai channel status */
       if (/(^|\s)(ai|模型|接入)/.test(t) && /(状态|能用|可用|连|接|通|工作|在吗|有没)/.test(t) || /^(ai|模型)能/.test(t)) {
         var parts = [];
@@ -691,14 +687,15 @@
   }
   function closeTerm() { stopSay(); term.hidden = true; }
   var REPOS = {
+    noir: "Verlintas/NOIR",
     betteraichat: "Verlintas/BetterAIChat",
     novabaic: "Verlintas/NovaBAIC",
-    vicinityprobe: "Verlintas/VicinityProbe",
     openvisum: "Verlintas/OpenVisum",
-    googleonyourmac: "Verlintas/GoogleOnYourMac",
-    nusvlite: "NUSV/NUSV-lite",
+    vicinityprobe: "Verlintas/VicinityProbe",
     syna: "NUSV/Syna-NUSV",
-    gomoku: "NUSV/Gomoku-NUSV",
+    nusvlite: "NUSV/NUSV-lite",
+    verlinpark: "Verlintas/VerlinPark",
+    extrawechat: "Verlintas/ExtraWeChat",
   };
   function wmo(code) {
     var c = Number(code);
@@ -866,11 +863,11 @@
     help: function () {
       tline("", [
         "<span class='tk-y'>ai:</span>           ai &lt;question&gt; — ask a small free model anything",
-        "<span class='tk-y'>navigation:</span>   nav about|history|projects|stack|live|contact · open &lt;project|github|x&gt;",
+        "<span class='tk-y'>navigation:</span>   nav about|projects|stack|live|contact · open &lt;project|github|x&gt;",
         "<span class='tk-y'>live data:</span>    status · feed · weather · alive · ping api|meteo · ip · repo &lt;key&gt;",
         "<span class='tk-y'>dev tools:</span>    calc · b64 e|d · url e|d · json · ts · rand · uuid · pass · cal",
         "<span class='tk-y'>notes &amp; ai:</span>    note list|add|del|clear · forget · say &lt;text&gt; · fortune",
-        "<span class='tk-y'>copy/search:</span>  copy &lt;gmail|163|github|x&gt; · search github|web &lt;q&gt;",
+        "<span class='tk-y'>copy/search:</span>  copy &lt;gmail|github|x&gt; · search github|web &lt;q&gt;",
         "<span class='tk-y'>shell:</span>        alias [name=cmd] · man &lt;cmd&gt; · ls · whoami · date · neofetch · clear · exit",
         "<span class='tk-g'>↑/↓ history · Tab autocomplete</span>",
       ].join("\n"));
@@ -984,9 +981,9 @@
            "'ai lmstudio [TOKEN]' points at http://localhost:1234/api/openai/v0 (get the token in LM Studio: Settings → Developer/Core → API access). " +
            "'ai endpoint <url>' for any OpenAI-compatible server · 'ai endpoint token <t>' · 'ai endpoint clear'. " +
            "'ai system <text|show|reset>' tweaks persona (persists). replies type out; close or clear to interrupt",
-        nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/history/projects/stack/live/contact)",
-        open: "open &lt;target&gt; — open in new tab. targets: github · x · betteraichat · novabaic · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku",
-        copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · 163 · github · x",
+        nav: "nav &lt;id&gt; — smooth-scroll to a page section (about/projects/stack/live/contact)",
+        open: "open &lt;target&gt; — open in new tab. targets: github · x · noir · betteraichat · novabaic · openvisum · vicinityprobe · syna · nusvlite · verlinpark · extrawechat",
+        copy: "copy &lt;key&gt; — copy to clipboard. keys: gmail · github · x",
         ip: "ip — your public IP, location and ISP (ipwho.is)",
         repo: "repo &lt;key|owner/name&gt; — GitHub repo stats: stars, forks, language, license, last push",
         note: "note list — show notes · note add &lt;text&gt; — save one · note del &lt;n&gt; — delete · note clear — wipe (stored in this browser)",
@@ -1024,7 +1021,7 @@
     nav: function (args) {
       var id = args[0];
       var el = document.getElementById(id);
-      if (!el) { tline("t-err", "unknown section: " + termEscape(id || "") + " — try about|history|projects|stack|live|contact"); return; }
+      if (!el) { tline("t-err", "unknown section: " + termEscape(id || "") + " — try about|projects|stack|live|contact"); return; }
       window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 64, behavior: "smooth" });
       tline("", "jumping to <span class='tk-y'>#" + termEscape(id) + "</span>…");
     },
@@ -1034,13 +1031,13 @@
       if (key === "github") window.open("https://github.com/Verlintas", "_blank");
       else if (key === "x") window.open("https://x.com/Verlintas", "_blank");
       else if (repo) window.open("https://github.com/" + repo, "_blank");
-      else { tline("t-err", "unknown target — projects: betteraichat · novabaic · vicinityprobe · openvisum · googleonyourmac · nusvlite · syna · gomoku"); return; }
+      else { tline("t-err", "unknown target — projects: noir · betteraichat · novabaic · openvisum · vicinityprobe · syna · nusvlite · verlinpark · extrawechat"); return; }
       tline("", "opening <span class='tk-y'>" + termEscape(key) + "</span> in a new tab");
     },
     copy: function (args) {
-      var map = { gmail: "ulv777777@gmail.com", "163": "12321666@163.com", github: "https://github.com/Verlintas", x: "https://x.com/Verlintas" };
+      var map = { gmail: "ulv777777@gmail.com", github: "https://github.com/Verlintas", x: "https://x.com/Verlintas" };
       var val = map[(args[0] || "").toLowerCase()];
-      if (!val) { tline("t-err", "copy what? — gmail|163|github|x"); return; }
+      if (!val) { tline("t-err", "copy what? — gmail|github|x"); return; }
       if (!navigator.clipboard) { tline("t-err", "clipboard unavailable"); return; }
       navigator.clipboard.writeText(val).then(function () {
         tline("", "copied <span class='tk-y'>" + termEscape(val) + "</span> to clipboard");
@@ -1129,18 +1126,19 @@
     },
     ls: function () {
       tline("", [
+        "<span class='tk-w'>NOIR</span>          <span class='tk-g'>android privacy audit</span>",
         "<span class='tk-w'>BetterAIChat</span>   <span class='tk-g'>android ai agent</span>",
         "<span class='tk-w'>NovaBAIC</span>      <span class='tk-g'>local-first ai agent</span>",
-        "<span class='tk-w'>VicinityProbe</span>  <span class='tk-g'>security toolkit</span>",
         "<span class='tk-w'>OpenVisum</span>      <span class='tk-g'>vlc video player</span>",
-        "<span class='tk-w'>GoogleOnYourMac</span> <span class='tk-g'>macOS wrappers</span>",
-        "<span class='tk-w'>NUSV-lite</span>      <span class='tk-g'>org client</span>",
+        "<span class='tk-w'>VicinityProbe</span>  <span class='tk-g'>security toolkit</span>",
         "<span class='tk-w'>Syna-NUSV</span>      <span class='tk-g'>e2e messenger</span>",
-        "<span class='tk-w'>Gomoku-NUSV</span>    <span class='tk-g'>cross-platform game</span>",
+        "<span class='tk-w'>NUSV-lite</span>      <span class='tk-g'>org client</span>",
+        "<span class='tk-w'>VerlinPark</span>     <span class='tk-g'>macos agent env</span>",
+        "<span class='tk-w'>ExtraWeChat</span>    <span class='tk-g'>wechat toolkit</span>",
       ].join("\n"));
     },
     whoami: function () {
-      tline("", "<span class='tk-w'>Verlintas</span> — the mainly developer in ULV / USV. born 2010, still just for fun.");
+      tline("", "<span class='tk-w'>Verlintas</span> — full-stack &amp; AI developer. born 2010, still just for fun.");
     },
     date: function () {
       tline("", new Date().toLocaleString("en-GB", { timeZone: "Asia/Shanghai" }) + " Beijing time");
@@ -1551,7 +1549,7 @@
   });
 
   /* j/k section navigation (vim style) */
-  var NAV_IDS = ["about", "history", "projects", "stack", "live", "contact"];
+  var NAV_IDS = ["about", "projects", "stack", "live", "contact"];
   function currentSectionIdx() {
     var y = window.scrollY + window.innerHeight / 2;
     var best = 0, bestGap = Infinity;

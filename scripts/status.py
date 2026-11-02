@@ -15,10 +15,10 @@ OUT = os.path.join(HERE, "..", "status.json")
 
 SITES = [
     {"name": "verlintas.dev", "url": "https://verlintas.dev"},
-    {"name": "nusv.github.io", "url": "https://nusv.github.io"},
-    {"name": "nusv.mysxl.cn", "url": "https://nusv.mysxl.cn"},
-    {"name": "usv.mysxl.cn", "url": "https://usv.mysxl.cn"},
-    {"name": "elecusv.mysxl.cn", "url": "https://elecusv.mysxl.cn"},
+    {"name": "OpenVisum", "url": "https://verlintas.dev/OpenVisum/"},
+    {"name": "NovaBAIC", "url": "https://verlintas.dev/NovaBAIC/"},
+    {"name": "NUSV", "url": "https://nusv.github.io"},
+    {"name": "NOIR · GitHub", "url": "https://github.com/Verlintas/NOIR"},
 ]
 
 HEADERS = {
