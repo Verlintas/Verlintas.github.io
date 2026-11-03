@@ -1,8 +1,8 @@
 {
-  "generated": "2026-11-03T09:23:28Z",
+  "generated": "2026-11-03T17:16:19Z",
   "alive": {
     "score": 34,
-    "last_push": "2026-11-01T13:12:07Z",
+    "last_push": null,
     "last_x_post": null
   },
   "activity": [
@@ -1312,7 +1312,7 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 222,
+      "ms": 285,
       "status": 200
     },
     {
@@ -1326,32 +1326,26 @@
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 169,
+      "ms": 216,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 151,
+      "ms": 114,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 423,
+      "ms": 428,
       "status": 200
     }
   ],
   "x": {
-    "ok": true,
-    "followers": 2364,
-    "tweets": 576,
-    "likes": 3558,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-11-03T09:23:27Z",
-    "delta_pending": null
+    "ok": false,
+    "note": "unreachable"
   }
 }
