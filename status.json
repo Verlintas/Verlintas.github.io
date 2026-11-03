@@ -1,11 +1,76 @@
 {
-  "generated": "2026-11-03T01:51:28Z",
+  "generated": "2026-11-03T09:23:28Z",
   "alive": {
-    "score": 36,
-    "last_push": "2026-11-01T12:44:44Z",
+    "score": 34,
+    "last_push": "2026-11-01T13:12:07Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-01T03:00:00Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/Verlintas"
+      },
+      "created_at": "2026-11-01T13:12:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-10-31T21:21:36Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/Verlintas"
+      },
+      "created_at": "2026-11-01T12:37:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/Verlintas"
+      },
+      "created_at": "2026-11-01T12:32:42Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1240,71 +1305,6 @@
         "ref_type": null,
         "action": "closed"
       }
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T06:20:11Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T06:20:11Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-10-31T21:50:19Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "closed"
-      }
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T06:12:16Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-10-30T14:40:25Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,40 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 200,
+      "ms": 222,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 302,
+      "ms": 220,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 275,
+      "ms": 169,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 203,
+      "ms": 151,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 405,
+      "ms": 423,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 2364,
+    "tweets": 576,
+    "likes": 3558,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-11-03T09:23:27Z",
+    "delta_pending": null
   }
 }
