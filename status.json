@@ -1,7 +1,7 @@
 {
-  "generated": "2026-11-05T20:00:27Z",
+  "generated": "2026-11-06T00:58:02Z",
   "alive": {
-    "score": 24,
+    "score": 23,
     "last_push": "2026-11-05T09:57:52Z",
     "last_x_post": null
   },
@@ -1312,40 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 486,
+      "ms": 212,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 352,
+      "ms": 149,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 314,
+      "ms": 206,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 156,
+      "ms": 189,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 498,
+      "ms": 393,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 2404,
+    "tweets": 607,
+    "likes": 3709,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-11-06T00:58:01Z",
+    "delta_pending": null
   }
 }
