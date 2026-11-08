@@ -1,11 +1,193 @@
 {
-  "generated": "2026-11-08T01:52:29Z",
+  "generated": "2026-11-08T08:52:05Z",
   "alive": {
-    "score": 39,
+    "score": 43,
     "last_push": "2026-11-07T22:00:50Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T21:41:42Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T21:10:03Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-07T16:03:59Z",
+      "payload": {
+        "size": null,
+        "ref": "dependabot/github_actions/gradle/actions-6",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-07T16:03:49Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T15:36:35Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-11-07T13:31:24Z",
+      "payload": {
+        "size": null,
+        "ref": "feat/web-agent-v2",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T16:10:15Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-07T16:03:58Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T19:52:44Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T17:38:59Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T18:57:46Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-11-07T16:19:28Z",
+      "payload": {
+        "size": null,
+        "ref": "feat/model-judged-web-actions",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-11-07T20:25:53Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-07T13:08:13Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1123,188 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-11-02T10:47:37Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-02T10:12:55Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-11-01T12:28:47Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T06:11:51Z",
-      "payload": {
-        "size": null,
-        "ref": "dependabot/gradle/jvm-2.4.21",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T05:56:24Z",
-      "payload": {
-        "size": null,
-        "ref": "dependabot/github_actions/softprops/action-gh-release-3",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-03T10:12:28Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T03:00:00Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-11-01T13:12:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-10-31T21:21:36Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-11-01T12:37:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-11-01T12:32:42Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/Verlintas"
-      },
-      "created_at": "2026-11-01T12:35:48Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T06:46:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-01T06:11:50Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 379,
+      "ms": 327,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 320,
+      "ms": 334,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 1423,
+      "ms": 239,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 329,
+      "ms": 138,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
-      "up": true,
-      "ms": 473,
-      "status": 200
+      "up": false,
+      "ms": null,
+      "status": null
     }
   ],
   "x": {
     "ok": true,
-    "followers": 2482,
-    "tweets": 635,
-    "likes": 3842,
+    "followers": 2485,
+    "tweets": 636,
+    "likes": 3855,
     "last_post": null,
     "last_post_source": null,
-    "last_post_checked": "2026-11-08T01:52:28Z",
-    "delta_pending": null
+    "last_post_checked": "2026-11-08T08:52:04Z",
+    "delta_pending": "2026-11-08T08:52:04Z"
   }
 }
