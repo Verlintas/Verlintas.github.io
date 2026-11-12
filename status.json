@@ -1,11 +1,310 @@
 {
-  "generated": "2026-11-12T13:08:31Z",
+  "generated": "2026-11-12T20:51:36Z",
   "alive": {
-    "score": 66,
-    "last_push": "2026-11-12T09:11:21Z",
+    "score": 65,
+    "last_push": "2026-11-12T10:57:07Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "Lee-xeo/Claude-Cage"
+      },
+      "created_at": "2026-11-12T19:18:36Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
+    {
+      "type": "PullRequestReviewCommentEvent",
+      "repo": {
+        "name": "github/spec-kit"
+      },
+      "created_at": "2026-11-12T17:56:43Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "microsoft/winget-pkgs"
+      },
+      "created_at": "2026-11-12T16:07:47Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestReviewEvent",
+      "repo": {
+        "name": "github/spec-kit"
+      },
+      "created_at": "2026-11-12T17:56:44Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "microsoft/winget-pkgs"
+      },
+      "created_at": "2026-11-12T17:24:09Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "github/spec-kit"
+      },
+      "created_at": "2026-11-12T17:46:38Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "github/spec-kit"
+      },
+      "created_at": "2026-11-12T17:46:02Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "microsoft/winget-pkgs"
+      },
+      "created_at": "2026-11-12T17:24:26Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "DeleteEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-11-11T07:53:00Z",
+      "payload": {
+        "size": null,
+        "ref": "feat/web-vision",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-12T10:57:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-11T03:09:33Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-11T03:07:08Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "microsoft/winget-pkgs"
+      },
+      "created_at": "2026-11-12T15:52:38Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "microsoft/winget-pkgs"
+      },
+      "created_at": "2026-11-12T15:50:48Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-11-11T07:48:27Z",
+      "payload": {
+        "size": null,
+        "ref": "feat/web-vision",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/PalmClaw"
+      },
+      "created_at": "2026-11-12T10:03:26Z",
+      "payload": {
+        "size": null,
+        "ref": "ci/android-build",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/cleanyourtv-tahoe"
+      },
+      "created_at": "2026-11-12T10:00:13Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/ci/pr-checks",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-12T12:14:32Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/PalmClaw"
+      },
+      "created_at": "2026-11-12T10:03:27Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/ci/android-build",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NovaBAIC"
+      },
+      "created_at": "2026-11-11T08:37:14Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/MiniiChat-Next"
+      },
+      "created_at": "2026-11-12T09:06:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/prompt-vars-formatters",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/MiniiChat-Next"
+      },
+      "created_at": "2026-11-12T09:02:53Z",
+      "payload": {
+        "size": null,
+        "ref": "fix/markdown-locale-root",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/openRS_"
+      },
+      "created_at": "2026-11-12T09:02:13Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/parked-gps-wander",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "CreateEvent",
       "repo": {
@@ -1006,305 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T17:08:50Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T13:14:24Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T12:35:48Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T15:35:08Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T18:28:53Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T13:26:38Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-08T15:29:27Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-08T13:00:55Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-08T12:58:01Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-08T11:11:58Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "midori01/GestaltX"
-      },
-      "created_at": "2026-11-10T02:08:23Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
-      "type": "WatchEvent",
-      "repo": {
-        "name": "starsstreaming/beautiCode"
-      },
-      "created_at": "2026-11-10T01:39:59Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "started"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-09T15:16:49Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-08T13:02:35Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T19:54:03Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T20:38:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T19:32:05Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T19:23:25Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T18:47:04Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T18:11:58Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/BetterAIChat"
-      },
-      "created_at": "2026-11-07T16:51:09Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-07T16:03:51Z",
-      "payload": {
-        "size": null,
-        "ref": "dependabot/gradle/com.google.code.gson-gson-2.15.0",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-07T14:48:46Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,40 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 236,
+      "ms": 265,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 349,
+      "ms": 250,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 100,
+      "ms": 183,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 123,
+      "ms": 118,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 401,
+      "ms": 478,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 2518,
+    "tweets": 663,
+    "likes": 3991,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-11-12T20:51:34Z",
+    "delta_pending": null
   }
 }
