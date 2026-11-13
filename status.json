@@ -1,11 +1,128 @@
 {
-  "generated": "2026-11-13T17:07:13Z",
+  "generated": "2026-11-13T22:41:14Z",
   "alive": {
-    "score": 46,
+    "score": 44,
     "last_push": "2026-11-13T00:33:50Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-12T09:06:10Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/AMARadio"
+      },
+      "created_at": "2026-11-12T08:38:27Z",
+      "payload": {
+        "size": null,
+        "ref": "fix/locale-independent-codes",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-12T02:08:45Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/AMARadio"
+      },
+      "created_at": "2026-11-12T07:59:55Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/lifecycle-aware-collection",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/AMARadio"
+      },
+      "created_at": "2026-11-12T07:59:39Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/lifecycle-aware-collection",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/AMARadio"
+      },
+      "created_at": "2026-11-12T07:59:35Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/lifecycle-aware-collection",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/AMARadio"
+      },
+      "created_at": "2026-11-12T07:59:14Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/lifecycle-aware-collection",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/AMARadio"
+      },
+      "created_at": "2026-11-12T07:57:17Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/lifecycle-aware-collection",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-12T02:57:35Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PullRequestEvent",
       "repo": {
@@ -1162,110 +1279,6 @@
         "ref_type": null,
         "action": "opened"
       }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "ounben/AMARadio"
-      },
-      "created_at": "2026-11-12T08:39:18Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "director4168/MiniiChat-Next"
-      },
-      "created_at": "2026-11-12T08:37:27Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "breakyuna/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:26:58Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-11T08:38:09Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "breakyuna/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:05:17Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "ounben/AMARadio"
-      },
-      "created_at": "2026-11-12T08:00:23Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-11T08:32:28Z",
-      "payload": {
-        "size": null,
-        "ref": "feat/web-vision-phase2",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestReviewEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-12T06:56:07Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
     }
   ],
   "sites": [
@@ -1273,40 +1286,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 330,
+      "ms": 291,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 273,
+      "ms": 157,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 247,
+      "ms": 201,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 127,
+      "ms": 141,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 561,
+      "ms": 454,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 2520,
+    "tweets": 663,
+    "likes": 4007,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-11-13T22:41:13Z",
+    "delta_pending": null
   }
 }
