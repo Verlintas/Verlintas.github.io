@@ -1,11 +1,258 @@
 {
-  "generated": "2026-11-13T01:45:03Z",
+  "generated": "2026-11-13T08:49:02Z",
   "alive": {
-    "score": 59,
+    "score": 49,
     "last_push": "2026-11-12T10:57:07Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-11T15:28:15Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-11T17:27:57Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "neomjs/neo"
+      },
+      "created_at": "2026-11-13T04:16:20Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "neomjs/neo"
+      },
+      "created_at": "2026-11-13T04:06:26Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "neomjs/neo"
+      },
+      "created_at": "2026-11-13T04:04:25Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-11T15:40:16Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "neomjs/neo"
+      },
+      "created_at": "2026-11-13T03:54:53Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-12T23:09:14Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T03:30:50Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T03:30:43Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T02:52:37Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T03:30:38Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T02:52:36Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-12T23:09:09Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T03:30:33Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T02:52:35Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T03:30:29Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T02:52:34Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "klexical/openRS_"
+      },
+      "created_at": "2026-11-13T03:30:25Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
     {
       "type": "CreateEvent",
       "repo": {
@@ -280,19 +527,6 @@
       }
     },
     {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/cleanyourtv-tahoe"
-      },
-      "created_at": "2026-11-12T10:00:13Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/ci/pr-checks",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
       "type": "IssueCommentEvent",
       "repo": {
         "name": "Verlintas/NOIR"
@@ -328,58 +562,6 @@
         "size": null,
         "ref": "refs/heads/main",
         "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/MiniiChat-Next"
-      },
-      "created_at": "2026-11-12T09:06:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/prompt-vars-formatters",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/MiniiChat-Next"
-      },
-      "created_at": "2026-11-12T09:02:53Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/markdown-locale-root",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/openRS_"
-      },
-      "created_at": "2026-11-12T09:02:13Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/parked-gps-wander",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/openRS_"
-      },
-      "created_at": "2026-11-12T08:50:55Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/ignition-labels",
-        "ref_type": "branch",
         "action": null
       }
     },
@@ -423,45 +605,6 @@
       }
     },
     {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/MiniiChat-Next"
-      },
-      "created_at": "2026-11-12T09:06:11Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/prompt-vars-formatters",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/MiniiChat-Next"
-      },
-      "created_at": "2026-11-12T09:06:04Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/prompt-vars-formatters",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/openRS_"
-      },
-      "created_at": "2026-11-12T09:00:42Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/duration-active-label",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
       "type": "PullRequestEvent",
       "repo": {
         "name": "director4168/MiniiChat-Next"
@@ -472,45 +615,6 @@
         "ref": null,
         "ref_type": null,
         "action": "merged"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/openRS_"
-      },
-      "created_at": "2026-11-12T08:54:46Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/fuel-used-gauge-noise",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/openRS_"
-      },
-      "created_at": "2026-11-12T08:51:00Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/ignition-labels",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:03:31Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
       }
     },
     {
@@ -641,71 +745,6 @@
         "ref": null,
         "ref_type": null,
         "action": "created"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:04:01Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:03:52Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:02:45Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:02:39Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/lifecycle-aware-collection",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/EsjzoneViewer"
-      },
-      "created_at": "2026-11-12T08:02:21Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/master",
-        "ref_type": null,
-        "action": null
       }
     },
     {
@@ -849,19 +888,6 @@
         "ref": null,
         "ref_type": null,
         "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "fk0u/cleanyourtv-tahoe"
-      },
-      "created_at": "2026-11-12T09:59:59Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
       }
     },
     {
@@ -1034,19 +1060,6 @@
       }
     },
     {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "klexical/openRS_"
-      },
-      "created_at": "2026-11-12T08:50:19Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
-      }
-    },
-    {
       "type": "PullRequestEvent",
       "repo": {
         "name": "ounben/AMARadio"
@@ -1070,19 +1083,6 @@
         "ref": null,
         "ref_type": null,
         "action": "opened"
-      }
-    },
-    {
-      "type": "ForkEvent",
-      "repo": {
-        "name": "director4168/MiniiChat-Next"
-      },
-      "created_at": "2026-11-12T08:36:46Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "forked"
       }
     },
     {
@@ -1266,45 +1266,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-10T17:18:36Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-10T16:43:11Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-11T08:37:13Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "merged"
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1273,40 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 143,
+      "ms": 309,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 146,
+      "ms": 152,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 101,
+      "ms": 167,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 158,
+      "ms": 132,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 491,
+      "ms": 439,
       "status": 200
     }
   ],
   "x": {
-    "ok": true,
-    "followers": 2518,
-    "tweets": 663,
-    "likes": 3991,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-11-13T01:45:02Z",
-    "delta_pending": null
+    "ok": false,
+    "note": "unreachable"
   }
 }
