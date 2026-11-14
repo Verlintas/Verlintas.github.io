@@ -1,11 +1,89 @@
 {
-  "generated": "2026-11-14T16:08:49Z",
+  "generated": "2026-11-14T20:45:37Z",
   "alive": {
     "score": 37,
-    "last_push": "2026-11-14T15:03:57Z",
+    "last_push": "2026-11-14T17:44:03Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-13T17:37:19Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-12T18:41:17Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/spec-kit"
+      },
+      "created_at": "2026-11-12T17:56:08Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/4819-preset-script-resolve",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-14T17:44:03Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/spec-kit"
+      },
+      "created_at": "2026-11-12T17:46:28Z",
+      "payload": {
+        "size": null,
+        "ref": "fix/4819-preset-script-resolve",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-14T17:01:46Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1227,84 +1305,6 @@
         "ref_type": null,
         "action": "forked"
       }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-11T07:48:27Z",
-      "payload": {
-        "size": null,
-        "ref": "feat/web-vision",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/PalmClaw"
-      },
-      "created_at": "2026-11-12T10:03:26Z",
-      "payload": {
-        "size": null,
-        "ref": "ci/android-build",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "IssueCommentEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-12T12:14:32Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "created"
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/PalmClaw"
-      },
-      "created_at": "2026-11-12T10:03:27Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/ci/android-build",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-11T08:37:14Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-11T06:03:37Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 264,
+      "ms": 272,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 216,
+      "ms": 142,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 188,
+      "ms": 138,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 116,
+      "ms": 123,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 394,
+      "ms": 407,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 2525,
+    "followers": 2526,
     "tweets": 663,
-    "likes": 4002,
+    "likes": 4001,
     "last_post": null,
     "last_post_source": null,
-    "last_post_checked": "2026-11-14T16:08:48Z",
+    "last_post_checked": "2026-11-14T20:45:36Z",
     "delta_pending": null
   }
 }
