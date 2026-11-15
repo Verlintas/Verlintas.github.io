@@ -1,11 +1,76 @@
 {
-  "generated": "2026-11-15T00:56:36Z",
+  "generated": "2026-11-15T07:44:44Z",
   "alive": {
-    "score": 35,
-    "last_push": "2026-11-14T17:44:03Z",
+    "score": 34,
+    "last_push": "2026-11-15T05:38:46Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-15T05:38:46Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-15T05:25:48Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/spec-kit"
+      },
+      "created_at": "2026-11-12T23:48:26Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/4819-preset-script-resolve",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/neo"
+      },
+      "created_at": "2026-11-13T04:04:54Z",
+      "payload": {
+        "size": null,
+        "ref": "agent/20855-record-change-index-getter",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-14T13:20:55Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1240,71 +1305,6 @@
         "ref_type": null,
         "action": "created"
       }
-    },
-    {
-      "type": "DeleteEvent",
-      "repo": {
-        "name": "Verlintas/NovaBAIC"
-      },
-      "created_at": "2026-11-11T07:53:00Z",
-      "payload": {
-        "size": null,
-        "ref": "feat/web-vision",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-12T10:57:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-11T03:09:33Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-11T03:07:08Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PullRequestEvent",
-      "repo": {
-        "name": "microsoft/winget-pkgs"
-      },
-      "created_at": "2026-11-12T15:52:38Z",
-      "payload": {
-        "size": null,
-        "ref": null,
-        "ref_type": null,
-        "action": "opened"
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 206,
+      "ms": 225,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 185,
+      "ms": 228,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 65,
+      "ms": 252,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 47,
+      "ms": 127,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 368,
+      "ms": 427,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 2523,
+    "followers": 2524,
     "tweets": 663,
     "likes": 4000,
     "last_post": null,
     "last_post_source": null,
-    "last_post_checked": "2026-11-15T00:56:36Z",
+    "last_post_checked": "2026-11-15T07:44:43Z",
     "delta_pending": null
   }
 }
