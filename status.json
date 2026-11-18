@@ -1,11 +1,24 @@
 {
-  "generated": "2026-11-18T01:15:01Z",
+  "generated": "2026-11-18T08:38:35Z",
   "alive": {
-    "score": 26,
+    "score": 24,
     "last_push": "2026-11-17T01:08:49Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-16T14:42:10Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1292,19 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:59:14Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,40 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 587,
+      "ms": 193,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 132,
+      "ms": 206,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 296,
+      "ms": 179,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 174,
+      "ms": 121,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 455,
+      "ms": 407,
       "status": 200
     }
   ],
   "x": {
-    "ok": true,
-    "followers": 2538,
-    "tweets": 670,
-    "likes": 4005,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-11-18T01:15:00Z",
-    "delta_pending": null
+    "ok": false,
+    "note": "unreachable"
   }
 }
