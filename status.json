@@ -1,11 +1,37 @@
 {
-  "generated": "2026-11-17T18:28:03Z",
+  "generated": "2026-11-18T01:15:01Z",
   "alive": {
-    "score": 28,
+    "score": 26,
     "last_push": "2026-11-17T01:08:49Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-16T08:46:14Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/yacht"
+      },
+      "created_at": "2026-11-17T00:43:34Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1279,32 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:57:17Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-12T02:57:35Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,40 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 241,
+      "ms": 587,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 311,
+      "ms": 132,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 200,
+      "ms": 296,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 170,
+      "ms": 174,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 1298,
+      "ms": 455,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 2538,
+    "tweets": 670,
+    "likes": 4005,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-11-18T01:15:00Z",
+    "delta_pending": null
   }
 }
