@@ -1,11 +1,50 @@
 {
-  "generated": "2026-11-21T16:43:17Z",
+  "generated": "2026-11-21T21:56:02Z",
   "alive": {
-    "score": 11,
-    "last_push": "2026-11-21T06:58:49Z",
+    "score": 13,
+    "last_push": "2026-11-21T18:17:07Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-21T18:17:07Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/scoop-bucket"
+      },
+      "created_at": "2026-11-21T18:16:54Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/NOIR"
+      },
+      "created_at": "2026-11-21T16:41:42Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "ReleaseEvent",
       "repo": {
@@ -1266,45 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-12T09:06:10Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T08:38:27Z",
-      "payload": {
-        "size": null,
-        "ref": "fix/locale-independent-codes",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-12T02:08:45Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,40 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 311,
+      "ms": 241,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 507,
+      "ms": 253,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 206,
+      "ms": 203,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 128,
+      "ms": 161,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 295,
+      "ms": 454,
       "status": 200
     }
   ],
   "x": {
-    "ok": true,
-    "followers": 2532,
-    "tweets": 677,
-    "likes": 4116,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-11-21T16:43:16Z",
-    "delta_pending": "2026-11-21T16:43:16Z"
+    "ok": false,
+    "note": "unreachable"
   }
 }
