@@ -1,11 +1,24 @@
 {
-  "generated": "2026-11-21T08:51:25Z",
+  "generated": "2026-11-21T16:43:17Z",
   "alive": {
-    "score": 10,
+    "score": 11,
     "last_push": "2026-11-21T06:58:49Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "ReleaseEvent",
+      "repo": {
+        "name": "Verlintas/BetterAIChat"
+      },
+      "created_at": "2026-11-21T11:34:34Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "published"
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1292,19 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:59:55Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 215,
+      "ms": 311,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 131,
+      "ms": 507,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 126,
+      "ms": 206,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 121,
+      "ms": 128,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 414,
+      "ms": 295,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 2529,
-    "tweets": 674,
-    "likes": 4068,
+    "followers": 2532,
+    "tweets": 677,
+    "likes": 4116,
     "last_post": null,
     "last_post_source": null,
-    "last_post_checked": "2026-11-21T08:51:24Z",
-    "delta_pending": null
+    "last_post_checked": "2026-11-21T16:43:16Z",
+    "delta_pending": "2026-11-21T16:43:16Z"
   }
 }
