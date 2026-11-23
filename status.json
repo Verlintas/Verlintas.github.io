@@ -1,11 +1,24 @@
 {
-  "generated": "2026-11-23T03:39:16Z",
+  "generated": "2026-11-23T13:42:40Z",
   "alive": {
     "score": 10,
     "last_push": "2026-11-21T18:17:07Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "Yuukitake/Zora.AI"
+      },
+      "created_at": "2026-11-23T13:16:24Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1292,19 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:55:45Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,40 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 176,
+      "ms": 257,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 220,
+      "ms": 156,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 188,
+      "ms": 156,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 67,
+      "ms": 149,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 356,
+      "ms": 577,
       "status": 200
     }
   ],
   "x": {
-    "ok": false,
-    "note": "unreachable"
+    "ok": true,
+    "followers": 2595,
+    "tweets": 739,
+    "likes": 4400,
+    "last_post": null,
+    "last_post_source": null,
+    "last_post_checked": "2026-11-23T13:42:38Z",
+    "delta_pending": null
   }
 }
