@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0a0d10"/>
+  <rect x="26" y="8" width="12" height="10" rx="2" fill="none" stroke="#e0a64a" stroke-width="2"/>
+  <path d="M24 18h16v8l4 4v22a4 4 0 0 1-4 4H24a4 4 0 0 1-4-4V30l4-4v-8Z" fill="none" stroke="#e0a64a" stroke-width="2"/>
+  <path d="M22 36h20v16a4 4 0 0 1-4 4H26a4 4 0 0 1-4-4V36Z" fill="#e0a64a" opacity=".7"/>
+  <text x="32" y="49" text-anchor="middle" font-family="monospace" font-size="9" fill="#0a0d10">PD</text>
+</svg>

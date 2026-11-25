@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PROGYNON / DEPOT — A Molecular Dossier</title>
+  <meta name="description" content="A creative research dossier on プロギノン・デポー筋注10mg (estradiol valerate 10 mg/mL): official label, MtF GAHT guidelines, pharmacokinetics, safety, insurance and the 2026 supply fracture.">
+  <meta name="theme-color" content="#0a0d10">
+  <link rel="canonical" href="https://verlintas.dev/v/PDfuji/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Verlintas">
+  <meta property="og:title" content="PROGYNON / DEPOT — A Molecular Dossier">
+  <meta property="og:description" content="Estradiol valerate 10 mg/mL, the Japanese label, MtF GAHT guidelines, PK, safety, insurance and the 2026 supply fracture — as an interactive research dossier.">
+  <meta property="og:url" content="https://verlintas.dev/v/PDfuji/">
+  <meta property="og:image" content="https://verlintas.dev/v/PDfuji/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PROGYNON / DEPOT — A Molecular Dossier">
+  <meta name="twitter:description" content="An interactive research dossier on estradiol valerate 10 mg/mL, MtF GAHT, and the 2026 supply fracture.">
+  <meta name="twitter:image" content="https://verlintas.dev/v/PDfuji/assets/og.png">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Serif+JP:wght@400;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span id="scrollProgress"></span></div>
+
+  <header class="topbar">
+    <a class="brand" href="#hero" aria-label="Back to top">
+      <span class="brand-mark">PD</span>
+      <span class="brand-text">PROGYNON<br><em>DEPOT</em></span>
+      <span class="brand-id">/ 176</span>
+    </a>
+    <nav class="topnav" id="topnav" aria-label="Primary">
+      <a href="#identity">01 Identity</a>
+      <a href="#label">02 Label</a>
+      <a href="#atlas">03 Atlas</a>
+      <a href="#body">04 Body</a>
+      <a href="#clock">05 Clock</a>
+      <a href="#fracture">06 Fracture</a>
+      <a href="#archive">07 Archive</a>
+      <a href="#margins">08 Margins</a>
+    </nav>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="searchBtn" aria-label="Search (press slash)" title="Search /">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+      </button>
+      <button class="icon-btn" id="themeToggle" aria-label="Toggle theme" title="Toggle theme">
+        <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 7 7 0 1 0 20 14.5Z"/></svg>
+      </button>
+      <a class="dossier-btn" href="dossier.html">Full dossier <span>↗</span></a>
+      <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <aside class="rail" aria-label="Chapter navigation">
+    <div class="rail-line"><span id="railFill"></span></div>
+    <a href="#hero" data-rail="hero" class="rail-dot is-active"><span>00</span></a>
+    <a href="#identity" data-rail="identity" class="rail-dot"><span>01</span></a>
+    <a href="#label" data-rail="label" class="rail-dot"><span>02</span></a>
+    <a href="#atlas" data-rail="atlas" class="rail-dot"><span>03</span></a>
+    <a href="#body" data-rail="body" class="rail-dot"><span>04</span></a>
+    <a href="#clock" data-rail="clock" class="rail-dot"><span>05</span></a>
+    <a href="#fracture" data-rail="fracture" class="rail-dot"><span>06</span></a>
+    <a href="#archive" data-rail="archive" class="rail-dot"><span>07</span></a>
+    <a href="#margins" data-rail="margins" class="rail-dot"><span>08</span></a>
+  </aside>
+
+  <main id="main">
+
+    <!-- ========== HERO ========== -->
+    <section class="hero" id="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="eyebrow reveal">
+            <span class="pulse-dot"></span>
+            SPECIMEN 176 · FUJI PHARMA · JAPAN
+          </div>
+          <h1 class="hero-title reveal">
+            <span class="title-solid">PROGYNON</span>
+            <span class="title-outline">DEPOT</span>
+          </h1>
+          <p class="hero-sub reveal">
+            A molecular dossier on <strong>estradiol valerate 10 mg/mL</strong>,
+            the Japanese label behind it, the MtF GAHT evidence around it,
+            and the <em>2026 supply fracture</em> that changed access.
+          </p>
+          <div class="hero-stats reveal">
+            <div><b>10</b><span>mg / mL</span></div>
+            <div><b>1</b><span>mL ampoule</span></div>
+            <div><b>5</b><span>year shelf life</span></div>
+            <div class="stat-risk"><b>LIMITED</b><span>supply · 2026</span></div>
+          </div>
+          <div class="hero-actions reveal">
+            <a class="btn btn-primary" href="dossier.html">Open the dossier <span>↗</span></a>
+            <a class="btn btn-ghost" href="#atlas">Enter the GAHT atlas <span>↓</span></a>
+          </div>
+          <p class="hero-disclaimer reveal">Research &amp; education only. Not medical advice. Prescription drug.</p>
+        </div>
+
+        <div class="vial-stage reveal" aria-hidden="true">
+          <div class="vial-halo"></div>
+          <div class="vial">
+            <div class="ampoule">
+              <div class="ampoule-tip"></div>
+              <div class="ampoule-neck"></div>
+              <div class="ampoule-shoulder"></div>
+              <div class="ampoule-body">
+                <div class="liquid" id="vialLiquid"></div>
+                <div class="meniscus"></div>
+                <div class="ticks"></div>
+                <div class="ampoule-label">
+                  <span>PROGYNON</span>
+                  <b>DEPOT</b>
+                  <small>10 mg / 1 mL</small>
+                  <i>estradiol valerate</i>
+                </div>
+              </div>
+              <div class="ampoule-bottom"></div>
+            </div>
+            <div class="vial-shadow"></div>
+          </div>
+          <div class="float-tag tag-a"><span>ester</span> estradiol valerate</div>
+          <div class="float-tag tag-b"><span>solvent</span> sesame oil</div>
+          <div class="float-tag tag-c"><span>route</span> IM only</div>
+          <div class="float-tag tag-d"><span>peak</span> 3–5 days</div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#identity"><span>Break the seal</span><i></i></a>
+    </section>
+
+    <!-- ========== 01 IDENTITY ========== -->
+    <section class="chapter" id="identity">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>01</span> IDENTITY</div>
+        <h2 class="reveal">The specimen<br><em>passport.</em></h2>
+        <p class="chapter-lede reveal">Before the guidelines, the molecule. Before the molecule, the label. This is what page 176 actually is — and what it is not.</p>
+      </div>
+
+      <div class="identity-grid">
+        <button class="passport reveal" id="passport" aria-label="Flip specimen passport">
+          <div class="passport-inner">
+            <div class="passport-face passport-front">
+              <div class="passport-top">
+                <span>SPECIMEN PASSPORT</span><span>JP / 176</span>
+              </div>
+              <div class="passport-seal">PD</div>
+              <h3>プロギノン・デポー<br>筋注10mg</h3>
+              <p class="passport-en">Progynon®-Depot<br>intramuscular injection</p>
+              <dl>
+                <div><dt>Generic</dt><dd>Estradiol Valerate</dd></div>
+                <div><dt>Strength</dt><dd>10 mg / 1 mL</dd></div>
+                <div><dt>Vehicle</dt><dd>Sesame oil</dd></div>
+                <div><dt>Form</dt><dd>Oily injection · ampoule</dd></div>
+              </dl>
+              <span class="passport-hint">tap to read the Japanese label →</span>
+            </div>
+            <div class="passport-face passport-back">
+              <div class="passport-top"><span>OFFICIAL LABEL / 適能・効果</span><span>JP</span></div>
+              <p class="jp-quote">無月経、月経周期異常（稀発月経、多発月経）、月経量異常（過少月経、過多月経）、月経困難症、機能性子宮出血、子宮発育不全症、卵巣欠落症状、更年期障害、不妊症</p>
+              <p class="passport-note">No GAHT indication. No transgender wording. MtF use is off-label.</p>
+              <div class="passport-stamp">OFF-LABEL<br>FOR GAHT</div>
+            </div>
+          </div>
+        </button>
+
+        <div class="data-grid reveal">
+          <article class="data-cell"><span>APPROVAL</span><b>2008.03.07</b><small>current brand name</small></article>
+          <article class="data-cell"><span>APPROVAL NO.</span><b>22000AMX00547000</b><small>label shorthand 22000AMX00547</small></article>
+          <article class="data-cell"><span>NHI PRICE</span><b>¥306</b><small>per ampoule · 2026</small></article>
+          <article class="data-cell"><span>ATC</span><b>G03CA03</b><small>estradiol</small></article>
+          <article class="data-cell"><span>DOSE</span><b>5–10 mg</b><small>IM every 1–4 weeks</small></article>
+          <article class="data-cell"><span>PACK</span><b>10 amps</b><small>1 mL glass ampoules</small></article>
+          <article class="data-cell wide"><span>WHAT IT IS NOT</span><b>Not an approved GAHT product</b><small>Japan's GAHT drugs are unapproved and uninsured; this label is for gynaecological indications.</small></article>
+        </div>
+
+        <div class="molecule-card reveal" aria-hidden="true">
+          <div class="molecule-head"><span>MOLECULAR SCHEMATIC</span><span>C₂₃H₃₂O₃ · 356.50</span></div>
+          <svg class="molecule" viewBox="0 0 460 300">
+            <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+              <path d="M78 178 L118 144 L164 164 L164 216 L118 240 L78 210 Z"/>
+              <path d="M164 164 L206 132 L250 152 L250 204 L206 232 L164 216"/>
+              <path d="M250 204 L292 172 L336 192 L336 244 L292 272 L250 252"/>
+              <path d="M118 144 L138 100 L178 88"/>
+              <path d="M206 132 L228 88"/>
+              <path d="M292 172 L314 130 L354 118"/>
+              <path d="M336 192 L378 162"/>
+              <path d="M78 178 L52 146"/>
+              <path d="M78 210 L52 242"/>
+              <path d="M178 88 L204 106"/>
+              <path d="M354 118 L380 136"/>
+              <path d="M378 162 L406 142"/>
+            </g>
+            <g fill="var(--amber)">
+              <circle cx="52" cy="146" r="3.5"/><circle cx="52" cy="242" r="3.5"/>
+              <circle cx="406" cy="142" r="3.5"/><circle cx="380" cy="136" r="3.5"/>
+            </g>
+            <g fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="10">
+              <text x="42" y="132">O</text><text x="42" y="262">O</text>
+              <text x="412" y="138">OH</text><text x="382" y="126">O</text>
+            </g>
+            <text x="24" y="286" fill="var(--muted)" font-family="IBM Plex Mono, monospace" font-size="9">SCHEMATIC · NOT TO SCALE · FOR ORIENTATION ONLY</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 02 LABEL ========== -->
+    <section class="chapter" id="label">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>02</span> THE LABEL</div>
+        <h2 class="reveal">A leaflet with<br><em>a red stamp.</em></h2>
+        <p class="chapter-lede reveal">The official Japanese insert, read in five passes. Hover the stamp: the product is approved, but not for this use.</p>
+      </div>
+
+      <div class="label-shell reveal">
+        <div class="label-stamp" aria-hidden="true">OFF-LABEL<br><span>FOR GAHT</span></div>
+        <div class="label-tabs" role="tablist" aria-label="Label sections">
+          <button role="tab" aria-selected="true" aria-controls="panel-indication" id="tab-indication" data-tab="indication">効能 <span>Indications</span></button>
+          <button role="tab" aria-selected="false" aria-controls="panel-dose" id="tab-dose" data-tab="dose">用法 <span>Dose</span></button>
+          <button role="tab" aria-selected="false" aria-controls="panel-contra" id="tab-contra" data-tab="contra">禁忌 <span>Contraindications</span></button>
+          <button role="tab" aria-selected="false" aria-controls="panel-pk" id="tab-pk" data-tab="pk">PK <span>Kinetics</span></button>
+          <button role="tab" aria-selected="false" aria-controls="panel-adverse" id="tab-adverse" data-tab="adverse">副作用 <span>Adverse</span></button>
+        </div>
+
+        <div class="label-panels">
+          <article class="label-panel is-active" id="panel-indication" role="tabpanel" aria-labelledby="tab-indication">
+            <div class="label-meta"><span>4. 効能又は効果</span><span>OFFICIAL / JP</span></div>
+            <p class="jp-quote">無月経、月経周期異常（稀発月経、多発月経）、月経量異常（過少月経、過多月経）、月経困難症、機能性子宮出血、子宮発育不全症、卵巣欠落症状、更年期障害、不妊症</p>
+            <p class="translation">Amenorrhoea · menstrual cycle abnormalities · abnormal menstrual volume · dysmenorrhoea · functional uterine bleeding · uterine hypoplasia · ovarian deficiency symptoms · menopausal disorders · infertility.</p>
+            <div class="field-note"><span>FIELD NOTE</span> The list is entirely gynaecological. Neither “gender incongruence” nor “GAHT” appears anywhere in the approved indications.</div>
+          </article>
+
+          <article class="label-panel" id="panel-dose" role="tabpanel" aria-labelledby="tab-dose" hidden>
+            <div class="label-meta"><span>6. 用法及び用量</span><span>OFFICIAL / JP</span></div>
+            <p class="jp-quote">エストラジオール吉草酸エステルとして、通常成人1回5～10mgを1～4週間毎に筋肉内注射する。なお、症状により適宜増減する。</p>
+            <p class="translation">As estradiol valerate, the usual adult dose is <strong>5–10 mg IM once every 1–4 weeks</strong>; adjust according to symptoms.</p>
+            <div class="field-note"><span>FIELD NOTE</span> This is the gynaecological label dose. Japanese GAHT guidelines list 10 mg/2–3 weeks or 20 mg/2–4 weeks — a different, off-label framework.</div>
+          </article>
+
+          <article class="label-panel" id="panel-contra" role="tabpanel" aria-labelledby="tab-contra" hidden>
+            <div class="label-meta"><span>2. 禁忌</span><span>OFFICIAL / JP</span></div>
+            <ul class="contra-list">
+              <li>Estrogen-dependent malignancy (breast, endometrium) or suspicion</li>
+              <li>History of breast cancer</li>
+              <li>Untreated endometrial hyperplasia</li>
+              <li>Thrombophlebitis or pulmonary embolism (current or prior)</li>
+              <li>Arterial thromboembolic disease (CHD, stroke) or prior</li>
+              <li>Severe hepatic impairment</li>
+              <li>Undiagnosed abnormal genital bleeding</li>
+              <li>Pregnancy or possible pregnancy</li>
+            </ul>
+            <div class="field-note"><span>FIELD NOTE</span> The label’s absolute contraindications are not “relative risks”. For MtF use, the breast-cancer and thrombotic entries still matter; the uterine entries are label-specific.</div>
+          </article>
+
+          <article class="label-panel" id="panel-pk" role="tabpanel" aria-labelledby="tab-pk" hidden>
+            <div class="label-meta"><span>16. 薬物動態</span><span>OFFICIAL / FOREIGN DATA</span></div>
+            <p class="jp-quote">エストラジオール吉草酸エステルは筋肉内投与後、徐々に放出され、エストラジオールと吉草酸に分かれる。血中エストラジオールは投与3～5日後に最高濃度に達し、約4～5日の半減期で低下した（外国人データ）。</p>
+            <p class="translation">After IM injection, the ester is slowly released and split into estradiol and valeric acid. Serum estradiol peaks <strong>3–5 days</strong> after injection and declines with an apparent <strong>4–5 day half-life</strong> (foreign data).</p>
+            <div class="field-note"><span>FIELD NOTE</span> The “half-life” is release-limited (flip-flop), not the true elimination half-life of estradiol. Japanese domestic PK data are absent from the label.</div>
+          </article>
+
+          <article class="label-panel" id="panel-adverse" role="tabpanel" aria-labelledby="tab-adverse" hidden>
+            <div class="label-meta"><span>11. 副作用</span><span>OFFICIAL / JP</span></div>
+            <div class="adverse-grid">
+              <div><span>MAJOR</span><b>Thrombosis</b><small>frequency unknown; long-term use</small></div>
+              <div><span>OTHER</span><b>Breast pain / tension</b><small>frequency unknown</small></div>
+              <div><span>OTHER</span><b>Headache</b><small>frequency unknown</small></div>
+              <div><span>OTHER</span><b>Fluid / sodium retention</b><small>frequency unknown</small></div>
+              <div><span>OTHER</span><b>Nausea / mood change</b><small>clinic / patient reports</small></div>
+              <div><span>OTHER</span><b>Injection-site reaction</b><small>pain, nodule, infection</small></div>
+            </div>
+            <div class="field-note"><span>FIELD NOTE</span> The label calls thrombosis the only “major adverse reaction”. The longer HRT cancer/cardiovascular data sit in section 15.1 — mostly from menopausal women, not MtF cohorts.</div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== 03 ATLAS ========== -->
+    <section class="chapter" id="atlas">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>03</span> GAHT ATLAS</div>
+        <h2 class="reveal">Seven guidelines,<br><em>one molecule.</em></h2>
+        <p class="chapter-lede reveal">Dose is not a single number. It is a coordinate: country, year, formulation, monitoring, risk tolerance. Click a star to open its coordinate.</p>
+      </div>
+
+      <div class="atlas-layout">
+        <div class="atlas-map reveal">
+          <div class="atlas-map-head"><span>GUIDELINE CONSTELLATION</span><span>click / tap a node</span></div>
+          <svg class="atlas-svg" viewBox="0 0 760 480" role="img" aria-label="Interactive constellation of GAHT guidelines">
+            <defs>
+              <filter id="nodeGlow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="8" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+              </filter>
+            </defs>
+            <g class="atlas-lines" stroke="currentColor" stroke-width="1" stroke-dasharray="3 7" opacity=".45">
+              <path d="M380 240 L150 120"/><path d="M380 240 L610 110"/><path d="M380 240 L650 300"/>
+              <path d="M380 240 L520 420"/><path d="M380 240 L220 410"/><path d="M380 240 L90 300"/>
+              <path d="M150 120 L90 300"/><path d="M610 110 L650 300"/><path d="M520 420 L220 410"/>
+            </g>
+            <g class="atlas-node is-active" data-id="japan" tabindex="0" role="button" aria-label="Japan guideline">
+              <circle cx="380" cy="240" r="58" class="node-halo"/><circle cx="380" cy="240" r="34" class="node-ring"/><circle cx="380" cy="240" r="7" class="node-core"/>
+              <text x="380" y="292" class="node-label">JAPAN</text><text x="380" y="306" class="node-sub">2024 / 2025</text>
+            </g>
+            <g class="atlas-node" data-id="wpath" tabindex="0" role="button" aria-label="WPATH SOC8">
+              <circle cx="150" cy="120" r="28" class="node-ring"/><circle cx="150" cy="120" r="6" class="node-core"/>
+              <text x="150" y="160" class="node-label">WPATH</text><text x="150" y="174" class="node-sub">SOC8 · 2022</text>
+            </g>
+            <g class="atlas-node" data-id="endocrine" tabindex="0" role="button" aria-label="Endocrine Society 2017">
+              <circle cx="610" cy="110" r="28" class="node-ring"/><circle cx="610" cy="110" r="6" class="node-core"/>
+              <text x="610" y="150" class="node-label">ENDOCRINE</text><text x="610" y="164" class="node-sub">2017</text>
+            </g>
+            <g class="atlas-node" data-id="auspath" tabindex="0" role="button" aria-label="AusPATH 2025">
+              <circle cx="650" cy="300" r="24" class="node-ring"/><circle cx="650" cy="300" r="6" class="node-core"/>
+              <text x="650" y="338" class="node-label">AUSPATH</text><text x="650" y="352" class="node-sub">2025</text>
+            </g>
+            <g class="atlas-node" data-id="sherbourne" tabindex="0" role="button" aria-label="Sherbourne 2026">
+              <circle cx="520" cy="420" r="24" class="node-ring"/><circle cx="520" cy="420" r="6" class="node-core"/>
+              <text x="520" y="458" class="node-label">SHERBOURNE</text><text x="520" y="472" class="node-sub">2026</text>
+            </g>
+            <g class="atlas-node" data-id="nhs" tabindex="0" role="button" aria-label="NHS 2025">
+              <circle cx="220" cy="410" r="24" class="node-ring"/><circle cx="220" cy="410" r="6" class="node-core"/>
+              <text x="220" y="448" class="node-label">NHS</text><text x="220" y="462" class="node-sub">2025</text>
+            </g>
+            <g class="atlas-node" data-id="india" tabindex="0" role="button" aria-label="Endocrine Society of India 2025">
+              <circle cx="90" cy="300" r="22" class="node-ring"/><circle cx="90" cy="300" r="6" class="node-core"/>
+              <text x="90" y="336" class="node-label">INDIA</text><text x="90" y="350" class="node-sub">2025</text>
+            </g>
+          </svg>
+          <div class="atlas-hint">The center is Japan’s guideline; the outer nodes are compared in the panel →</div>
+        </div>
+
+        <aside class="atlas-panel reveal" id="atlasPanel" aria-live="polite">
+          <div class="atlas-panel-top"><span id="atlasKicker">JAPAN / JSPN + JGI</span><span class="tag" id="atlasTag">A · GUIDELINE</span></div>
+          <h3 id="atlasTitle">10 mg / 2–3 weeks<br>20 mg / 2–4 weeks</h3>
+          <p class="atlas-dose" id="atlasDose">Estradiol valerate IM</p>
+          <dl class="atlas-meta">
+            <div><dt>Target E2</dt><dd id="atlasE2">No numeric target in table</dd></div>
+            <div><dt>Target T</dt><dd id="atlasT">Adjust by serum testosterone</dd></div>
+            <div><dt>Monitoring</dt><dd id="atlasMon">Periodic: liver, coagulation, prolactin</dd></div>
+            <div><dt>Key note</dt><dd id="atlasNote">Japan’s de facto national guideline; drugs are unapproved and uninsured.</dd></div>
+          </dl>
+          <div class="atlas-bar"><span>weekly equivalent</span><div class="bar-track"><i id="atlasBar" style="width:50%"></i></div><b id="atlasBarLabel">3.3–10 mg/wk</b></div>
+          <p class="atlas-foot" id="atlasFoot">Off-label in Japan. Not a prescription.</p>
+        </aside>
+      </div>
+
+      <div class="dose-spectrum reveal">
+        <div class="spectrum-head"><span>DOSE SPECTRUM / mg per week equivalent</span><span>illustrative ranges, not recommendations</span></div>
+        <div class="spectrum">
+          <div class="spectrum-axis"><span>0</span><span>5</span><span>10</span><span>15</span><span>20</span></div>
+          <div class="spectrum-row"><span>JAPAN</span><div class="spectrum-track"><i style="--a:16.5%;--b:50%"></i></div><b>3.3–10</b></div>
+          <div class="spectrum-row"><span>WPATH</span><div class="spectrum-track"><i style="--a:10%;--b:75%"></i></div><b>2.5–15</b></div>
+          <div class="spectrum-row"><span>ENDOCRINE</span><div class="spectrum-track"><i style="--a:10%;--b:75%"></i></div><b>2.5–15</b></div>
+          <div class="spectrum-row"><span>AUSPATH</span><div class="spectrum-track"><i style="--a:10%;--b:50%"></i></div><b>2–10</b></div>
+          <div class="spectrum-row"><span>SHERBOURNE</span><div class="spectrum-track"><i style="--a:15%;--b:25%"></i></div><b>3–5 usual</b></div>
+          <div class="spectrum-row"><span>INDIA</span><div class="spectrum-track"><i style="--a:25%;--b:100%"></i></div><b>5–20*</b></div>
+          <div class="spectrum-row is-muted"><span>NHS</span><div class="spectrum-track"><i style="--a:0;--b:0"></i></div><b>no injectable</b></div>
+        </div>
+        <p class="spectrum-note">* India: “5 mg/week up to a maximum of 10–20 mg every 1–2 weeks” — the upper bound is interval-dependent. Bars are derived from guideline text, not from measured outcomes.</p>
+      </div>
+    </section>
+
+    <!-- ========== 04 BODY ========== -->
+    <section class="chapter" id="body">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>04</span> THE BODY</div>
+        <h2 class="reveal">Where the signal<br><em>lands.</em></h2>
+        <p class="chapter-lede reveal">A schematic body map of the evidence. Click a hotspot. The point is not fear; it is location, magnitude, and what is actually known.</p>
+      </div>
+
+      <div class="body-layout">
+        <div class="body-figure reveal">
+          <div class="body-head"><span>SCHEMATIC BODY MAP</span><span>not anatomy</span></div>
+          <svg class="body-svg" viewBox="0 0 320 560" role="img" aria-label="Schematic body map with risk hotspots">
+            <g fill="none" stroke="currentColor" stroke-width="1.6" opacity=".8">
+              <circle cx="160" cy="66" r="36"/>
+              <path d="M148 102 L148 122 L172 122 L172 102"/>
+              <path d="M100 140 Q160 118 220 140 L236 214 L214 300 L204 520 L176 520 L170 342 L150 342 L144 520 L116 520 L106 300 L84 214 Z"/>
+              <path d="M100 140 L62 230 L52 330"/>
+              <path d="M220 140 L258 230 L268 330"/>
+              <path d="M116 520 L112 552"/><path d="M204 520 L208 552"/>
+              <path d="M160 122 L160 342"/>
+            </g>
+            <g class="hotspot" data-risk="pituitary" tabindex="0" role="button" aria-label="Pituitary and prolactin">
+              <circle cx="160" cy="62" r="15" class="hotspot-ring"/><circle cx="160" cy="62" r="5" class="hotspot-core"/>
+              <text x="184" y="58" class="hotspot-label">pituitary</text>
+            </g>
+            <g class="hotspot" data-risk="breast" tabindex="0" role="button" aria-label="Breast cancer risk">
+              <circle cx="128" cy="174" r="15" class="hotspot-ring"/><circle cx="128" cy="174" r="5" class="hotspot-core"/>
+              <text x="42" y="170" class="hotspot-label">breast</text>
+            </g>
+            <g class="hotspot" data-risk="vte" tabindex="0" role="button" aria-label="Venous thromboembolism">
+              <circle cx="192" cy="200" r="15" class="hotspot-ring"/><circle cx="192" cy="200" r="5" class="hotspot-core"/>
+              <text x="214" y="196" class="hotspot-label">vessels</text>
+            </g>
+            <g class="hotspot" data-risk="liver" tabindex="0" role="button" aria-label="Liver">
+              <circle cx="135" cy="252" r="15" class="hotspot-ring"/><circle cx="135" cy="252" r="5" class="hotspot-core"/>
+              <text x="48" y="248" class="hotspot-label">liver</text>
+            </g>
+            <g class="hotspot" data-risk="gallbladder" tabindex="0" role="button" aria-label="Gallbladder">
+              <circle cx="185" cy="276" r="13" class="hotspot-ring"/><circle cx="185" cy="276" r="4" class="hotspot-core"/>
+              <text x="206" y="272" class="hotspot-label">gall</text>
+            </g>
+            <g class="hotspot" data-risk="bone" tabindex="0" role="button" aria-label="Bone">
+              <circle cx="116" cy="382" r="15" class="hotspot-ring"/><circle cx="116" cy="382" r="5" class="hotspot-core"/>
+              <text x="34" y="378" class="hotspot-label">bone</text>
+            </g>
+            <g class="hotspot" data-risk="fertility" tabindex="0" role="button" aria-label="Fertility">
+              <circle cx="160" cy="330" r="14" class="hotspot-ring"/><circle cx="160" cy="330" r="5" class="hotspot-core"/>
+              <text x="182" y="326" class="hotspot-label">gonads</text>
+            </g>
+          </svg>
+          <div class="body-note">Click a hotspot. Values are from the cited literature; they are not individual predictions.</div>
+        </div>
+
+        <aside class="risk-panel reveal" id="riskPanel" aria-live="polite">
+          <div class="risk-panel-top"><span id="riskKicker">VTE / THROMBOSIS</span><span class="risk-badge" id="riskBadge">HIGH</span></div>
+          <h3 id="riskTitle">The label’s only<br>“major” adverse effect.</h3>
+          <p id="riskBody">MtF cohorts show a real increase in venous thromboembolism, but the data are dominated by oral ethinylestradiol and oral estradiol. IM estradiol valerate has no adequately powered outcome study. The label lists thrombosis as frequency-unknown; VTE/PE history is an absolute contraindication.</p>
+          <dl class="risk-stats">
+            <div><dt>Getahun 2018</dt><dd>5.5 / 1000 person-years</dd></div>
+            <div><dt>Nota 2019</dt><dd>SIR 5.52 vs women</dd></div>
+            <div><dt>Route signal</dt><dd>oral &gt; transdermal; IM unknown</dd></div>
+          </dl>
+          <p class="risk-source" id="riskSource">Sources: label 11.1.1; Getahun 2018; Nota 2019; Endocrine Society 2017.</p>
+        </aside>
+      </div>
+
+      <div class="risk-matrix reveal">
+        <article class="risk-card" data-risk-jump="vte"><span>VTE</span><b>Very high</b><small>label major AE; cohorts show increase</small></article>
+        <article class="risk-card" data-risk-jump="breast"><span>BREAST</span><b>Moderate</b><small>SIR 46.7 vs men; 0.3 vs women</small></article>
+        <article class="risk-card" data-risk-jump="pituitary"><span>PROLACTIN</span><b>Monitor</b><small>+193% first year; CPA implicated</small></article>
+        <article class="risk-card" data-risk-jump="liver"><span>LIVER</span><b>Caution</b><small>severe liver disease contraindicated</small></article>
+        <article class="risk-card" data-risk-jump="gallbladder"><span>GALLBLADDER</span><b>Moderate</b><small>HRT data: HR 1.59–1.67</small></article>
+        <article class="risk-card" data-risk-jump="bone"><span>BONE</span><b>Protective</b><small>BMD stable/up; continue after orchiectomy</small></article>
+      </div>
+    </section>
+
+    <!-- ========== 05 CLOCK ========== -->
+    <section class="chapter" id="clock">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>05</span> THE CLOCK</div>
+        <h2 class="reveal">A curve,<br><em>not a level.</em></h2>
+        <p class="chapter-lede reveal">The label says peak 3–5 days, apparent half-life 4–5 days. That means every injection is a wave. Explore the shape — not a prescription.</p>
+      </div>
+
+      <div class="clock-shell reveal">
+        <div class="clock-controls">
+          <div class="control-group"><span>DOSE</span>
+            <button class="chip is-active" data-dose="5">5 mg</button>
+            <button class="chip" data-dose="10">10 mg</button>
+            <button class="chip" data-dose="20">20 mg</button>
+          </div>
+          <div class="control-group"><span>INTERVAL</span>
+            <button class="chip" data-interval="7">7 d</button>
+            <button class="chip is-active" data-interval="14">14 d</button>
+            <button class="chip" data-interval="28">28 d</button>
+          </div>
+          <div class="control-readout" id="pkReadout" aria-live="polite">
+            <div><span>PEAK</span><b>~520</b><small>pg/mL</small></div>
+            <div><span>TROUGH</span><b>~120</b><small>pg/mL</small></div>
+            <div><span>4-WEEK TOTAL</span><b>20</b><small>mg</small></div>
+          </div>
+        </div>
+        <div class="chart-wrap">
+          <svg id="pkChart" viewBox="0 0 920 430" role="img" aria-label="Illustrative estradiol concentration curve"></svg>
+          <div class="chart-legend"><span class="lg-target">target band 100–200 pg/mL</span><span class="lg-curve">illustrative curve</span><span class="lg-sample">suggested sampling window</span></div>
+        </div>
+        <p class="clock-note">Modeled from the label’s Tmax (3–5 d) and apparent half-life (4–5 d). It is a shape illustration, not a pharmacokinetic prediction for any person. Real levels vary with formulation, body composition, assay and sampling time.</p>
+      </div>
+    </section>
+
+    <!-- ========== 06 FRACTURE ========== -->
+    <section class="chapter" id="fracture">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>06</span> THE FRACTURE</div>
+        <h2 class="reveal">When the vial<br><em>ran short.</em></h2>
+        <p class="chapter-lede reveal">In June 2026, the supply chain became part of the clinical picture. This is the timeline — and what it means for a product with almost no domestic alternative.</p>
+      </div>
+
+      <div class="supply-gauge reveal">
+        <div class="gauge-labels"><span>NORMAL</span><span>LIMITED</span><span>STOP</span></div>
+        <div class="gauge-track"><i class="gauge-fill" style="width:62%"></i><span class="gauge-needle" style="left:62%"></span></div>
+        <div class="gauge-status"><span class="status-dot"></span> As of 2026-11-20: <b>限定出荷</b> · release date unknown</div>
+      </div>
+
+      <div class="timeline-wrap reveal">
+        <div class="timeline-controls">
+          <span>2026 / SUPPLY TIMELINE</span>
+          <div><button id="timePrev" aria-label="Previous timeline items">←</button><button id="timeNext" aria-label="Next timeline items">→</button></div>
+        </div>
+        <div class="timeline" id="timeline">
+          <article class="timeline-card">
+            <time>2026-06-19</time><span class="tl-tag">OFFICIAL</span>
+            <h4>Fuji limits shipments</h4>
+            <p>“Orders exceeded expectations.” New adopting institutions are not supplied; existing sites are asked not to exceed prior use. Release date undetermined.</p>
+          </article>
+          <article class="timeline-card">
+            <time>2026-06-24</time><span class="tl-tag">MHLW</span>
+            <h4>“Raw material procurement”</h4>
+            <p>MHLW supply data lists 限定出荷 (自社の事情), reason “原材料調達上の問題”, release “未定”, shipment volume “通常”.</p>
+          </article>
+          <article class="timeline-card">
+            <time>2026-07-09</time><span class="tl-tag">CLINIC</span>
+            <h4>The shortage reaches GAHT</h4>
+            <p>A Tokyo gender clinic reports the shortage has reached Progynon Depot; patients face injection-frequency limits.</p>
+          </article>
+          <article class="timeline-card">
+            <time>2026-08-21</time><span class="tl-tag">CLINIC</span>
+            <h4>Tokyo GC suspends new injections</h4>
+            <p>All new Progynon Depot injections/prescriptions are paused; existing bookings are honoured with reserved stock.</p>
+          </article>
+          <article class="timeline-card">
+            <time>2026-09-17</time><span class="tl-tag">CLINIC</span>
+            <h4>Partial resumption</h4>
+            <p>One ampoule per visit; two-ampoule sets; the 10-ampoule box is suspended.</p>
+          </article>
+          <article class="timeline-card is-alert">
+            <time>2026-11-20</time><span class="tl-tag">OFFICIAL</span>
+            <h4>Still limited</h4>
+            <p>Fuji’s supply status remains 限定出荷（自社の事情）; resolution “未定”. Peranin 10 mg is also supply-stopped and scheduled for price deletion.</p>
+          </article>
+        </div>
+      </div>
+
+      <div class="supply-actions reveal">
+        <article><span>FOR PATIENTS</span><h4>Do not self-adjust.</h4><p>Discuss patches, gel or oral estradiol with your clinician. Do not split ampoules, stockpile grey-market product, or change interval on your own.</p></article>
+        <article><span>FOR CLINICIANS</span><h4>Plan the bridge.</h4><p>Review alternatives, monitoring and patient-specific VTE risk. Document the switch. The shortage is not a reason to abandon monitoring.</p></article>
+        <article><span>FOR THE RECORD</span><h4>One product, one fracture.</h4><p>Pera-nin’s exit leaves Progynon as virtually the only domestic EV injection. A single-product supply chain is a clinical vulnerability.</p></article>
+      </div>
+    </section>
+
+    <!-- ========== 07 ARCHIVE ========== -->
+    <section class="chapter" id="archive">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>07</span> THE ARCHIVE</div>
+        <h2 class="reveal">Everything,<br><em>filed.</em></h2>
+        <p class="chapter-lede reveal">The full dossier is not hidden behind a “read more”. Ten files, every table, every quote, every source. Search it, or open a file.</p>
+      </div>
+
+      <div class="archive-toolbar reveal">
+        <label class="archive-search"><span>⌕</span><input id="archiveSearch" type="search" placeholder="Filter files: safety, supply, WPATH, PK, insurance…" autocomplete="off"></label>
+        <a class="btn btn-primary" href="dossier.html">Open full dossier <span>↗</span></a>
+      </div>
+
+      <div class="archive-grid" id="archiveGrid">
+        <a class="archive-card reveal" href="dossier.html#chapter-00" data-keywords="summary overview 总览"><span class="file-no">00</span><h4>Executive Summary</h4><p>One-page orientation: product, GAHT, risk, supply, bottom line.</p><span class="file-meta">~9 KB · 188 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-01" data-keywords="product label official approval price 产品 说明书"><span class="file-no">01</span><h4>Product / Official Profile</h4><p>Identity, approval, composition, indications, dose, PK, contraindications, history, supply.</p><span class="file-meta">~40 KB · 670 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-02" data-keywords="GAHT guidelines Japan WPATH Endocrine insurance 指南 保险"><span class="file-no">02</span><h4>MtF GAHT Context</h4><p>Japanese guideline 5th ed., WPATH, Endocrine, AusPATH, Sherbourne, NHS, India; insurance and law.</p><span class="file-meta">~40 KB · 675 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-03" data-keywords="safety monitoring VTE breast prolactin liver bone 安全 监测"><span class="file-no">03</span><h4>Safety &amp; Monitoring</h4><p>Thrombosis, cardiovascular, breast, prolactin, liver, lipids, bone, fertility, red flags.</p><span class="file-meta">~22 KB · 405 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-04" data-keywords="pharmacokinetics literature PK estradiol valerate 药代 文献"><span class="file-no">04</span><h4>Evidence &amp; Literature</h4><p>Düsterberg, Schug, modern dose–concentration cohorts, route comparison, evidence quality.</p><span class="file-meta">~18 KB · 366 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-05" data-keywords="clinic community price supply counterfeit 诊所 社区 价格 供应"><span class="file-no">05</span><h4>Practice, Community &amp; Supply</h4><p>Japanese clinic doses/prices, MHLW surveys, community reports, grey market, 2026 shortage.</p><span class="file-meta">~16 KB · 265 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-06" data-keywords="sources references URLs 来源 引用"><span class="file-no">06</span><h4>Source Ledger</h4><p>Every URL, document date, local file and reliability grade.</p><span class="file-meta">~14 KB · 178 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-07" data-keywords="FAQ questions 常见问题"><span class="file-no">07</span><h4>FAQ</h4><p>45 questions: identity, dose, effects, safety, monitoring, money, supply, injection.</p><span class="file-meta">~13 KB · 252 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-08" data-keywords="verbatim quotes Japanese 原文 引用"><span class="file-no">08</span><h4>Verbatim Quotes</h4><p>The exact Japanese/English sentences behind the key claims.</p><span class="file-meta">~16 KB · 266 lines</span></a>
+        <a class="archive-card reveal" href="dossier.html#chapter-09" data-keywords="methodology limitations 方法 局限"><span class="file-no">09</span><h4>Method &amp; Limits</h4><p>Search strategy, subagent division, verification, evidence grading, what remains unknown.</p><span class="file-meta">~9 KB · 182 lines</span></a>
+      </div>
+    </section>
+
+    <!-- ========== 08 MARGINS ========== -->
+    <section class="chapter" id="margins">
+      <div class="chapter-head">
+        <div class="chapter-kicker reveal"><span>08</span> THE MARGINS</div>
+        <h2 class="reveal">What people<br><em>get wrong.</em></h2>
+        <p class="chapter-lede reveal">A wall of margin notes: myths, exact quotes, and the questions that matter more than “which dose is strongest”.</p>
+      </div>
+
+      <div class="myth-grid">
+        <button class="myth-card reveal" aria-pressed="false"><span class="myth-front"><small>MYTH 01</small><b>“10 mg/week is completely safe.”</b><i>tap to flip</i></span><span class="myth-back"><small>FACT</small><b>No dose is risk-free.</b><span class="myth-body">10 mg/week is at the upper end of the Japanese label (5–10 mg per injection every 1–4 weeks). VTE, lipids, liver, prolactin and breast risk still need monitoring.</span></span></button>
+        <button class="myth-card reveal" aria-pressed="false"><span class="myth-front"><small>MYTH 02</small><b>“Injections bypass the liver, so no liver risk.”</b><i>tap to flip</i></span><span class="myth-back"><small>FACT</small><b>Less first-pass ≠ zero risk.</b><span class="myth-body">IM avoids first-pass hepatic exposure, but estrogen still acts systemically. Severe liver disease is an absolute contraindication; monitor liver function.</span></span></button>
+        <button class="myth-card reveal" aria-pressed="false"><span class="myth-front"><small>MYTH 03</small><b>“20 mg/mL is stronger than 10 mg/mL.”</b><i>tap to flip</i></span><span class="myth-back"><small>FACT</small><b>Concentration is not dose.</b><span class="myth-body">10 mg is 10 mg. At 10 mg/mL it is 1.0 mL; at 20 mg/mL it is 0.5 mL. The difference is volume, not milligrams.</span></span></button>
+        <button class="myth-card reveal" aria-pressed="false"><span class="myth-front"><small>MYTH 04</small><b>“A 2-week injection gives stable levels.”</b><i>tap to flip</i></span><span class="myth-back"><small>FACT</small><b>Every injection is a wave.</b><span class="myth-body">Peak is 3–5 days; apparent half-life is 4–5 days. A 2-week interval necessarily has a peak and a trough. Sampling time changes the number you see.</span></span></button>
+        <button class="myth-card reveal" aria-pressed="false"><span class="myth-front"><small>MYTH 05</small><b>“Progynon is approved for MtF HRT in Japan.”</b><i>tap to flip</i></span><span class="myth-back"><small>FACT</small><b>Gynaecology only.</b><span class="myth-body">The label lists amenorrhoea, menstrual disorders, menopause and infertility. MtF GAHT is off-label, unapproved and — in principle — uninsured.</span></span></button>
+        <button class="myth-card reveal" aria-pressed="false"><span class="myth-front"><small>MYTH 06</small><b>“Split the ampoule; store the rest.”</b><i>tap to flip</i></span><span class="myth-back"><small>FACT</small><b>Single-use means single-use.</b><span class="myth-body">A glass ampoule is not a multi-dose vial. A plastic syringe is not sterile storage. Refrigeration does not sterilise. Do not split and store.</span></span></button>
+      </div>
+
+      <div class="quote-wall reveal">
+        <blockquote><p>「いずれの薬剤も我が国の薬事法による承認は得られておらず、保険診療の対象とはならない。」</p><cite>JSPN / JGI, 5th ed.</cite></blockquote>
+        <blockquote><p>“Serum testosterone levels should be less than 50 ng/dL. Serum estradiol should be in the range of 100-200 pg/mL.”</p><cite>WPATH SOC8, Table 5</cite></blockquote>
+        <blockquote><p>「過量投与は、投与量に比例した効果が上がらないばかりか、副作用の危険を増大させる。」</p><cite>JSPN / JGI, 5th ed.</cite></blockquote>
+      </div>
+
+      <div class="faq reveal">
+        <details><summary>Is this product approved for MtF GAHT? <span>+</span></summary><p>No. The approved indications are gynaecological. MtF use is off-label in Japan.</p></details>
+        <details><summary>What is the Japanese guideline dose? <span>+</span></summary><p>Estradiol valerate IM 10 mg every 2–3 weeks, or 20 mg every 2–4 weeks, individualised by serum testosterone and clinical effect.</p></details>
+        <details><summary>What do international guidelines say? <span>+</span></summary><p>WPATH SOC8 and Endocrine Society 2017: 5–30 mg IM every 2 weeks, or 2–10 mg IM every week; target E2 100–200 pg/mL and T &lt;50 ng/dL. Newer national guidance trends lower.</p></details>
+        <details><summary>Is it covered by Japanese insurance? <span>+</span></summary><p>GAHT is in principle not covered. A 2026 government advisory opinion records MHLW’s position that no GAHT drug is approved, so it falls outside insurance. Some facilities make individual exceptions after legal sex change.</p></details>
+        <details><summary>Why is supply limited? <span>+</span></summary><p>Fuji’s June 2026 notice cites orders exceeding expectations; MHLW supply data also lists “raw material procurement”. As of 2026-11-20, release is undetermined.</p></details>
+        <details><summary>Can I use it subcutaneously? <span>+</span></summary><p>The label is IM only. Subcutaneous use is a community practice, not an approved route; PK and local safety are not formally established.</p></details>
+      </div>
+    </section>
+
+    <section class="closing">
+      <div class="closing-inner reveal">
+        <span class="closing-kicker">END OF DOSSIER / BEGINNING OF CAUTION</span>
+        <h2>Read the label.<br><em>Then read the evidence.</em></h2>
+        <p>This site is a research object, not a prescription. The product is a Japanese prescription drug. MtF GAHT use is off-label and, in principle, uninsured. Every dose, monitor, stop or switch decision belongs to a qualified clinician who knows the whole person.</p>
+        <div class="closing-actions">
+          <a class="btn btn-primary" href="dossier.html">Read the full dossier <span>↗</span></a>
+          <a class="btn btn-ghost" href="https://github.com/Verlintas/PDfuji" target="_blank" rel="noopener">Source on GitHub <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-grid">
+      <div><span class="footer-mark">PD / 176</span><p>A molecular dossier on プロギノン・デポー筋注10mg. Built as an educational research object.</p></div>
+      <div><span>FILES</span><a href="dossier.html">Full dossier</a><a href="dossier.html#chapter-06">Source ledger</a><a href="dossier.html#chapter-09">Method &amp; limits</a></div>
+      <div><span>STATUS</span><p>Data cut-off: 2026-11-26.<br>Supply: limited, release undetermined.</p></div>
+      <div><span>WARNING</span><p>Not medical advice. Prescription drug. Do not self-medicate, self-inject, split ampoules or buy from grey markets.</p></div>
+    </div>
+    <div class="footer-bottom"><span>© 2026 Verlintas · research dossier</span><span>Made with cold light, amber oil and primary sources.</span></div>
+  </footer>
+
+  <div class="command" id="command" hidden>
+    <div class="command-backdrop" data-close-command></div>
+    <div class="command-panel" role="dialog" aria-modal="true" aria-label="Search the dossier">
+      <div class="command-input-wrap"><span>/</span><input id="commandInput" type="text" placeholder="Search sections, guidelines, risks, supply…" autocomplete="off" spellcheck="false"></div>
+      <div class="command-results" id="commandResults"></div>
+      <div class="command-foot"><span>↑↓ navigate</span><span>↵ open</span><span>esc close</span><span>⌘K / /</span></div>
+    </div>
+  </div>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
