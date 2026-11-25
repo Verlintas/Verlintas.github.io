@@ -1,11 +1,24 @@
 {
-  "generated": "2026-11-24T21:33:05Z",
+  "generated": "2026-11-25T04:37:30Z",
   "alive": {
     "score": 10,
-    "last_push": "2026-11-23T22:53:50Z",
+    "last_push": "2026-11-24T15:41:17Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/spec-kit"
+      },
+      "created_at": "2026-11-24T15:41:17Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/4819-preset-script-resolve",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PullRequestEvent",
       "repo": {
@@ -1292,19 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:57:19Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,40 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 200,
+      "ms": 276,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 448,
+      "ms": 171,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 188,
+      "ms": 175,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 79,
+      "ms": 113,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 465,
+      "ms": 460,
       "status": 200
     }
   ],
   "x": {
-    "ok": true,
-    "followers": 2626,
-    "tweets": 754,
-    "likes": 4594,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-11-24T21:33:04Z",
-    "delta_pending": null
+    "ok": false,
+    "note": "unreachable"
   }
 }
