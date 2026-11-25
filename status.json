@@ -1,11 +1,50 @@
 {
-  "generated": "2026-11-25T04:37:30Z",
+  "generated": "2026-11-25T15:01:09Z",
   "alive": {
-    "score": 10,
-    "last_push": "2026-11-24T15:41:17Z",
+    "score": 11,
+    "last_push": "2026-11-24T17:05:00Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/spec-kit"
+      },
+      "created_at": "2026-11-24T15:55:58Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/fix/4819-preset-script-resolve",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/xiaoxiai-android"
+      },
+      "created_at": "2026-11-24T17:05:00Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/PalmClaw"
+      },
+      "created_at": "2026-11-24T16:02:41Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/ci/android-build",
+        "ref_type": null,
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1266,45 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/NOIR"
-      },
-      "created_at": "2026-11-12T12:03:10Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/Zora.AI"
-      },
-      "created_at": "2026-11-12T10:01:08Z",
-      "payload": {
-        "size": null,
-        "ref": "ci/unit-tests",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-12T09:31:27Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,35 +1312,35 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 276,
+      "ms": 218,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 171,
+      "ms": 207,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 175,
+      "ms": 80,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 113,
+      "ms": 158,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 460,
+      "ms": 507,
       "status": 200
     }
   ],
