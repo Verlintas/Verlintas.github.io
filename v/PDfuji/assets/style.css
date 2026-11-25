@@ -314,6 +314,7 @@ ul { margin: 0; padding: 0; list-style: none; }
   color: var(--muted);
   text-transform: uppercase;
 }
+.eyebrow b { letter-spacing: 0.04em; color: var(--bone); font-weight: 500; }
 .pulse-dot {
   width: 6px;
   height: 6px;
