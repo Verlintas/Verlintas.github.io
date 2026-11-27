@@ -1,11 +1,89 @@
 {
-  "generated": "2026-11-26T15:42:58Z",
+  "generated": "2026-11-27T00:04:28Z",
   "alive": {
-    "score": 9,
-    "last_push": "2026-11-24T17:30:42Z",
-    "last_x_post": null
+    "score": 17,
+    "last_push": "2026-11-26T12:18:41Z",
+    "last_x_post": "2026-11-27T00:04:27Z"
   },
   "activity": [
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/PDfuji"
+      },
+      "created_at": "2026-11-25T17:49:08Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-25T19:36:05Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-26T12:18:41Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "ReleaseEvent",
+      "repo": {
+        "name": "Verlintas/OpenVisum"
+      },
+      "created_at": "2026-11-26T16:14:30Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "published"
+      }
+    },
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "bghtm/renwuzhi"
+      },
+      "created_at": "2026-11-26T16:10:05Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "bghtm/Core-Socialist-Values"
+      },
+      "created_at": "2026-11-26T16:07:29Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -1227,84 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T08:39:06Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/locale-independent-codes",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-12T12:27:29Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:58:51Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:58:25Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:56:29Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/AMARadio"
-      },
-      "created_at": "2026-11-12T07:56:09Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/lifecycle-aware-collection",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,46 +1312,46 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 204,
+      "ms": 273,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 1202,
+      "ms": 313,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 182,
+      "ms": 147,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 145,
+      "ms": 166,
       "status": 200
     },
     {
       "name": "NOIR · GitHub",
       "url": "https://github.com/Verlintas/NOIR",
       "up": true,
-      "ms": 444,
+      "ms": 443,
       "status": 200
     }
   ],
   "x": {
     "ok": true,
-    "followers": 2656,
-    "tweets": 772,
-    "likes": 4732,
-    "last_post": null,
-    "last_post_source": null,
-    "last_post_checked": "2026-11-26T15:42:58Z",
-    "delta_pending": "2026-11-26T15:42:58Z"
+    "followers": 2663,
+    "tweets": 782,
+    "likes": 4774,
+    "last_post": "2026-11-27T00:04:27Z",
+    "last_post_source": "counter-delta",
+    "last_post_checked": "2026-11-27T00:04:27Z",
+    "delta_pending": null
   }
 }
