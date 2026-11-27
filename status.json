@@ -1,11 +1,362 @@
 {
-  "generated": "2026-11-27T08:42:31Z",
+  "generated": "2026-11-27T18:30:22Z",
   "alive": {
-    "score": 21,
-    "last_push": "2026-11-26T19:42:02Z",
+    "score": 33,
+    "last_push": "2026-11-27T10:18:05Z",
     "last_x_post": null
   },
   "activity": [
+    {
+      "type": "WatchEvent",
+      "repo": {
+        "name": "gitranks/gitranks-ui"
+      },
+      "created_at": "2026-11-27T17:07:28Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "started"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "oras-project/oras"
+      },
+      "created_at": "2026-11-27T15:24:26Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "merged"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "unitycatalog/unitycatalog"
+      },
+      "created_at": "2026-11-27T15:09:12Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "unitycatalog/unitycatalog"
+      },
+      "created_at": "2026-11-27T15:07:59Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "unitycatalog/unitycatalog"
+      },
+      "created_at": "2026-11-27T15:07:26Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "unitycatalog/unitycatalog"
+      },
+      "created_at": "2026-11-27T15:07:12Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "unitycatalog/unitycatalog"
+      },
+      "created_at": "2026-11-27T14:27:58Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "tinygo-org/tinygo"
+      },
+      "created_at": "2026-11-27T14:24:26Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "oras-project/oras"
+      },
+      "created_at": "2026-11-27T14:24:24Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "tinygo-org/tinygo"
+      },
+      "created_at": "2026-11-27T14:19:34Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-26T08:14:25Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "tinygo-org/tinygo"
+      },
+      "created_at": "2026-11-27T14:18:56Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "tinygo-org/tinygo"
+      },
+      "created_at": "2026-11-27T14:15:31Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "erkamyaman/rust-anything"
+      },
+      "created_at": "2026-11-27T14:10:01Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "closed"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "erkamyaman/rust-anything"
+      },
+      "created_at": "2026-11-27T14:11:07Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "erkamyaman/rust-anything"
+      },
+      "created_at": "2026-11-27T14:07:50Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "erkamyaman/rust-anything"
+      },
+      "created_at": "2026-11-27T13:57:23Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-26T08:00:33Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "erkamyaman/rust-anything"
+      },
+      "created_at": "2026-11-27T13:46:39Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PullRequestEvent",
+      "repo": {
+        "name": "oras-project/oras"
+      },
+      "created_at": "2026-11-27T13:44:53Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "opened"
+      }
+    },
+    {
+      "type": "ForkEvent",
+      "repo": {
+        "name": "oras-project/oras"
+      },
+      "created_at": "2026-11-27T13:44:16Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "forked"
+      }
+    },
+    {
+      "type": "IssueCommentEvent",
+      "repo": {
+        "name": "oras-project/oras"
+      },
+      "created_at": "2026-11-27T13:39:16Z",
+      "payload": {
+        "size": null,
+        "ref": null,
+        "ref_type": null,
+        "action": "created"
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-26T07:36:09Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-27T10:18:05Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/VerlinPark"
+      },
+      "created_at": "2026-11-27T08:15:10Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/Verlintas/m3-round",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "PushEvent",
+      "repo": {
+        "name": "Verlintas/PDfuji"
+      },
+      "created_at": "2026-11-25T17:51:17Z",
+      "payload": {
+        "size": null,
+        "ref": "refs/heads/main",
+        "ref_type": null,
+        "action": null
+      }
+    },
+    {
+      "type": "CreateEvent",
+      "repo": {
+        "name": "Verlintas/PDfuji"
+      },
+      "created_at": "2026-11-25T17:48:32Z",
+      "payload": {
+        "size": null,
+        "ref": "main",
+        "ref_type": "branch",
+        "action": null
+      }
+    },
     {
       "type": "PushEvent",
       "repo": {
@@ -954,357 +1305,6 @@
         "ref_type": null,
         "action": null
       }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-13T16:28:16Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-13T20:26:53Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-13T15:37:15Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-13T16:47:54Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/OpenVisum"
-      },
-      "created_at": "2026-11-13T15:26:07Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-14T14:27:23Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-13T14:38:03Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-15T17:23:01Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-15T18:13:20Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-13T14:09:52Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-15T17:08:21Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-15T16:49:44Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-13T15:55:45Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-13T14:09:12Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-13T06:33:47Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-14T09:37:40Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-13T05:46:24Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-14T06:21:35Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-15T05:38:46Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-15T05:25:48Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/spec-kit"
-      },
-      "created_at": "2026-11-12T23:48:26Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/4819-preset-script-resolve",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "CreateEvent",
-      "repo": {
-        "name": "Verlintas/neo"
-      },
-      "created_at": "2026-11-13T04:04:54Z",
-      "payload": {
-        "size": null,
-        "ref": "agent/20855-record-change-index-getter",
-        "ref_type": "branch",
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-14T13:20:55Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-14T09:09:20Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/yacht"
-      },
-      "created_at": "2026-11-13T17:37:19Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/VerlinPark"
-      },
-      "created_at": "2026-11-12T18:41:17Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/main",
-        "ref_type": null,
-        "action": null
-      }
-    },
-    {
-      "type": "PushEvent",
-      "repo": {
-        "name": "Verlintas/spec-kit"
-      },
-      "created_at": "2026-11-12T17:56:08Z",
-      "payload": {
-        "size": null,
-        "ref": "refs/heads/fix/4819-preset-script-resolve",
-        "ref_type": null,
-        "action": null
-      }
     }
   ],
   "sites": [
@@ -1312,28 +1312,28 @@
       "name": "verlintas.dev",
       "url": "https://verlintas.dev",
       "up": true,
-      "ms": 448,
+      "ms": 146,
       "status": 200
     },
     {
       "name": "OpenVisum",
       "url": "https://verlintas.dev/OpenVisum/",
       "up": true,
-      "ms": 211,
+      "ms": 191,
       "status": 200
     },
     {
       "name": "NovaBAIC",
       "url": "https://verlintas.dev/NovaBAIC/",
       "up": true,
-      "ms": 220,
+      "ms": 112,
       "status": 200
     },
     {
       "name": "NUSV",
       "url": "https://nusv.github.io",
       "up": true,
-      "ms": 425,
+      "ms": 150,
       "status": 200
     },
     {
